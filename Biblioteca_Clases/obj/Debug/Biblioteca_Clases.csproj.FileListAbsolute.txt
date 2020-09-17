@@ -1,0 +1,9 @@
+C:\Users\allan\source\repos\Biblioteca_Clases\bin\Debug\Biblioteca_Clases.dll
+C:\Users\allan\source\repos\Biblioteca_Clases\bin\Debug\Biblioteca_Clases.pdb
+C:\Users\allan\source\repos\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csprojAssemblyReference.cache
+C:\Users\allan\source\repos\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csproj.CoreCompileInputs.cache
+C:\Users\allan\source\repos\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.dll
+C:\Users\allan\source\repos\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.pdb
+C:\Users\allan\source\repos\Biblioteca_Clases\bin\Debug\Newtonsoft.Json.dll
+C:\Users\allan\source\repos\Biblioteca_Clases\bin\Debug\Newtonsoft.Json.xml
+C:\Users\allan\source\repos\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csproj.CopyComplete
