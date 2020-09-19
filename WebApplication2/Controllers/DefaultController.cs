@@ -13,6 +13,7 @@ namespace Control_Visitas.Controllers
     {
         LoginDAO dao = new LoginDAO();
         UsuarioDAO dao_usuario = new UsuarioDAO();
+        ServicioDAO dao_servicio = new ServicioDAO();
         Mail mail = new Mail();
         // GET: Default
         public ActionResult Index()
@@ -241,6 +242,55 @@ namespace Control_Visitas.Controllers
             }
             return Json(validacion, JsonRequestBehavior.AllowGet);
         }
+
+
+
+
+
+        public JsonResult agregar_servicio(FormCollection formCollection)
+        {
+            string validacion = "fail";
+
+            string descripcion = formCollection["descripcion"];
+            string Usuario_Edita = (string)(Session["User"]);
+            Fecha fecha = new Fecha();
+            string dato = fecha.fecha();
+          
+            Servicio serv = new Servicio(descripcion, dato, Usuario_Edita);
+
+
+            int result = dao_servicio.AgregarServicio(serv);
+
+
+            if (result == 1)
+            {
+                validacion = "sucess";
+            }
+            return Json(validacion, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult actualizar_servicio(int id_servicio, string descripcion)
+        {
+            string validacion = "fail";
+
+            string Usuario_Edita = (string)(Session["User"]);
+            Fecha fecha = new Fecha();
+            string dato = fecha.fecha();
+
+            Servicio serv = new Servicio(id_servicio, descripcion, dato, Usuario_Edita);
+
+
+            int result = dao_servicio.ActualizarServicio(serv);
+
+
+            if (result == 1)
+            {
+                validacion = "sucess";
+            }
+            return Json(validacion, JsonRequestBehavior.AllowGet);
+        }
+
+
     }
     
 }

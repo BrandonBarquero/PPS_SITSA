@@ -35,7 +35,7 @@
 
 
           <p>
-  <button class="btn btn-dark txt2" type="button" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios">
+  <button  class="btn btn-dark txt2" id="boton_multiple" value="" type="button" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios">
     Agregar Servicio
   </button>
 </p>
@@ -43,17 +43,17 @@
   <div class="card card-body txt2">
 
 
-    <p>Información</p>
+    <p id="parrafo_servicio">Agregar nuevo servicio</p>
 
-    <form role="form" method="post" id="form_servicios"> 
+    
 
         <div class="row">
 
-         <div class="col-12 col-md-6">
+         <div  id="campo_consecutivo" style="display: none;" class="col-12 col-md-6">
 
-          <div class="form-group">
+          <div  class="form-group">
             <label> Consecutivo:</label>
-            <input type="text" class="form-control" id="consecutivo_servicio" name="consecutivo_servicio" readonly="">
+            <input type="text" class="form-control" id="consecutivo_servicio" name="consecutivo_servicio">
           </div>
 
         </div>
@@ -70,12 +70,16 @@
 
       </div>
 
-      </form>
+         <div id="boton_enviar" style="display: block; text-align: center">
 
-      <div style="text-align: center">
-        <button type="submit" class="popup-btn">Agregar</button>
-        <button type="submit" class="popup-btn">Modificar</button>
-        <button type="submit" class="popup-btn">Inhabilitar</button>
+       <button onclick="Agregar_Servicio()"  type="submit" class="popup-btn">Agregar</button>
+             </div>
+
+      <div id="botones" style=" display: none; text-align: center;">
+       
+        <button onclick="Actualizar_Servicio()"  type="submit" id="boton_modificar" class="popup-btn">Modificar</button>
+        <button id="boton_inhabilitar" type="submit" class="popup-btn">Inhabilitar</button>
+        <button id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
       </div>
 
       <br> 
@@ -97,28 +101,32 @@
       </tr>
     </thead>
 
-    <tbodys>
+    <tbody>
+
+         <%List<Biblioteca_Clases.Models.Servicio> list = lista1();
+
+
+                 int autoincrement = 0;
+
+                 foreach(var dato in list)
+                 {
+                     autoincrement = autoincrement + 1;
+                         %>
 
       <tr class="txt2">
-        <td>001</td>
-        <td>Soporte técnico</td>
-        <td style="text-align: center;"><a href="#"><i class="fa fa-edit color-icono" aria-hidden="true"></td>
+        <td><%=dato.ID_SERVICIO%></td>
+        <td><%=dato.DESCRIPCION%></td>
+        <td style="text-align: center;"><a onclick="Modificar_Servicio(<%=dato.ID_SERVICIO%>,'<%=dato.DESCRIPCION%>');" href="#"><i class="fa fa-edit color-icono" aria-hidden="true"></td>
          <td style="text-align: center;"><a href="#"><i class="fas fa-ban color-icono" aria-hidden="true"> </td>
          </tr>
 
-         <tr class="txt2">
-          <td>002</td>
-          <td>Infraestructura de redes</td>
-          <td style="text-align: center;"><a href="#"><i class="fa fa-edit color-icono" aria-hidden="true"></td>
-            <td style="text-align: center;"><a href="#"><i class="fas fa-ban color-icono" aria-hidden="true"> </td>
-            </tr>
 
-            <tr class="txt2">
-              <td>003</td>
-              <td>Desarrollo de software</td>
-              <td style="text-align: center;"><a href="#"><i class="fa fa-edit color-icono" aria-hidden="true"></td>
-               <td style="text-align: center;"><a href="#"><i class="fas fa-ban color-icono" aria-hidden="true"> </td>
-               </tr>
+        <%}
+                  
+                 %>
+
+
+     
 
              </tbody>
 
@@ -141,7 +149,86 @@
          $(document).ready(function () {
              $('#tabla-mant').DataTable();
          });
+
+
+          var Agregar_Servicio= function () {
+
+              var descripcion = $("#desc_servicio").val();
+
+              $.ajax({
+                  type: "post",
+                  url: "/Default/agregar_servicio",
+                  data: {
+                      descripcion: descripcion,
+                  
+                  },
+                  success: function (result) {
+                      if (result == "fail") {
+
+
+
+                      }
+                      else {
+
+                          window.alert("exito");
+
+                      }
+                  }
+              })
+          }
+
+
+          var Actualizar_Servicio = function () {
+
+
+              var id_servicio = $("#consecutivo_servicio").val();
+
+              var descripcion = $("#desc_servicio").val();
+
+              $.ajax({
+                  type: "post",
+                  url: "/Default/actualizar_servicio",
+                  data: {
+                      id_servicio: id_servicio,
+                      descripcion: descripcion,
+
+                  },
+                  success: function (result) {
+                      if (result == "fail") {
+
+
+
+                      }
+                      else {
+
+                          window.alert("exito");
+
+                      }
+                  }
+              })
+          }
+
+          function Modificar_Servicio(dato, dato2) {
+
+              $("#consecutivo_servicio").val(dato);
+              $("#desc_servicio").val(dato2);
+
+              cedula_N = dato;
+
+              $("#boton_enviar").css("display", "none");
+              $("#campo_consecutivo").css("display", "block");
+              $("#botones").css("display", "block");
+           //   $("#campo_consecutivo").css("text-align", "");
+              $("#consecutivo_servicio").attr("readonly", "true");
+              $('#boton_multiple').text("Modificar Servicio");
+              $('#parrafo_servicio').text("Modificar servicio actual");
+
+             
+          }
+
       </script>
+
+
 
 
 

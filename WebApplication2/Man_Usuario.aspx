@@ -48,9 +48,6 @@
 
                 <p>Ingresar un nuevo usuario</p>
 
-           
-
-    
 
               <div class="form-group">
                 <label> Cédula:</label>
@@ -116,7 +113,7 @@
           </tr>
         </thead>
 
-        <tbodys>
+        <tbody>
             
              <%List<Biblioteca_Clases.Models.Usuario> list = lista1();
 

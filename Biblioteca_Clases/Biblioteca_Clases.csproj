@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="DAO\ServicioDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
     <Compile Include="Models\Fecha.cs" />
     <Compile Include="DAO\LoginDAO.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\Perfil.cs" />
     <Compile Include="Models\PrivilegiosE.cs" />
+    <Compile Include="Models\Servicio.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\Utilities\TreeHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
