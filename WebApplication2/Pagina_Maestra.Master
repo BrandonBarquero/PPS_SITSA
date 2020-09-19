@@ -8,97 +8,28 @@
     <title></title>
 
  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
-    <!--Estilos tabla-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css%22%3E" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css%22%3E" />
-    <script src="https://code.jquery.com/jquery-3.3.1.js%22%3E"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js%22%3E"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js%22%3E"></script>
-  <link href="Assets/css/bootstrap/bootstrap.css" rel="stylesheet" />
-  <link href="Assets/css/animate.css" rel="stylesheet" />
-  <link href="Assets/css/fonts/FontAwesome/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
-  <link href="Assets/css/build.css" rel="stylesheet" />
-
-  <%--  ESTILOS PARA LAS DATATABLES--%>
-  <link href="Assets/DataTable/Buttons-1.5.6/css/buttons.bootstrap4.min.css" rel="stylesheet" />
-  <link href="Assets/DataTable/Buttons-1.5.6/css/buttons.dataTables.min.css" rel="stylesheet" />
-  <link href="Assets/DataTable/Buttons-1.5.6/css/buttons.foundation.min.css" rel="stylesheet" />
-  <link href="Assets/DataTable/DataTables-1.10.18/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
-  <%--<link href="Assets/DataTable/2.2.3_responsive.bootstrap.min.css" rel="stylesheet" />--%>
-  <link href="Assets/DataTable/Responsive-2.2.2/css/responsive.bootstrap.min.css" rel="stylesheet" />
-  <%--PERMITE FUNCIONALIDAD DE DESCARGA DE PDF, EXCEL ... ETC--%>
-  <script src="Assets/js/jQuery_v3.1.1.js"></script>
-
-  <%--<script src="Assets/js/jquery-3.3.1.slim.min.js"></script>--%>
-  <%--<script src="Assets/js/4.4.1mdb.min.js"></script>--%>
-  <script src="Assets/js/1.14.7.popper.min.js"></script>
-
-  <script src="Assets/js/bootstrap/bootstrap.js"></script>
-  <script src="Assets/js/Script.js"></script>
-  <script src="Assets/js/PaginacionDataTables.js"></script>
-  <script src="Assets/js/FuncionesGenerales.js"></script>
-
-  <%--    <script src="Assets/js/3.3.7.bootstrap.js"></script>--%>
-
-  <%--SCRIPTS PARA LAS DATATABLE--%>
-  <script src="Assets/DataTable/DataTables-1.10.18/js/jquery.dataTables.js"></script>
-  <script src="Assets/DataTable/DataTables-1.10.18/js/dataTables.bootstrap4.min.js"></script>
-  <script src="Assets/DataTable/Responsive-2.2.2/js/dataTables.responsive.min.js"></script>
-  <script src="Assets/DataTable/Responsive-2.2.2/js/responsive.bootstrap4.min.js"></script>
-  <script src="Assets/DataTable/Buttons-1.5.6/js/dataTables.buttons.min.js"></script>
-  <script src="Assets/DataTable/Buttons-1.5.6/js/buttons.flash.min.js"></script>
-  <script src="Assets/DataTable/JSZip-2.5.0/jszip.min.js"></script>
-  <script src="Assets/DataTable/pdfmake-0.1.36/pdfmake.min.js"></script>
-  <script src="Assets/DataTable/pdfmake-0.1.36/vfs_fonts.js"></script>
-  <script src="Assets/DataTable/Buttons-1.5.6/js/buttons.html5.min.js"></script>
-  <script src="Assets/DataTable/Buttons-1.5.6/js/buttons.print.min.js"></script>
-  <script src="Assets/DataTable/Buttons-1.5.6/js/buttons.colVis.min.js"></script>
-  <script src="Assets/DataTable/init.js"></script>
-
-
-  <%--    MODIFICACIONES EXTRAS VAN ACA--%>
-  <link href="Assets/css/EstilosPrincipales.css" rel="stylesheet" />
-
-  <%--     
-    /*LINKS PARA COMBOS MULTIPLES*/--%>
-  <script src="Assets/js/Combo/Multiple/fSelect.js"></script>
-  <link href="Assets/css/Combo/fSelect.css" rel="stylesheet" />
-
-  <%--    /*LINKS PARA COMBOS DE UNA SOLA SELECCION*/--%>
-  <link href="Assets/css/Combo/chosenSelect.css" rel="stylesheet" />
-  <script src="Assets/js/Combo/Multiple/chosenSelect.js"></script>
-
-
-  <%--FUNCIONALIDAD DEL MENU DROPDOWN--%>
-  <link href="Assets/css/Menu/menu.css" rel="stylesheet" />
-  <script src="Assets/js/Menu/menu.js"></script>
-
-  <%--ENCABEZADO--%>
-  <link href="Assets/css/encabezado.css" rel="stylesheet" />
-
-  <%--ESTILOS PARA TREEVIEW--%>
-  <link href="Assets/css/TreeView.css" rel="stylesheet" />
-
-
-
-
-    <link rel="icon" type="image/png" href="Assets_CTRL/images/icons/home.ico"/><!--Icono Página-->
-    <link rel="stylesheet" type="text/css" href="Assets_CTRL/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="Assets_CTRL/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
-    <link rel="stylesheet" type="text/css" href="Assets_CTRL/css/util.css">
-    <link rel="stylesheet" type="text/css" href="Assets_CTRL/css/main.css">
-    <link rel="stylesheet" href="Assets_CTRL/css/all.css">
-    <link rel="stylesheet" type="text/css" href="Assets_CTRL/css/bootstrap.min.css">
-
-
-
-
-
-
-
-
+        <link rel="icon" type="image/png" href="Assets_CTRL/images/icons/page.ico"/><!--Icono Página-->
+        <link rel="stylesheet" type="text/css" href="Assets_CTRL/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="Assets_CTRL/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+        <link rel="stylesheet" type="text/css" href="Assets_CTRL/css/util.css">
+        <link rel="stylesheet" type="text/css" href="Assets_CTRL/css/main.css">
+        <link rel="stylesheet" href="Assets_CTRL/css/all.css">
+        <link rel="stylesheet" type="text/css" href="Assets_CTRL/css/bootstrap.min.css">
+        <!--Estilos tabla-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+        <!--Fin Estilos tabla-->
+        <link rel="stylesheet" type="text/css" href="Assets_CTRL/css/TreeView.css">
+        <link rel="stylesheet" type="text/css" href="Assets_CTRL/css/menu.css">
+        <link href="Assets_CTRL/css/chosenSelect.css" rel="stylesheet"/>
+        <script src="Assets_CTRL/js/Combo/Multiple/chosenSelect.js"></script>
+        <script src="Assets_CTRL/js/PaginacionDataTables.js"></script>
+        <script src="Assets_CTRL/js/FuncionesGenerales.js"></script>
 
   <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
   </asp:ContentPlaceHolder>
@@ -132,7 +63,9 @@
     <asp:UpdatePanel ID="UpdatePanel11" runat="server">
       <ContentTemplate>
 
-         <nav class="mainmenu navbar navbar-expand-lg ">
+         <nav style="-webkit-box-shadow: 0 10px 5px #888888;
+     -moz-box-shadow: 0 10px 5px #888888;
+     box-shadow: 0 10px 5px #888888;" class="mainmenu navbar navbar-expand-lg ">
           <a class="navbar-brand" href="#"></a>
 
       <button style="color: black !important;" class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -193,10 +126,23 @@
           
       </ContentTemplate>
     </asp:UpdatePanel>
-
+        
     <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
     </asp:ContentPlaceHolder>
-       </form>
+      
+        </form>
+
+
+
+
+
+
+
+
+
+
+
+
     <!--Popup Cambiar Contrasenna-->
      <div id="cambio_contrasenna" class="modal fade" role="dialog">
       <div class="modal-dialog">

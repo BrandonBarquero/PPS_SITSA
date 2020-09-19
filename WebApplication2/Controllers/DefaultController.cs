@@ -12,6 +12,7 @@ namespace Control_Visitas.Controllers
     public class DefaultController : Controller
     {
         LoginDAO dao = new LoginDAO();
+        UsuarioDAO dao_usuario = new UsuarioDAO();
         Mail mail = new Mail();
         // GET: Default
         public ActionResult Index()
@@ -184,6 +185,58 @@ namespace Control_Visitas.Controllers
 
            int result= dao.cambiocontrasenna(user);
             if (result == 1) {
+                validacion = "sucess";
+            }
+            return Json(validacion, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult verificacedula(string cedula)
+        {
+            string validacion = "fail";
+
+            int result = dao_usuario.verificacedula(cedula);
+
+            
+            if (result == 1)
+            {
+                validacion = "sucess";
+            }
+            return Json(validacion, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult verificaemail(string email)
+        {
+            string validacion = "fail";
+
+            int result = dao_usuario.verificaemail(email);
+
+
+            if (result == 1)
+            {
+                validacion = "sucess";
+            }
+            return Json(validacion, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult actualiza_usuario(FormCollection formCollection)
+        {
+            string validacion = "fail";
+
+            string cedula = formCollection["cedula"];
+            string nombre = formCollection["nombre"];
+            string email = formCollection["email"];
+            string perfil = formCollection["perfil"];
+            string Usuario_Edita = (string)(Session["User"]);
+            Fecha fecha = new Fecha();
+            string dato = fecha.fecha();
+            int PK_PERFIL= Int32.Parse(perfil);
+            Usuario user = new Usuario(cedula,nombre,email, PK_PERFIL, dato, Usuario_Edita);
+
+
+          int result=  dao_usuario.ActualizarUsuario(user);
+
+
+            if (result == 1)
+            {
                 validacion = "sucess";
             }
             return Json(validacion, JsonRequestBehavior.AllowGet);

@@ -752,6 +752,7 @@ div.panel.show {
 
 .select_selecionar_proyecto {
     width: 25% !important;
+    margin-left: -15px;
 }
 
 @media (max-width: 776px) {
@@ -760,9 +761,7 @@ div.panel.show {
     }
 }
 
-
-
-/Ventanas desplegables estilo/
+/*Ventanas desplegables estilo*/
 button.accordion {
     background-color: var( --color-B);
     color: var( --color-E);

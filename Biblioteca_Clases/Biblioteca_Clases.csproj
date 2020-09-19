@@ -45,7 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="DAO\Fecha.cs" />
+    <Compile Include="DAO\UsuarioDAO.cs" />
+    <Compile Include="Models\Fecha.cs" />
     <Compile Include="DAO\LoginDAO.cs" />
     <Compile Include="DAO\Mail.cs" />
     <Compile Include="DAO\MenuDAO.cs" />

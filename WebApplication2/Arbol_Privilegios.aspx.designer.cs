@@ -15,6 +15,15 @@ namespace Control_Visitas
     {
 
         /// <summary>
+        /// Control form2221.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm form2221;
+
+        /// <summary>
         /// Control UpdatePanel24.
         /// </summary>
         /// <remarks>

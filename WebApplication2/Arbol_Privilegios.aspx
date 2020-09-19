@@ -4,8 +4,10 @@
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
- 
 
+     
+ <div class="container-home">
+      
   <div class="container pt-4 pb-4">
     <div class="row ml-1 mr-1 panel-theme">
       <div class="col-lg-12">
@@ -21,11 +23,14 @@
           </ContentTemplate>
         </asp:UpdatePanel>
 
-        <div class="row col-lg-12 col-md-12 col-sm-12 ">
-          <div class="col-lg-3 col-md-3 col-sm-3 pt-2">
-            <h5 class="ml-3" style="color: black; text-transform: uppercase;">Permisos</h5>
-          </div>
-        </div>
+           <div class="#"> <!--Cabecera-->
+          <h3 class="text-left">
+           <i class="fas fa-lock color-icono" aria-hidden="true"></i>&nbsp; Permisos
+         </h3>
+         <p class="text-justify txt5">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit nostrum rerum animi natus beatae ex. Culpa blanditiis tempore amet alias placeat, obcaecati quaerat ullam, sunt est, odio aut veniam ratione.
+        </p>
+      </div><!--Fin Cabecera-->
         <asp:UpdatePanel ID="upNum4" runat="server">
           <ContentTemplate>
             <div class="row">
@@ -59,8 +64,8 @@
 
 
             <div class="col-md-12 text-center pb-4 pt-4" style="padding-left: 5px;">
-              <asp:Button ID="btnAceptarPermisos" CssClass="btn btn-primary" runat="server" Text="Aceptar" OnClick="btnAceptarPermisos_Click" />
-              <asp:Button ID="btnLimpiarPermisos" CssClass="btn btn-secundary" runat="server" Text="Limpiar" OnClick="btnLimpiarPermisos_Click" />
+              <asp:Button ID="btnAceptarPermisos" CssClass="popup-btn" runat="server" Text="Aceptar" OnClick="btnAceptarPermisos_Click" />
+              <asp:Button ID="btnLimpiarPermisos" CssClass="popup-btn" runat="server" Text="Limpiar" OnClick="btnLimpiarPermisos_Click" />
 
               <div style="display: none">
                 <asp:Button ID="btnPostBack" runat="server" Text="Button" />
@@ -74,6 +79,8 @@
       </div>
     </div>
   </div>
+
+     </div> <!--Fin contenedor Home-->
 
   <!--MODAL EXITO-->
   <div class="modal fade " id="modalInfoExitosa" style="display: none;" role="dialog" data-backdrop="static" data-keyboard="false">
@@ -143,79 +150,80 @@
       </div>
     </div>
   </div>
+    </form>
 
 
   <script>
-    jQuery(document).ready(function () {
-      chosenSelect();
-      AsignarPaginacion();
-      FuncionesGenerales();
-      quitarEventoSobreTextoTreeViewNode();
-    });
-    //On UpdatePanel Refresh
-    var prm = Sys.WebForms.PageRequestManager.getInstance();
-    var interval;
-
-    if (prm != null) {
-      prm.add_beginRequest(function (sender, e) {
-        var loading = $("#haceLoading").val();
-        if (loading == "NO") {
-          $(".loading-panel").attr("style", "display:none");
-        } else {
-          $(".loading-panel").attr("style", "display:block");
-        }
-        chosenSelect();
-        AsignarPaginacion();
-        FuncionesGenerales();
-        quitarEventoSobreTextoTreeViewNode();
+      jQuery(document).ready(function () {
+          chosenSelect();
+          AsignarPaginacion();
+          FuncionesGenerales();
+          quitarEventoSobreTextoTreeViewNode();
       });
+      //On UpdatePanel Refresh
+      var prm = Sys.WebForms.PageRequestManager.getInstance();
+      var interval;
 
-      //AjaxFileUpload_change_text();
-      prm.add_endRequest(function (sender, e) {
-        chosenSelect();
-        $(".loading-panel").attr("style", "display:none");
-          $("#haceLoading").val("");
-        AsignarPaginacion();
-        FuncionesGenerales();
-        quitarEventoSobreTextoTreeViewNode();
-      });
-    }
+      if (prm != null) {
+          prm.add_beginRequest(function (sender, e) {
+              var loading = $("#haceLoading").val();
+              if (loading == "NO") {
+                  $(".loading-panel").attr("style", "display:none");
+              } else {
+                  $(".loading-panel").attr("style", "display:block");
+              }
+              chosenSelect();
+              AsignarPaginacion();
+              FuncionesGenerales();
+              quitarEventoSobreTextoTreeViewNode();
+          });
 
-    function chosenSelect() {
-      $(".chosen-select").chosen();
-      $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
-    }
-
-    function ClearContent(sender) {
-      $(sender._element).find('input').val('');
-    }
-
-    function UploadError(sender, args) {
-      $(sender._element).find('input').val('');
-    }
-
-    function OnSuccess(response, userContext, methodName) {
-      alert(response);
-    }
-
-
-    window.onerror = function (error) {
-      if (error.includes("PageRequest")) {
-
-        alert("Ha Ocurrido un error de Conexión, será redireccionado al Inicio... Error: " + error);
-        window.location.replace("Inicio.aspx");
+          //AjaxFileUpload_change_text();
+          prm.add_endRequest(function (sender, e) {
+              chosenSelect();
+              $(".loading-panel").attr("style", "display:none");
+              $("#haceLoading").val("");
+              AsignarPaginacion();
+              FuncionesGenerales();
+              quitarEventoSobreTextoTreeViewNode();
+          });
       }
-    };
+
+      function chosenSelect() {
+          $(".chosen-select").chosen();
+          $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+      }
+
+      function ClearContent(sender) {
+          $(sender._element).find('input').val('');
+      }
+
+      function UploadError(sender, args) {
+          $(sender._element).find('input').val('');
+      }
+
+      function OnSuccess(response, userContext, methodName) {
+          alert(response);
+      }
 
 
-    /*FUNCIONAMIENTO PARA EL TREEVIEW */
-    function postBackByObject() {
-      $("#haceLoading").val("NO");
-      $(".loading-panel").attr("style", "display:none");
-      var o = window.event.srcElement; // obteniendo el elemento clickeado
-      if (o.tagName == "INPUT" && o.type == "checkbox") // verificando si se trata del checkbox
-      {
-        __doPostBack('<%= tvPermisos.ClientID %>', ''); // haciendo un postback al treeview para que entre al evento tvPermisos_TreeNodeCheckChanged
+      window.onerror = function (error) {
+          if (error.includes("PageRequest")) {
+
+              alert("Ha Ocurrido un error de Conexión, será redireccionado al Inicio... Error: " + error);
+              window.location.replace("Inicio.aspx");
+          }
+      };
+
+
+      /*FUNCIONAMIENTO PARA EL TREEVIEW */
+      function postBackByObject() {
+          $("#haceLoading").val("NO");
+          $(".loading-panel").attr("style", "display:none");
+          var o = window.event.srcElement; // obteniendo el elemento clickeado
+          if (o.tagName == "INPUT" && o.type == "checkbox") // verificando si se trata del checkbox
+          {
+              __doPostBack('<%= tvPermisos.ClientID %>', ''); // haciendo un postback al treeview para que entre al evento tvPermisos_TreeNodeCheckChanged
           }
 
       }

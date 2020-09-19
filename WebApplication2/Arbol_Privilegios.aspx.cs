@@ -256,7 +256,7 @@ namespace Control_Visitas
                 if (EDITAR_MENU)
                 {
                     TreeNode nodoPermiso = new TreeNode();
-                    nodoPermiso.Text = "<i class='fa fa-pencil' aria-hidden='true'></i> &nbsp;<span>Editar </span>";
+                    nodoPermiso.Text = "<i class='fa fa-edit' aria-hidden='true'></i> &nbsp;<span>Editar </span>";
                     nodoPermiso.Value = "permiso-editar/" + PK_ID_MENU;
                     nodoPermiso.ShowCheckBox = true;
                     nodoPermiso.Checked = EDITAR_PERMISO ? true : false;

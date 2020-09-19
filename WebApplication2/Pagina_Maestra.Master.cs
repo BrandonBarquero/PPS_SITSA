@@ -49,7 +49,7 @@ namespace Control_Visitas
                 listaMenuPadre = listaMenu.ToList().Where(x => x.CODIGO_PADRE == "0").ToList();
 
                 MenuPrincipal.InnerHtml =
-                  "<li class='nav - item'> <a class='nav-link' href='Default.aspx'><i class='fa fa-home'></i>&nbsp; Inicio<span class='sr-only'></span></a></li>";
+                  "<li class='nav - item'> <a class='nav-link' href='Home.aspx'><i class='fa fa-home'></i>&nbsp; Inicio<span class='sr-only'></span></a></li>";
 
 
                 foreach (Biblioteca_Clases.Models.Menu iMenu in listaMenuPadre)
