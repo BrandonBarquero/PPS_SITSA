@@ -177,7 +177,7 @@ iframe {
 .txt1 {
   font-family: Raleway-SemiBold;
   font-size: 13px;
-    color: var( --color-A);
+  color: var( --color-A);
   line-height: 1.4;
   text-transform: uppercase;
 }

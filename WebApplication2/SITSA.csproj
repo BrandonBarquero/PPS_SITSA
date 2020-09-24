@@ -146,6 +146,13 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Man_Cliente.aspx.cs">
+      <DependentUpon>Man_Cliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Man_Cliente.aspx.designer.cs">
+      <DependentUpon>Man_Cliente.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Man_Contrato.aspx.cs">
       <DependentUpon>Man_Contrato.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -237,6 +244,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Home.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="Man_Cliente.aspx" />
     <Content Include="Man_Contrato.aspx" />
     <Content Include="Man_Servicio.aspx" />
     <Content Include="Man_Tipo_Contrato.aspx" />

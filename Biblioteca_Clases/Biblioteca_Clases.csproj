@@ -45,8 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="DAO\ClienteDAO.cs" />
     <Compile Include="DAO\ServicioDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
+    <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\Contrato.cs" />
+    <Compile Include="DAO\ContratoDAO.cs" />
     <Compile Include="Models\Fecha.cs" />
     <Compile Include="DAO\LoginDAO.cs" />
     <Compile Include="DAO\Mail.cs" />
