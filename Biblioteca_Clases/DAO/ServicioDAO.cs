@@ -44,7 +44,52 @@ namespace Biblioteca_Clases.DAO
             return listaServicios;
 
         }
+        public List<Servicio> listaServicios_INACTIVOS()
+        {
+            List<Servicio> listaServicios = new List<Servicio>();
+            SqlCommand comando = new SqlCommand();
 
+            comando.Connection = conexion;
+            comando.CommandText = "exec PA_CON_LISTAR_MAN_SERVICIO_INACTIVO";
+
+
+            SqlDataReader list = comando.ExecuteReader();
+            while (list.Read())
+            {
+                Servicio serv = new Servicio();
+                serv.ID_SERVICIO = list.GetInt32(0);
+                serv.DESCRIPCION = list.GetString(1);
+                serv.ESTADO = list.GetInt32(2);
+                listaServicios.Add(serv);
+            }
+            list.Dispose();
+            comando.Dispose();
+            return listaServicios;
+
+        }
+        public List<Servicio> listaServicios_General()
+        {
+            List<Servicio> listaServicios = new List<Servicio>();
+            SqlCommand comando = new SqlCommand();
+
+            comando.Connection = conexion;
+            comando.CommandText = "exec PA_CON_LISTAR_MAN_SERVICIO";
+
+
+            SqlDataReader list = comando.ExecuteReader();
+            while (list.Read())
+            {
+                Servicio serv = new Servicio();
+                serv.ID_SERVICIO = list.GetInt32(0);
+                serv.DESCRIPCION = list.GetString(1);
+                serv.ESTADO = list.GetInt32(2);
+                listaServicios.Add(serv);
+            }
+            list.Dispose();
+            comando.Dispose();
+            return listaServicios;
+
+        }
         public List<Servicio> listaServiciosInactivos()
         {
             List<Servicio> listaServicios = new List<Servicio>();
@@ -160,8 +205,8 @@ namespace Biblioteca_Clases.DAO
             while (list.Read())
             {
                 result.CREAR = list.GetBoolean(0);
-                result.CREAR = list.GetBoolean(1);
-                result.CREAR = list.GetBoolean(2);
+                result.EDTIAR = list.GetBoolean(1);
+                result.VER = list.GetBoolean(2);
             }
             list.Dispose();
             comando.Dispose();

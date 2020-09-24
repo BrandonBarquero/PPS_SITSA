@@ -30,6 +30,7 @@
           <option selected="" disabled="disabled">Seleccione el estado:</option>
           <option value="Activo_Servicio">Activo</option>
           <option value="Inactivo_Servicio">Inactivo</option>
+          <option value="Todos_Servicio">Todos</option>
         </select>
       </div>
 
@@ -78,12 +79,11 @@
        <button onclick="Agregar_Servicio()"  type="submit" class="popup-btn">Agregar</button>
              </div>
 
-      <div id="botones" style=" display: none; text-align: center;">
-       
+        <div id="botones" style=" display: none; text-align: center;">
         <button onclick="Actualizar_Servicio()"  type="submit" id="boton_modificar" class="popup-btn">Modificar</button>
-        <button onclick="estado_inhabilitar_boton()" id="boton_inhabilitar" type="submit" class="popup-btn">Inhabilitar</button>
         <button id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
       </div>
+
 
       <br> 
   </div>
@@ -105,14 +105,23 @@
       </tr>
     </thead>
 
-    <tbody>
+    <tbody id="tablatr">
 
          <%
+             string valor = Convert.ToString(Request.QueryString["Estado"]);
 
-              Biblioteca_Clases.DAO.ServicioDAO dao = new  Biblioteca_Clases.DAO.ServicioDAO();
+             Biblioteca_Clases.DAO.ServicioDAO dao = new  Biblioteca_Clases.DAO.ServicioDAO();
+             List<Biblioteca_Clases.Models.Servicio> list = new List<Biblioteca_Clases.Models.Servicio>();
 
-            List<Biblioteca_Clases.Models.Servicio> list = dao.listaServicios();
-
+             if (valor==null||valor=="Todos_Servicio") { 
+             list = dao.listaServicios_General();
+             }
+              if (valor=="Activo_Servicio") { 
+             list = dao.listaServicios();
+             }
+               if (valor=="Inactivo_Servicio") { 
+             list = dao.listaServicios_INACTIVOS();
+             }
 
              int autoincrement = 0;
 
@@ -121,11 +130,11 @@
                  autoincrement = autoincrement + 1;
                          %>
 
-      <tr class="txt2">
+        <tr class="txt2">
         <td><%=dato.ID_SERVICIO%></td>
         <td><%=dato.DESCRIPCION%></td>
-        <td style="text-align: center;"><a onclick="Modificar_Servicio(<%=dato.ID_SERVICIO%>,'<%=dato.DESCRIPCION%>');" href="#"><i class="fa fa-edit color-icono" aria-hidden="true"></td>
-         <td style="text-align: center;"><a href="#"><div class="custom-control custom-switch">
+        <td style="text-align: center;"><a onclick="Modificar_Servicio(<%=dato.ID_SERVICIO%>,'<%=dato.DESCRIPCION%>',<%=dato.ESTADO%>);" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios"><i class="fa fa-edit color-icono" aria-hidden="true"></td>
+        <td style="text-align: center;"><a href="#"><div class="custom-control custom-switch">
              <% if (dato.ESTADO == 1) {
 
 
@@ -221,7 +230,7 @@
                   success: function (result) {
                       if (result == "fail") {
 
-
+                          window.alert("fail");
 
                       }
                       else {
@@ -233,7 +242,10 @@
               })
           }
 
-          function Modificar_Servicio(dato, dato2) {
+          function Modificar_Servicio(dato, dato2,dato3) {
+
+            
+
 
               $("#consecutivo_servicio").val(dato);
               $("#desc_servicio").val(dato2);
@@ -248,7 +260,6 @@
               $('#boton_multiple').text("Modificar Servicio");
               $('#parrafo_servicio').text("Modificar servicio actual");
 
-             
           }
 
           function estado(dato_id) {
@@ -341,24 +352,18 @@
 
           $(document).ready(function () {
               $('#select_proyect').change(function () {
+
                   var val_select = $('#select_proyect').val();
-                  $.ajax({
-                      type: 'post',
-                      data: { val_select: val_select },
-                      dataType: 'json',
-                     url: '/Default/lista1',
-                      success: function (data) {
-                       
-                          var json_obj = $.parseJSON(data);
-
-
-                          alert(json_obj[1].DESCRIPCION);
-                      
-                        
-                      }
-                  });
+                  var url = window.location.href;
+                  var nuevaUrl = url.substring(0, url.indexOf('?'));
+                  window.location.href = nuevaUrl + "?Estado=" + val_select;
+                
               });
           });
+
+
+
+
 
       </script>
 
