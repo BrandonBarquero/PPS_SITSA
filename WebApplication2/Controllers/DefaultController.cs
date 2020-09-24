@@ -1,5 +1,6 @@
 ﻿using Biblioteca_Clases.DAO;
 using Biblioteca_Clases.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -291,6 +292,88 @@ namespace Control_Visitas.Controllers
         }
 
 
+        public JsonResult actualizar_estado_deshabilitar_servicio(int id_servicio)
+        {
+            string validacion = "fail";
+
+            string Usuario_Edita = (string)(Session["User"]);
+            Fecha fecha = new Fecha();
+            string dato = fecha.fecha();
+
+            Servicio serv = new Servicio(id_servicio, dato, Usuario_Edita);
+
+
+            int result = dao_servicio.ActualizarEstadoDeshabilitarServicio(serv);
+
+
+            if (result == 1)
+            {
+                validacion = "sucess";
+            }
+            return Json(validacion, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult actualizar_estado_Habilitar_servicio(int id_servicio)
+        {
+            string validacion = "fail";
+
+            string Usuario_Edita = (string)(Session["User"]);
+            Fecha fecha = new Fecha();
+            string dato = fecha.fecha();
+
+            Servicio serv = new Servicio(id_servicio, dato, Usuario_Edita);
+
+
+            int result = dao_servicio.ActualizarEstadoHabilitarServicio(serv);
+
+
+            if (result == 1)
+            {
+                validacion = "sucess";
+            }
+            return Json(validacion, JsonRequestBehavior.AllowGet);
+        }
+
+
+         public JsonResult lista1(string val_select)
+          {
+
+              ServicioDAO dao = new ServicioDAO();
+
+              List<Servicio> list;
+
+              list = dao.listaServicios();
+
+              Servicio Servicio_Select = new Servicio();
+
+            var collection = list;
+
+            var collectionWrapper = new
+            {
+
+                Servicio = collection
+
+            };
+
+            string sJSONResponse = JsonConvert.SerializeObject(list, Formatting.Indented);
+            
+
+
+
+              if (val_select == "Activo_Servicio")
+              {
+
+
+              }
+              else
+              {
+
+
+              }
+
+
+            return Json(sJSONResponse, JsonRequestBehavior.AllowGet);
+        }
     }
-    
+
 }

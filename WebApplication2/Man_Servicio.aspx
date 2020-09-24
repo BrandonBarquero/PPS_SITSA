@@ -25,12 +25,15 @@
     <div class="container">
 
       <div class="form-group container">
-        <select class="form-control select_selecionar_proyecto" id="select_proyect">
-          <option selected="true" disabled="disabled">Seleccione el estado:</option>
-          <option>Activo</option>
-          <option>Inactivo</option>
+
+          <select class="form-control select_selecionar_proyecto" id="select_proyect">
+          <option selected="" disabled="disabled">Seleccione el estado:</option>
+          <option value="Activo_Servicio">Activo</option>
+          <option value="Inactivo_Servicio">Inactivo</option>
         </select>
       </div>
+
+        
 
 
 
@@ -78,14 +81,15 @@
       <div id="botones" style=" display: none; text-align: center;">
        
         <button onclick="Actualizar_Servicio()"  type="submit" id="boton_modificar" class="popup-btn">Modificar</button>
-        <button id="boton_inhabilitar" type="submit" class="popup-btn">Inhabilitar</button>
+        <button onclick="estado_inhabilitar_boton()" id="boton_inhabilitar" type="submit" class="popup-btn">Inhabilitar</button>
         <button id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
       </div>
 
       <br> 
   </div>
 </div>
-
+        <div id="cand">
+</div>
    
   <br>
 
@@ -103,21 +107,41 @@
 
     <tbody>
 
-         <%List<Biblioteca_Clases.Models.Servicio> list = lista1();
+         <%
+
+              Biblioteca_Clases.DAO.ServicioDAO dao = new  Biblioteca_Clases.DAO.ServicioDAO();
+
+            List<Biblioteca_Clases.Models.Servicio> list = dao.listaServicios();
 
 
-                 int autoincrement = 0;
+             int autoincrement = 0;
 
-                 foreach(var dato in list)
-                 {
-                     autoincrement = autoincrement + 1;
+             foreach(var dato in list)
+             {
+                 autoincrement = autoincrement + 1;
                          %>
 
       <tr class="txt2">
         <td><%=dato.ID_SERVICIO%></td>
         <td><%=dato.DESCRIPCION%></td>
         <td style="text-align: center;"><a onclick="Modificar_Servicio(<%=dato.ID_SERVICIO%>,'<%=dato.DESCRIPCION%>');" href="#"><i class="fa fa-edit color-icono" aria-hidden="true"></td>
-         <td style="text-align: center;"><a href="#"><i class="fas fa-ban color-icono" aria-hidden="true"> </td>
+         <td style="text-align: center;"><a href="#"><div class="custom-control custom-switch">
+             <% if (dato.ESTADO == 1) {
+
+
+                     %>
+              <input onclick="estado(<%=dato.ID_SERVICIO%>)" type="checkbox" checked class="custom-control-input" id="<%=dato.ID_SERVICIO%>">
+             <%}
+
+                 else if (dato.ESTADO == 0) {
+                     %>
+                <input onclick="estado(<%=dato.ID_SERVICIO%>)" type="checkbox" class="custom-control-input" id="<%=dato.ID_SERVICIO%>">
+
+             <%}%>
+
+              <label class="custom-control-label" for="<%=dato.ID_SERVICIO%>"/>
+
+              </div> </td>
          </tr>
 
 
@@ -146,6 +170,7 @@
      </div>  <!--Container mant-->
 
       <script type="text/javascript">
+
          $(document).ready(function () {
              $('#tabla-mant').DataTable();
          });
@@ -225,6 +250,115 @@
 
              
           }
+
+          function estado(dato_id) {
+
+
+              var id_servicio = dato_id;
+
+              $("#" + id_servicio).on('change', function () {
+                  if ($(this).is(':checked')) {
+
+                      alert("check");
+
+                      $.ajax({
+                          type: "post",
+                          url: "/Default/actualizar_estado_Habilitar_servicio",
+                          data: {
+                              id_servicio: id_servicio,
+                          },
+                          success: function (result) {
+                              if (result == "fail") {
+
+
+
+                              }
+                              else {
+
+                                  window.alert("exito");
+
+                              }
+                          }
+                      })
+
+
+                   
+                  } else {
+                      alert("no");
+
+
+                      $.ajax({
+                          type: "post",
+                          url: "/Default/actualizar_estado_deshabilitar_servicio",
+                          data: {
+                              id_servicio: id_servicio,
+                          },
+                          success: function (result) {
+                              if (result == "fail") {
+
+
+
+                              }
+                              else {
+
+                                  window.alert("exito");
+
+                              }
+                          }
+                      })
+                      
+                  }
+              });
+          };
+
+
+          function estado_inhabilitar_boton() {
+
+              var id_servicio = $("#consecutivo_servicio").val();
+
+                      alert("check");
+
+                      $.ajax({
+                          type: "post",
+                          url: "/Default/actualizar_estado_deshabilitar_servicio",
+                          data: {
+                              id_servicio: id_servicio,
+                          },
+                          success: function (result) {
+                              if (result == "fail") {
+
+
+
+                              }
+                              else {
+
+                                  window.alert("exito");
+
+                              }
+                          }
+                      })
+          };
+
+          $(document).ready(function () {
+              $('#select_proyect').change(function () {
+                  var val_select = $('#select_proyect').val();
+                  $.ajax({
+                      type: 'post',
+                      data: { val_select: val_select },
+                      dataType: 'json',
+                     url: '/Default/lista1',
+                      success: function (data) {
+                       
+                          var json_obj = $.parseJSON(data);
+
+
+                          alert(json_obj[1].DESCRIPCION);
+                      
+                        
+                      }
+                  });
+              });
+          });
 
       </script>
 

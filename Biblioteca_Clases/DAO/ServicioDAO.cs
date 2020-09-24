@@ -45,6 +45,30 @@ namespace Biblioteca_Clases.DAO
 
         }
 
+        public List<Servicio> listaServiciosInactivos()
+        {
+            List<Servicio> listaServicios = new List<Servicio>();
+            SqlCommand comando = new SqlCommand();
+
+            comando.Connection = conexion;
+            comando.CommandText = "exec PA_CON_LISTAR_MAN_SERVICIO_INACTIVO";
+
+
+            SqlDataReader list = comando.ExecuteReader();
+            while (list.Read())
+            {
+                Servicio serv = new Servicio();
+                serv.ID_SERVICIO = list.GetInt32(0);
+                serv.DESCRIPCION = list.GetString(1);
+                serv.ESTADO = list.GetInt32(2);
+                listaServicios.Add(serv);
+            }
+            list.Dispose();
+            comando.Dispose();
+            return listaServicios;
+
+        }
+
         public int AgregarServicio(Servicio serv)
         {
             int result = 0;
@@ -84,6 +108,67 @@ namespace Biblioteca_Clases.DAO
 
         }
 
+        public int ActualizarEstadoDeshabilitarServicio(Servicio serv)
+        {
+            int result = 0;
+            SqlCommand comando = new SqlCommand();
 
+            comando.Connection = conexion;
+            comando.CommandText = "execute PA_MAN_DESHABILITAR_SERVICIO @PK_ID_SERVICIO,@USUARIO, @FECHA";
+            comando.Parameters.AddWithValue("@PK_ID_SERVICIO", serv.ID_SERVICIO);
+            comando.Parameters.AddWithValue("@USUARIO", serv.USUARIO_MODIFICACION);
+            comando.Parameters.AddWithValue("@FECHA", serv.FECHA_MODIFICACION);
+
+
+            result = comando.ExecuteNonQuery();
+
+            return result;
+
+        }
+
+        public int ActualizarEstadoHabilitarServicio(Servicio serv)
+        {
+            int result = 0;
+            SqlCommand comando = new SqlCommand();
+
+            comando.Connection = conexion;
+            comando.CommandText = "execute PA_MAN_HABILITAR_SERVICIO @PK_ID_SERVICIO,@USUARIO, @FECHA";
+            comando.Parameters.AddWithValue("@PK_ID_SERVICIO", serv.ID_SERVICIO);
+            comando.Parameters.AddWithValue("@USUARIO", serv.USUARIO_MODIFICACION);
+            comando.Parameters.AddWithValue("@FECHA", serv.FECHA_MODIFICACION);
+
+
+            result = comando.ExecuteNonQuery();
+
+            return result;
+
+        }
+
+        public Permiso_e ControlPaginas(string dato1, string dato2)
+        {
+            Permiso_e result =new Permiso_e();
+            SqlCommand comando = new SqlCommand();
+
+            comando.Connection = conexion;
+            comando.CommandText = "EXEC PA_MAN_CONTROL_PAGINAS @dato1,@dato2";
+            comando.Parameters.AddWithValue("@dato1", dato1);
+            comando.Parameters.AddWithValue("@dato2", dato2);
+
+
+
+            SqlDataReader list = comando.ExecuteReader();
+            while (list.Read())
+            {
+                result.CREAR = list.GetBoolean(0);
+                result.CREAR = list.GetBoolean(1);
+                result.CREAR = list.GetBoolean(2);
+            }
+            list.Dispose();
+            comando.Dispose();
+           
+
+            return result;
+
+        }
     }
 }

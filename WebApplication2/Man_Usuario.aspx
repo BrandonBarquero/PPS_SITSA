@@ -6,6 +6,23 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <%
+
+        Biblioteca_Clases.DAO.ServicioDAO dao = new Biblioteca_Clases.DAO.ServicioDAO();
+        string user = (string)(Session["User"]);
+        Biblioteca_Clases.Models.Permiso_e service= dao.ControlPaginas("Usuarios", user);
+
+
+
+
+
+       
+       %>
+
+
+       
+
+
 
      <div class="container-mant">
 
@@ -32,6 +49,13 @@
     </select>
   </div>
 
+   <% if (service.CREAR == false)
+        {
+           
+               %>
+      
+      <div style="display: none;" id="divvalida">
+           <%  }%>
 
 
    <p>
@@ -39,6 +63,7 @@
     Agregar usuario
   </button>
 </p>
+          </div>
 <div class="collapse" id="collapseServicios">
 
 
@@ -108,8 +133,10 @@
             <th>Cédula</th>
             <th>Nombre</th>
             <th>Ver Detalles</th>
+              <%if (service.EDTIAR == true) { %>
             <th>Modificar</th>
             <th>Inhabilitar</th>
+              <%}%>
           </tr>
         </thead>
 
@@ -128,14 +155,15 @@
             <td><%=dato.CEDULA%></td>
             <td><%=dato.NOMBRE%></td>
             <td style="text-align: center;"><a  onclick="Funcion(<%=dato.CEDULA%>,'<%=dato.NOMBRE%>','<%=dato.CORREO%>','<%=dato.FK_PERFIL%>');" data-toggle="modal" data-target="#detalles_usuario" href="#"><i class="fa fa-list color-icono" aria-hidden="true"></td>
-              <td style="text-align: center;"><a onclick="Modificar_Usuario(<%=dato.CEDULA%>,'<%=dato.NOMBRE%>','<%=dato.CORREO%>','<%=dato.FK_PERFIL%>');" href="#"><i class="fa fa-edit color-icono" aria-hidden="true"> </td>
-              <td style="text-align: center;"><a href="#"><div class="custom-control custom-switch">
-              <input onclick="prueba('<%=dato.CEDULA%>');" type="checkbox" class="custom-control-input" id="<%=autoincrement%>" >
-              <label class="custom-control-label" for="<%=autoincrement%>">Toggle this switch element</label>
-              </div> </td>               </tr>
-	<%}
-                  
-                 %>
+             <% if (service.EDTIAR == true) { %>
+              <td style="text-align: center;"><a onclick="Modificar_Usuario(<%=dato.CEDULA%>,'<%=dato.NOMBRE%>','<%=dato.CORREO%>','<%=dato.FK_PERFIL%>');" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios"><i class="fa fa-edit color-icono" aria-hidden="true"> </td
+              <td style="text-align: center;">
+              <input type="checkbox" class="custom-control-input" id="" >
+             
+                  </td>
+		    </tr>
+            <%}%>
+	<%}%>
 
 
 
@@ -156,8 +184,10 @@
                        <th>Cédula</th>
                        <th>Nombre</th>
                        <th>Ver Detalles</th>
+                         <%      if (service.EDTIAR == true){%>
                        <th>Modificar</th>
                        <th>Inhabilitar</th>
+                         <%}%>
                      </tr>
                    </tfoot>
 
@@ -329,5 +359,6 @@
               }
           })
       }
+   
   </script>
 </asp:Content>

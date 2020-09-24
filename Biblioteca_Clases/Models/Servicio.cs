@@ -29,6 +29,14 @@ namespace Biblioteca_Clases.Models
 
         }
 
+        public Servicio(int P_ID_SERVICIO, string dato, string usuario_Edita)
+        {
+            ID_SERVICIO = P_ID_SERVICIO;
+            FECHA_MODIFICACION = dato;
+            USUARIO_MODIFICACION = usuario_Edita;
+
+        }
+
         public Servicio(string descripcion, string dato, string usuario_Edita)
         {
             DESCRIPCION = descripcion;
