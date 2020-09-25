@@ -12,7 +12,14 @@
         string user = (string)(Session["User"]);
         int user_perfil = dao2.consultausuarioperfil(user);
         Biblioteca_Clases.Models.Permiso_e service= dao.ControlPaginas("Usuarios", user_perfil.ToString());
+
+        if (service.VER == false) {
+           ClientScript.RegisterStartupScript(this.GetType(), "alert", "ShowPopup();", true);
+
+        }
        %>
+
+
 
      <div class="container-mant">
 
@@ -342,6 +349,11 @@
                   }
               }
           })
+      }
+
+      var ShowPopup = function () {
+          alert("no tiene permisos");
+          window.location = "Home.aspx";
       }
    
   </script>

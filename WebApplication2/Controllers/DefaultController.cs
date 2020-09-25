@@ -114,6 +114,9 @@ namespace Control_Visitas.Controllers
                 Session["User"] = username;
                 validacion = "sucess";
 
+                int user_perfil = dao.consultausuarioperfil(username);
+                Session["perfil"] = user_perfil;
+
             }
             return Json(validacion, JsonRequestBehavior.AllowGet);
         }

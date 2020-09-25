@@ -265,7 +265,7 @@ namespace Control_Visitas
                 if (VER_MENU)
                 {
                     TreeNode nodoPermiso = new TreeNode();
-                    nodoPermiso.Text = "<i class='fa fa-align-justify' aria-hidden='true'></i> &nbsp;<span>Consultar </span>";
+                    nodoPermiso.Text = "<i class='fa fa-align-justify' aria-hidden='true'></i> &nbsp;<span>Ver </span>";
                     nodoPermiso.Value = "permiso-ver/" + PK_ID_MENU;
                     nodoPermiso.ShowCheckBox = true;
                     nodoPermiso.Checked = VER_PERMISO ? true : false;
