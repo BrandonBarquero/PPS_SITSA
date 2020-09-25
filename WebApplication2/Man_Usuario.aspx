@@ -7,25 +7,14 @@
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <%
-
         Biblioteca_Clases.DAO.ServicioDAO dao = new Biblioteca_Clases.DAO.ServicioDAO();
+        Biblioteca_Clases.DAO.LoginDAO dao2 = new Biblioteca_Clases.DAO.LoginDAO();
         string user = (string)(Session["User"]);
-        Biblioteca_Clases.Models.Permiso_e service= dao.ControlPaginas("Usuarios", user);
-
-
-
-
-
-       
+        int user_perfil = dao2.consultausuarioperfil(user);
+        Biblioteca_Clases.Models.Permiso_e service= dao.ControlPaginas("Usuarios", user_perfil.ToString());
        %>
 
-
-       
-
-
-
      <div class="container-mant">
-
 
     <div class="#"> <!--Cabecera-->
       <h3 class="text-left">
@@ -55,15 +44,22 @@
                %>
       
       <div style="display: none;" id="divvalida">
-           <%  }%>
-
-
+                 <%  }%>
    <p>
   <button class="btn btn-dark txt2" type="button" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios">
     Agregar usuario
   </button>
 </p>
-          </div>
+    
+        <% if (service.CREAR == false)
+        {
+           
+               %>
+      
+      </div>
+                 <%  }%>
+      
+
 <div class="collapse" id="collapseServicios">
 
 
@@ -164,18 +160,6 @@
 		    </tr>
             <%}%>
 	<%}%>
-
-
-
-
-
-
-
-
-
-
-          
-
 
                      </tbody>
 

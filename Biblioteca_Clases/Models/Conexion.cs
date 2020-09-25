@@ -23,7 +23,7 @@ namespace Biblioteca_Clases.Models
                 return objConexion;
             }
             objConexion = new SqlConnection();
-            objConexion.ConnectionString = "Data Source=DESKTOP-4GT4NSO\\SQLEXPRESS;Initial Catalog=SITSA ;User ID=test;Password=root;";
+            objConexion.ConnectionString = "Data Source=Localhost\\SQLEXPRESS;Initial Catalog=SITSA ;User ID=test;Password=root;";
             try
             {
                 objConexion.Open();
