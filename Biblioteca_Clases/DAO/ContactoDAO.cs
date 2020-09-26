@@ -25,7 +25,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec PA_CON_LISTAR_MAN_SERVICIO_ACTIVO";
+            comando.CommandText = "exec PA_CON_LISTAR_MAN_CONTACTO";
 
 
             SqlDataReader list = comando.ExecuteReader();
@@ -51,7 +51,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_AGREGAR_SERVICIO @ENCARGADO, @TELEFONO,@CORREO, @TIPO_ENCARGADO, @USUARIO, @FECHA";
+            comando.CommandText = "execute PA_MAN_AGREGAR_CONTACTO @ENCARGADO, @TELEFONO,@CORREO, @TIPO_ENCARGADO, @USUARIO, @FECHA";
             comando.Parameters.AddWithValue("@ENCARGADO", cont.ENCARGADO);
             comando.Parameters.AddWithValue("@TELEFONO", cont.TELEFONO);
             comando.Parameters.AddWithValue("@CORREO", cont.CORREO);
@@ -65,5 +65,44 @@ namespace Biblioteca_Clases.DAO
             return result;
 
         }
+
+        public int ActualizarContacto(Contacto cont)
+        {
+            int result = 0;
+            SqlCommand comando = new SqlCommand();
+
+            comando.Connection = conexion;
+            comando.CommandText = "execute PA_MAN_ACTUALIZAR_CONTACTO @PK_ID_CONTACTO, @ENCARGADO, @TELEFONO,@CORREO, @TIPO_ENCARGADO, @USUARIO, @FECHA";
+            comando.Parameters.AddWithValue("@PK_ID_CONTACTO", cont.ID_CONTACTO);
+            comando.Parameters.AddWithValue("@ENCARGADO", cont.ENCARGADO);
+            comando.Parameters.AddWithValue("@TELEFONO", cont.TELEFONO);
+            comando.Parameters.AddWithValue("@CORREO", cont.CORREO);
+            comando.Parameters.AddWithValue("@TIPO_ENCARGADO", cont.TIPO_ENCARGADO);
+            comando.Parameters.AddWithValue("@USUARIO", cont.USUARIO_MODIFICACION);
+            comando.Parameters.AddWithValue("@FECHA", cont.FECHA_MODIFICACION);
+
+
+            result = comando.ExecuteNonQuery();
+
+            return result;
+
+        }
+
+        public int EliminarContacto(Contacto cont)
+        {
+            int result = 0;
+            SqlCommand comando = new SqlCommand();
+
+            comando.Connection = conexion;
+            comando.CommandText = "execute PA_MAN_ELIMINAR_CONTACTO @PK_ID_CONTACTO";
+            comando.Parameters.AddWithValue("@PK_ID_CONTACTO", cont.ID_CONTACTO);
+   
+            result = comando.ExecuteNonQuery();
+
+            return result;
+
+        }
+
+
     }
 }

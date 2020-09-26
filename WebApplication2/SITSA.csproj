@@ -127,6 +127,7 @@
     <Compile Include="Arbol_Privilegios.aspx.designer.cs">
       <DependentUpon>Arbol_Privilegios.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ContactoController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -154,6 +155,13 @@
     </Compile>
     <Compile Include="Man_Cliente.aspx.designer.cs">
       <DependentUpon>Man_Cliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Man_Contacto.aspx.cs">
+      <DependentUpon>Man_Contacto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Man_Contacto.aspx.designer.cs">
+      <DependentUpon>Man_Contacto.aspx</DependentUpon>
     </Compile>
     <Compile Include="Man_Contrato.aspx.cs">
       <DependentUpon>Man_Contrato.aspx</DependentUpon>
@@ -247,6 +255,7 @@
     <Content Include="Home.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Man_Cliente.aspx" />
+    <Content Include="Man_Contacto.aspx" />
     <Content Include="Man_Contrato.aspx" />
     <Content Include="Man_Servicio.aspx" />
     <Content Include="Man_Tipo_Contrato.aspx" />
@@ -415,6 +424,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Cliente\" />
     <Folder Include="Views\Contacto\" />
   </ItemGroup>
   <ItemGroup>
