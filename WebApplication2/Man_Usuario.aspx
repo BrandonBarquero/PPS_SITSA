@@ -6,19 +6,6 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <%
-        Biblioteca_Clases.DAO.ServicioDAO dao = new Biblioteca_Clases.DAO.ServicioDAO();
-        Biblioteca_Clases.DAO.LoginDAO dao2 = new Biblioteca_Clases.DAO.LoginDAO();
-        string user = (string)(Session["User"]);
-        int user_perfil = dao2.consultausuarioperfil(user);
-        Biblioteca_Clases.Models.Permiso_e service= dao.ControlPaginas("Usuarios", user_perfil.ToString());
-
-        if (service.VER == false) {
-           ClientScript.RegisterStartupScript(this.GetType(), "alert", "ShowPopup();", true);
-
-        }
-       %>
-
 
 
      <div class="container-mant">
@@ -45,7 +32,7 @@
     </select>
   </div>
 
-   <% if (service.CREAR == false)
+   <% if (Permisos.CREAR == false)
         {
            
                %>
@@ -58,7 +45,7 @@
   </button>
 </p>
     
-        <% if (service.CREAR == false)
+        <% if (Permisos.CREAR == false)
         {
            
                %>
@@ -136,7 +123,7 @@
             <th>Cédula</th>
             <th>Nombre</th>
             <th>Ver Detalles</th>
-              <%if (service.EDTIAR == true) { %>
+              <%if (Permisos.EDTIAR == true) { %>
             <th>Modificar</th>
             <th>Inhabilitar</th>
               <%}%>
@@ -158,7 +145,7 @@
             <td><%=dato.CEDULA%></td>
             <td><%=dato.NOMBRE%></td>
             <td style="text-align: center;"><a  onclick="Funcion(<%=dato.CEDULA%>,'<%=dato.NOMBRE%>','<%=dato.CORREO%>','<%=dato.FK_PERFIL%>');" data-toggle="modal" data-target="#detalles_usuario" href="#"><i class="fa fa-list color-icono" aria-hidden="true"></td>
-             <% if (service.EDTIAR == true) { %>
+             <% if (Permisos.EDTIAR == true) { %>
               <td style="text-align: center;"><a onclick="Modificar_Usuario(<%=dato.CEDULA%>,'<%=dato.NOMBRE%>','<%=dato.CORREO%>','<%=dato.FK_PERFIL%>');" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios"><i class="fa fa-edit color-icono" aria-hidden="true"> </td
               <td style="text-align: center;">
               <input type="checkbox" class="custom-control-input" id="" >
@@ -175,7 +162,7 @@
                        <th>Cédula</th>
                        <th>Nombre</th>
                        <th>Ver Detalles</th>
-                         <%      if (service.EDTIAR == true){%>
+                         <%      if (Permisos.EDTIAR == true){%>
                        <th>Modificar</th>
                        <th>Inhabilitar</th>
                          <%}%>
@@ -254,25 +241,25 @@
 
       var cedula_N;
       function Funcion(dato, dato2, dato3, dato4) {
-       
+
           $("#cedula2").val(dato);
           $("#nombre2").val(dato2);
           $("#correo2").val(dato3);
           $("#perfil2").val(dato4);
       }
       function Modificar_Usuario(dato, dato2, dato3, dato4) {
-         
+
           $("#cedula").val(dato);
           $("#nombre").val(dato2);
           $("#email").val(dato3);
           $("#perfil").val(dato4);
 
-          cedula_N= dato;
-          
+          cedula_N = dato;
+
           $("#boton_enviar").css("display", "none");
           $("#botones").css("display", "block");
       }
-    
+
       $(document).ready(function () {
           $('#cedula').change(function () {
               var cedula = $('#cedula').val();
@@ -287,7 +274,7 @@
                       else {
                           if (cedula != cedula_N) {
                               $("#error_contrasenna").css("display", "block");
-                          } 
+                          }
                           if (cedula == cedula_N) {
                               $("#error_contrasenna").css("display", "none");
                           }
@@ -335,10 +322,10 @@
                   nombre: nombre,
                   email: email,
                   perfil: perfil
-          },
+              },
               success: function (result) {
                   if (result == "fail") {
-                    
+
 
 
                   }
@@ -353,8 +340,9 @@
 
       var ShowPopup = function () {
           alert("no tiene permisos");
-          window.location = "Home.aspx";
+
       }
-   
+
   </script>
 </asp:Content>
+

@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Pagina_Maestra.Master" AutoEventWireup="true" CodeBehind="Man_Servicio.aspx.cs" Inherits="WebApplication2.Man_Servicio" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="styles" runat="server">
@@ -10,362 +11,383 @@
     <div class="container-mant">
 
 
-      <div class="#"> <!--Cabecera-->
-        <h3 class="text-left">
-         <i class="fas fa-network-wired color-icono" aria-hidden="true"></i>&nbsp; Servicios
-       </h3>
-       <p class="text-justify txt5">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit nostrum rerum animi natus beatae ex. Culpa blanditiis tempore amet alias placeat, obcaecati quaerat ullam, sunt est, odio aut veniam ratione.
-      </p>
-    </div><!--Fin Cabecera-->
+        <div class="#">
+            <!--Cabecera-->
+            <h3 class="text-left">
+                <i class="fas fa-network-wired color-icono" aria-hidden="true"></i>&nbsp; Servicios
+            </h3>
+            <p class="text-justify txt5">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit nostrum rerum animi natus beatae ex. Culpa blanditiis tempore amet alias placeat, obcaecati quaerat ullam, sunt est, odio aut veniam ratione.
+            </p>
+        </div>
+        <!--Fin Cabecera-->
 
-    <br>
+        <br>
 
-    <!-- Contenido -->
-    <div class="container">
+        <!-- Contenido -->
+        <div class="container">
 
-      <div class="form-group container">
+            <div class="form-group container">
 
-          <select class="form-control select_selecionar_proyecto" id="select_proyect">
-          <option selected="" disabled="disabled">Seleccione el estado:</option>
-          <option value="Activo_Servicio">Activo</option>
-          <option value="Inactivo_Servicio">Inactivo</option>
-          <option value="Todos_Servicio">Todos</option>
-        </select>
-      </div>
-
-        
-
-
-
-          <p>
-  <button  class="btn btn-dark txt2" id="boton_multiple" value="" type="button" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios">
-    Agregar Servicio
-  </button>
-</p>
-<div class="collapse" id="collapseServicios">
-  <div class="card card-body txt2">
+                <select class="form-control select_selecionar_proyecto" id="select_proyect">
+                    <option selected="" disabled="disabled">Seleccione el estado:</option>
+                    <option value="Activo_Servicio">Activo</option>
+                    <option value="Inactivo_Servicio">Inactivo</option>
+                    <option value="Todos_Servicio">Todos</option>
+                </select>
+            </div>
 
 
-    <p id="parrafo_servicio">Agregar nuevo servicio</p>
+            <% if (Permisos.CREAR == false)
+                {
 
-    
+            %>
 
-        <div class="row">
+            <div style="display: none;" id="divvalida">
+                <%  }%>
 
-         <div  id="campo_consecutivo" style="display: none;" class="col-12 col-md-6">
 
-          <div  class="form-group">
-            <label> Consecutivo:</label>
-            <input type="text" class="form-control" id="consecutivo_servicio" name="consecutivo_servicio">
-          </div>
+                <p>
+                    <button class="btn btn-dark txt2" id="boton_multiple" value="" type="button" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios">
+                        Agregar Servicio
+                    </button>
+                </p>
+
+
+                <% if (Permisos.CREAR == false)
+                    {
+
+                %>
+            </div>
+            <%  }%>
+
+
+
+
+
+            <div class="collapse" id="collapseServicios">
+                <div class="card card-body txt2">
+
+
+                    <p id="parrafo_servicio">Agregar nuevo servicio</p>
+
+
+
+                    <div class="row">
+
+                        <div id="campo_consecutivo" style="display: none;" class="col-12 col-md-6">
+
+                            <div class="form-group">
+                                <label>Consecutivo:</label>
+                                <input type="text" class="form-control" id="consecutivo_servicio" name="consecutivo_servicio">
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-12 col-md-6">
+
+                            <div class="form-group">
+                                <label>Descripción del servicio:</label>
+                                <input type="text" class="form-control" id="desc_servicio" name="desc_servicio">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div id="boton_enviar" style="display: block; text-align: center">
+
+                        <button onclick="Agregar_Servicio()" type="submit" class="popup-btn">Agregar</button>
+                    </div>
+
+                    <div id="botones" style="display: none; text-align: center;">
+                        <button onclick="Actualizar_Servicio()" type="submit" id="boton_modificar" class="popup-btn">Modificar</button>
+                        <button id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
+                    </div>
+
+
+                    <br>
+                </div>
+            </div>
+            <div id="cand">
+            </div>
+
+            <br>
+
+            <table id="tabla-mant" class="table table-striped table-bordered" style="width: 100%;">
+                <!--Tabla-->
+
+
+                <thead class="estilo-thead">
+                    <tr>
+                        <th>Consecutivo</th>
+                        <th>Descripción de Servicio</th>
+                        <%if (Permisos.EDTIAR == true)
+                            { %>
+                        <th>Modificar</th>
+                        <th>Inhabilitar</th>
+                        <%}%>
+                    </tr>
+                </thead>
+
+                <tbody id="tablatr">
+
+                    <%
+                        List<Biblioteca_Clases.Models.Servicio> list = new List<Biblioteca_Clases.Models.Servicio>();
+                        string valor = Convert.ToString(Request.QueryString["Estado"]);
+                        list = ListaServicios(valor);
+                        int autoincrement = 0;
+
+                        foreach (var dato in list)
+                        {
+                            autoincrement = autoincrement + 1;
+                    %>
+
+                    <tr class="txt2">
+                        <td><%=dato.ID_SERVICIO%></td>
+                        <td><%=dato.DESCRIPCION%></td>
+                        <% if (Permisos.EDTIAR == true)
+                            { %>
+                        <td style="text-align: center;"><a onclick="Modificar_Servicio(<%=dato.ID_SERVICIO%>,'<%=dato.DESCRIPCION%>',<%=dato.ESTADO%>);" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios"><i class="fa fa-edit color-icono" aria-hidden="true"></td>
+                        <td style="text-align: center;"><a href="#">
+                            <div class="custom-control custom-switch">
+                                <% if (dato.ESTADO == 1)
+                                    {
+
+
+                                %>
+                                <input onclick="estado(<%=dato.ID_SERVICIO%>)" type="checkbox" checked class="custom-control-input" id="<%=dato.ID_SERVICIO%>">
+                                <%}
+
+                                    else if (dato.ESTADO == 0)
+                                    {
+                                %>
+                                <input onclick="estado(<%=dato.ID_SERVICIO%>)" type="checkbox" class="custom-control-input" id="<%=dato.ID_SERVICIO%>">
+
+                                <%}%>
+
+                                <label class="custom-control-label" for="<%=dato.ID_SERVICIO%>" />
+
+                            </div></td>
+                        <%}%>
+                    </tr>
+
+
+                    <%}
+
+                    %>
+                </tbody>
+
+                <tfoot class="estilo-thead">
+                    <tr>
+                        <th>Consecutivo</th>
+                        <th>Descripción de Servicio</th>
+                        <%      if (Permisos.EDTIAR == true)
+                            {%>
+                        <th>Modificar</th>
+                        <th>Inhabilitar</th>
+                        <%}%>
+                    </tr>
+                </tfoot>
+
+            </table>
+            <!--Fin Tabla-->
 
         </div>
+        <!--Container-->
 
+    </div>
+    <!--Container mant-->
 
-        <div class="col-12 col-md-6">
+    <script type="text/javascript">
 
-          <div class="form-group">
-            <label> Descripción del servicio:</label>
-            <input type="text" class="form-control" id="desc_servicio" name="desc_servicio">
-          </div>
+        $(document).ready(function () {
+            $('#tabla-mant').DataTable();
+        });
 
-        </div>
 
-      </div>
+        var Agregar_Servicio = function () {
 
-         <div id="boton_enviar" style="display: block; text-align: center">
+            var descripcion = $("#desc_servicio").val();
 
-       <button onclick="Agregar_Servicio()"  type="submit" class="popup-btn">Agregar</button>
-             </div>
+            $.ajax({
+                type: "post",
+                url: "/Default/agregar_servicio",
+                data: {
+                    descripcion: descripcion,
 
-        <div id="botones" style=" display: none; text-align: center;">
-        <button onclick="Actualizar_Servicio()"  type="submit" id="boton_modificar" class="popup-btn">Modificar</button>
-        <button id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
-      </div>
+                },
+                success: function (result) {
+                    if (result == "fail") {
 
 
-      <br> 
-  </div>
-</div>
-        <div id="cand">
-</div>
-   
-  <br>
 
-  <table id="tabla-mant" class="table table-striped table-bordered" style="width:100%;"><!--Tabla-->
+                    }
+                    else {
 
+                        window.alert("exito");
 
-    <thead class="estilo-thead">
-      <tr>
-        <th>Consecutivo</th>
-        <th>Descripción de Servicio</th>
-        <th>Modificar</th>
-        <th>Inhabilitar</th>
-      </tr>
-    </thead>
+                    }
+                }
+            })
+        }
 
-    <tbody id="tablatr">
 
-         <%
-             string valor = Convert.ToString(Request.QueryString["Estado"]);
+        var Actualizar_Servicio = function () {
 
-             Biblioteca_Clases.DAO.ServicioDAO dao = new  Biblioteca_Clases.DAO.ServicioDAO();
-             List<Biblioteca_Clases.Models.Servicio> list = new List<Biblioteca_Clases.Models.Servicio>();
 
-             if (valor==null||valor=="Todos_Servicio") { 
-             list = dao.listaServicios_General();
-             }
-              if (valor=="Activo_Servicio") { 
-             list = dao.listaServicios();
-             }
-               if (valor=="Inactivo_Servicio") { 
-             list = dao.listaServicios_INACTIVOS();
-             }
+            var id_servicio = $("#consecutivo_servicio").val();
 
-             int autoincrement = 0;
+            var descripcion = $("#desc_servicio").val();
 
-             foreach(var dato in list)
-             {
-                 autoincrement = autoincrement + 1;
-                         %>
+            $.ajax({
+                type: "post",
+                url: "/Default/actualizar_servicio",
+                data: {
+                    id_servicio: id_servicio,
+                    descripcion: descripcion,
 
-        <tr class="txt2">
-        <td><%=dato.ID_SERVICIO%></td>
-        <td><%=dato.DESCRIPCION%></td>
-        <td style="text-align: center;"><a onclick="Modificar_Servicio(<%=dato.ID_SERVICIO%>,'<%=dato.DESCRIPCION%>',<%=dato.ESTADO%>);" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios"><i class="fa fa-edit color-icono" aria-hidden="true"></td>
-        <td style="text-align: center;"><a href="#"><div class="custom-control custom-switch">
-             <% if (dato.ESTADO == 1) {
+                },
+                success: function (result) {
+                    if (result == "fail") {
 
+                        window.alert("fail");
 
-                     %>
-              <input onclick="estado(<%=dato.ID_SERVICIO%>)" type="checkbox" checked class="custom-control-input" id="<%=dato.ID_SERVICIO%>">
-             <%}
+                    }
+                    else {
 
-                 else if (dato.ESTADO == 0) {
-                     %>
-                <input onclick="estado(<%=dato.ID_SERVICIO%>)" type="checkbox" class="custom-control-input" id="<%=dato.ID_SERVICIO%>">
+                        window.alert("exito");
 
-             <%}%>
+                    }
+                }
+            })
+        }
 
-              <label class="custom-control-label" for="<%=dato.ID_SERVICIO%>"/>
+        function Modificar_Servicio(dato, dato2, dato3) {
 
-              </div> </td>
-         </tr>
 
 
-        <%}
-                  
-                 %>
 
+            $("#consecutivo_servicio").val(dato);
+            $("#desc_servicio").val(dato2);
 
-     
+            cedula_N = dato;
 
-             </tbody>
+            $("#boton_enviar").css("display", "none");
+            $("#campo_consecutivo").css("display", "block");
+            $("#botones").css("display", "block");
+            //   $("#campo_consecutivo").css("text-align", "");
+            $("#consecutivo_servicio").attr("readonly", "true");
+            $('#boton_multiple').text("Modificar Servicio");
+            $('#parrafo_servicio').text("Modificar servicio actual");
 
-             <tfoot class="estilo-thead">
-              <tr>
-               <th>Consecutivo</th>
-               <th>Descripción de Servicio</th>
-               <th>Modificar</th>
-               <th>Inhabilitar</th>
-             </tr>
-           </tfoot>
+        }
 
-         </table><!--Fin Tabla-->
+        function estado(dato_id) {
 
-       </div> <!--Container-->
 
-     </div>  <!--Container mant-->
+            var id_servicio = dato_id;
 
-      <script type="text/javascript">
+            $("#" + id_servicio).on('change', function () {
+                if ($(this).is(':checked')) {
 
-         $(document).ready(function () {
-             $('#tabla-mant').DataTable();
-         });
+                    alert("check");
 
+                    $.ajax({
+                        type: "post",
+                        url: "/Default/actualizar_estado_Habilitar_servicio",
+                        data: {
+                            id_servicio: id_servicio,
+                        },
+                        success: function (result) {
+                            if (result == "fail") {
 
-          var Agregar_Servicio= function () {
 
-              var descripcion = $("#desc_servicio").val();
 
-              $.ajax({
-                  type: "post",
-                  url: "/Default/agregar_servicio",
-                  data: {
-                      descripcion: descripcion,
-                  
-                  },
-                  success: function (result) {
-                      if (result == "fail") {
+                            }
+                            else {
 
+                                window.alert("exito");
 
+                            }
+                        }
+                    })
 
-                      }
-                      else {
 
-                          window.alert("exito");
 
-                      }
-                  }
-              })
-          }
+                } else {
+                    alert("no");
 
 
-          var Actualizar_Servicio = function () {
+                    $.ajax({
+                        type: "post",
+                        url: "/Default/actualizar_estado_deshabilitar_servicio",
+                        data: {
+                            id_servicio: id_servicio,
+                        },
+                        success: function (result) {
+                            if (result == "fail") {
 
 
-              var id_servicio = $("#consecutivo_servicio").val();
 
-              var descripcion = $("#desc_servicio").val();
+                            }
+                            else {
 
-              $.ajax({
-                  type: "post",
-                  url: "/Default/actualizar_servicio",
-                  data: {
-                      id_servicio: id_servicio,
-                      descripcion: descripcion,
+                                window.alert("exito");
 
-                  },
-                  success: function (result) {
-                      if (result == "fail") {
+                            }
+                        }
+                    })
 
-                          window.alert("fail");
+                }
+            });
+        };
 
-                      }
-                      else {
 
-                          window.alert("exito");
+        function estado_inhabilitar_boton() {
 
-                      }
-                  }
-              })
-          }
+            var id_servicio = $("#consecutivo_servicio").val();
 
-          function Modificar_Servicio(dato, dato2,dato3) {
+            alert("check");
 
-            
+            $.ajax({
+                type: "post",
+                url: "/Default/actualizar_estado_deshabilitar_servicio",
+                data: {
+                    id_servicio: id_servicio,
+                },
+                success: function (result) {
+                    if (result == "fail") {
 
 
-              $("#consecutivo_servicio").val(dato);
-              $("#desc_servicio").val(dato2);
 
-              cedula_N = dato;
+                    }
+                    else {
 
-              $("#boton_enviar").css("display", "none");
-              $("#campo_consecutivo").css("display", "block");
-              $("#botones").css("display", "block");
-           //   $("#campo_consecutivo").css("text-align", "");
-              $("#consecutivo_servicio").attr("readonly", "true");
-              $('#boton_multiple').text("Modificar Servicio");
-              $('#parrafo_servicio').text("Modificar servicio actual");
+                        window.alert("exito");
 
-          }
+                    }
+                }
+            })
+        };
 
-          function estado(dato_id) {
+        $(document).ready(function () {
+            $('#select_proyect').change(function () {
 
+                var val_select = $('#select_proyect').val();
+                var url = window.location.href;
+                var nuevaUrl = url.substring(0, url.indexOf('?'));
+                window.location.href = nuevaUrl + "?Estado=" + val_select;
 
-              var id_servicio = dato_id;
+            });
+        });
 
-              $("#" + id_servicio).on('change', function () {
-                  if ($(this).is(':checked')) {
 
-                      alert("check");
 
-                      $.ajax({
-                          type: "post",
-                          url: "/Default/actualizar_estado_Habilitar_servicio",
-                          data: {
-                              id_servicio: id_servicio,
-                          },
-                          success: function (result) {
-                              if (result == "fail") {
 
 
-
-                              }
-                              else {
-
-                                  window.alert("exito");
-
-                              }
-                          }
-                      })
-
-
-                   
-                  } else {
-                      alert("no");
-
-
-                      $.ajax({
-                          type: "post",
-                          url: "/Default/actualizar_estado_deshabilitar_servicio",
-                          data: {
-                              id_servicio: id_servicio,
-                          },
-                          success: function (result) {
-                              if (result == "fail") {
-
-
-
-                              }
-                              else {
-
-                                  window.alert("exito");
-
-                              }
-                          }
-                      })
-                      
-                  }
-              });
-          };
-
-
-          function estado_inhabilitar_boton() {
-
-              var id_servicio = $("#consecutivo_servicio").val();
-
-                      alert("check");
-
-                      $.ajax({
-                          type: "post",
-                          url: "/Default/actualizar_estado_deshabilitar_servicio",
-                          data: {
-                              id_servicio: id_servicio,
-                          },
-                          success: function (result) {
-                              if (result == "fail") {
-
-
-
-                              }
-                              else {
-
-                                  window.alert("exito");
-
-                              }
-                          }
-                      })
-          };
-
-          $(document).ready(function () {
-              $('#select_proyect').change(function () {
-
-                  var val_select = $('#select_proyect').val();
-                  var url = window.location.href;
-                  var nuevaUrl = url.substring(0, url.indexOf('?'));
-                  window.location.href = nuevaUrl + "?Estado=" + val_select;
-                
-              });
-          });
-
-
-
-
-
-      </script>
+    </script>
 
 
 

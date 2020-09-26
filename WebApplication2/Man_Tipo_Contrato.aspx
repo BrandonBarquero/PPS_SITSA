@@ -28,15 +28,16 @@
         <div class="container">
 
             <div class="form-group container">
-                <select class="form-control select_selecionar_proyecto" id="select_proyect" name="estado">
+                <select class="form-control select_selecionar_proyecto" id="select_tipo">
                     <option selected="true" disabled="disabled">Seleccione el estado:</option>
+                    <option value="General">General</option>
                     <option value="Activo">Activo</option>
                     <option value="Inactivo">Inactivo</option>
                 </select>
             </div>
 
             <p>
-                <button id="boton_multiple" class="btn btn-dark txt2" type="button" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios">
+                <button id="boton_multiple" class="btn btn-dark txt2" value="" type="button" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios">
                     Agregar tipo de contrato
                 </button>
             </p>
@@ -45,7 +46,7 @@
 
                     <p>Información</p>
 
-                    <div class="form-group">
+                    <div class="form-group" style="display: none" id="consecutivo">
                         <label>Consecutivo:</label>
                         <input type="text" class="form-control" id="consecutivo_tipo_contrato" name="consecutivo_tipo_contrato" readonly="">
                     </div>
@@ -77,11 +78,19 @@
 
                     </div>
 
-
-                    <div style="text-align: center">
+                    <!--
+                    <div id="botones" style="display: none; text-align: center;">
                         <button type="submit" class="popup-btn" onclick="Agregar_Tipo_Contrato()" id="boton_agregar">Agregar</button>
-                        <button type="submit" class="popup-btn" onclick="Actualizar_Tipo_Contrato()" id="boton_modificar">Modificar</button>
+                        <button type="submit" class="popup-btn" onclick="Actualizar_Tipo_Contrato()" id="boton_modificar" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios">Modificar</button>
                         <button type="submit" class="popup-btn" id="boton_inhabilitar">Inhabilitar</button>
+                    </div>-->
+
+                    <div id="boton_enviar" style="display: block; text-align: center">
+                        <button type="submit" class="popup-btn" onclick="Agregar_Tipo_Contrato()" id="boton_agregar">Agregar</button>
+                    </div>
+                    <div id="botones" style="display: none; text-align: center;">
+                        <button type="submit" class="popup-btn" onclick="Actualizar_Tipo_Contrato()" id="boton_modificar" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios">Modificar</button>
+                        <button id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
                     </div>
 
                     <br>
@@ -106,8 +115,23 @@
                 <tbody id="cuerpo">
 
                     <%
+                        string valor = Convert.ToString(Request.QueryString["Estado"]);
+
                         Biblioteca_Clases.DAO.Tipo_ContratoDAO dao = new Biblioteca_Clases.DAO.Tipo_ContratoDAO();
                         List<Biblioteca_Clases.Models.Tipo_Contrato> list = dao.listaTipoContratos();
+
+                        if (valor == null || valor == "General")
+                        {
+                            list = dao.listaTipoContratos();
+                        }
+                        if (valor == "Activo")
+                        {
+                            list = dao.listaTipoContratosActivos();
+                        }
+                        if (valor == "Inactivo")
+                        {
+                            list = dao.listaTipoContratosInactivos();
+                        }
 
                         int autoincrement = 0;
                         foreach (var dato in list)
@@ -118,8 +142,8 @@
                     <tr class="txt2">
                         <td><%=dato.ID_TIPO_CONTRATO%></td>
                         <td><%=dato.NOMBRE%></td>
-                        <td style="text-align: center;"><a data-toggle="modal" data-target="#detalles_tipo_contrato" onclick="edita('<%=dato.NOMBRE%>','<%=dato.HORAS%>','<%=dato.RANGO_DOCUMENTOS%>','<%=dato.MONTO%>','<%=dato.ACEPTACION%>');" href="#"><i class="fa fa-list color-icono" aria-hidden="true"></td>
-                        <td style="text-align: center;"><a href="#" onclick="Modificar_Tipo_Contrato(<%=dato.ID_TIPO_CONTRATO%>,'<%=dato.NOMBRE%>','<%=dato.HORAS%>','<%=dato.RANGO_DOCUMENTOS%>','<%=dato.MONTO%>','<%=dato.ACEPTACION%>');"><i class="fa fa-edit color-icono" aria-hidden="true"></td>
+                        <td style="text-align: center;"><a data-toggle="modal" data-target="#detalles_tipo_contrato" onclick="edita(<%=dato.ID_TIPO_CONTRATO%>,'<%=dato.NOMBRE%>','<%=dato.HORAS%>','<%=dato.RANGO_DOCUMENTOS%>','<%=dato.MONTO%>','<%=dato.ACEPTACION%>');"><i class="fa fa-list color-icono" aria-hidden="true"></td>
+                        <td style="text-align: center;"><a href="#" onclick="Modificar_Tipo_Contrato(<%=dato.ID_TIPO_CONTRATO%>,'<%=dato.NOMBRE%>','<%=dato.HORAS%>','<%=dato.RANGO_DOCUMENTOS%>','<%=dato.MONTO%>','<%=dato.ACEPTACION%>');" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-con><i class="fa fa-edit color-icono" aria-hidden="true"></td>
                         <td style="text-align: center;"><a href="#">
                             <div class="custom-control custom-switch">
                                 <% if (dato.ESTADO == 1)
@@ -177,31 +201,31 @@
 
                     <div class="form-group">
                         <label>Consecutivo:</label>
-                        <input type="text" class="form-control" id="d_tipo_contrato" name="consecutivo_tipo_contrato" readonly="">
+                        <input type="text" class="form-control" id="d_tipo_contrato" name="d_consecutivo_tipo_contrato" readonly="">
                     </div>
 
                     <div class="form-group">
                         <label>Nombre del tipo de contrato:</label>
-                        <input type="text" class="form-control" id="d_nombre_tipo_contrato" name="nombre_tipo_contrato" readonly="">
+                        <input type="text" class="form-control" id="d_nombre_tipo_contrato" name="d_nombre_tipo_contrato" readonly="">
                     </div>
 
                     <div class="form-group">
                         <label>Tipo de contrato:</label>
 
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="d_horas" name="horas" readonly="readonly">
+                            <input type="checkbox" class="custom-control-input" id="d_horas" name="d_horas">
                             <label class="custom-control-label" for="horas">Horas</label>
                         </div>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="d_rango_documentos" name="rango_documentos" readonly="readonly">
+                            <input type="checkbox" class="custom-control-input" id="d_rango_documentos" name="d_rango_documentos">
                             <label class="custom-control-label" for="rango_documentos">Rango de documentos</label>
                         </div>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="d_monto" name="monto" readonly="readonly">
+                            <input type="checkbox" class="custom-control-input" id="d_monto" name="d_monto">
                             <label class="custom-control-label" for="monto">Monto</label>
                         </div>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="d_aceptacion" name="aceptacion" readonly="readonly">
+                            <input type="checkbox" class="custom-control-input" id="d_aceptacion" name="d_aceptacion">
                             <label class="custom-control-label" for="aceptacion">Aceptación</label>
                         </div>
 
@@ -220,8 +244,6 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#tabla-mant').DataTable();
-            $("#boton_modificar").css("display", "none");
-            $("#boton_inhabilitar").css("display", "none");
         });
 
         function estado(dato_id) {
@@ -295,9 +317,7 @@
             tipo_contrato.monto = $("#monto").is(":checked");
             tipo_contrato.aceptacion = $("#rango_documentos").is(":checked");
 
-            alert(tipo_contrato.monto);
             if (tipo_contrato != null) {
-                alert("El objeto no va nulo " + tipo_contrato.monto);
                 $.ajax({
                     type: "POST",
                     url: "/TipoContrato/agregar_tipo_contrato",
@@ -319,62 +339,10 @@
                     }
                 });
             }
-
-
-            /*
-            var tipo_contrato = {
-                nombre: $("#d_nombre_tipo_contrato").val(),
-                horas: $("#d_horas").is(":checked"),
-                rango_documentos: $("#d_rango_documentos").is(":checked"),
-                monto: $("#d_monto").is(":checked"),
-                aceptacion: $("#d_rango_documentos").is(":checked")
-            }
-            alert(tipo_contrato.monto);
-
-            $.ajax({
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                type: 'POST',
-                url: '/TipoContrato/agregar_tipo_contrato',
-                data: JSON.stringify(tipo_contrato),
-                success: function () {
-                    confirm('"PassThings()" successfully called.');
-                },
-                failure: function (response) {
-                    confirm(response);
-                },
-                error: function (result) {
-                    confirm("ERROR " + result.status + ' ' + result.statusText);
-                }
-            })
-            */
-            //------------------------//
-            /*
-            var tipo_contrato = {
-                nombre: $("#d_nombre_tipo_contrato").val()
-                horas: $("#d_horas").is(":checked"),
-                rango_documentos: $("#d_rango_documentos").is(":checked"),
-                monto: $("#d_monto").is(":checked"),
-                aceptacion: $("#d_rango_documentos").is(":checked")
-            };
-            $.ajax({
-                type: "POST",
-                url: "/TipoContrato/agregar_tipo_contrato",
-                data: tipo_contrato,
-                contentType: "application/json",
-                success: function (jqXHR) {
-                    alert("Ok");
-                },
-                error: function (jqXHR) {
-                    console.log(jqXHR.status);
-                }
-            });
-            */
         }
 
         function Modificar_Tipo_Contrato(id, nombre, horas, rango_documentos, monto, aceptacion) {
 
-            alert("lalalal")
             $("#consecutivo_tipo_contrato").val(id);
             $("#nombre_tipo_contrato").val(nombre);
 
@@ -388,12 +356,12 @@
                 $("#monto").prop('checked', true);
             }
             if (aceptacion == "True") {
-                $("#daceptacion").prop('checked', true);
+                $("#aceptacion").prop('checked', true);
             }
 
             $("#boton_agregar").css("display", "none");
-            $("#boton_agregar").css("display", "block");
-            $("#boton_inhabilitar").css("display", "block");
+            $("#botones").css("display", "block");
+            $("#consecutivo").css("display", "block");
 
             $('#boton_multiple').text("Modificar Tipo de Contrato");
             $('#parrafo_servicio').text("Modificar tipo de contrato actual");
@@ -401,6 +369,7 @@
 
         function Actualizar_Tipo_Contrato() {
             var tipo_contrato = {
+                'id_tipo_contrato': $("#consecutivo_tipo_contrato").val(),
                 'nombre': $("#nombre_tipo_contrato").val(),
                 'horas': $("#horas").is(":checked"),
                 'rango_documentos': $("#rango_documentos").is(":checked"),
@@ -408,23 +377,40 @@
                 'aceptacion': $("#rango_documentos").is(":checked")
             }
 
-            $.ajax({
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                type: 'POST',
-                url: '/TipoContrato/modificar_tipo_contrato',
-                data: JSON.stringify(tipo_contrato),
-                success: function () {
-                    confirm('"PassThings()" successfully called.');
-                },
-                failure: function (response) {
-                    confirm(response);
-                },
-                error: function (result) {
-                    confirm("ERROR " + result.status + ' ' + result.statusText);
-                }
-            })
+            if (tipo_contrato != null) {
+                $.ajax({
+                    type: "POST",
+                    url: "/TipoContrato/modificar_tipo_contrato",
+                    data: JSON.stringify(tipo_contrato),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response != null) {
+                            alert("Name : " + response.Name + ", Designation : " + response.Designation + ", Location :" + response.Location);
+                        } else {
+                            alert("Something went wrong");
+                        }
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            } 
         }
+
+        $(document).ready(function () {
+            $('#select_tipo').change(function () {
+                alert("Cambie");
+                var val_select = $('#select_tipo').val();
+                var url = window.location.href;
+                var nuevaUrl = url.substring(0, url.indexOf('?'));
+                window.location.href = nuevaUrl + "?Estado=" + val_select;
+
+            });
+        });
 
     </script>
 </asp:Content>

@@ -317,5 +317,11 @@
         }
 
     }
+
+    var ShowPopup = function () {
+        alert("no tiene permisos");
+
+    }
+
  
 </script>

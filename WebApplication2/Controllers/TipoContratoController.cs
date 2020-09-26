@@ -94,13 +94,14 @@ namespace WebApplication2.Controllers
             Fecha fecha = new Fecha();
 
             Tipo_Contrato tipo_Contrato = new Tipo_Contrato();
+            tipo_Contrato.ID_TIPO_CONTRATO = t.ID_TIPO_CONTRATO;
             tipo_Contrato.NOMBRE = t.NOMBRE;
             tipo_Contrato.HORAS = t.HORAS;
             tipo_Contrato.RANGO_DOCUMENTOS = t.RANGO_DOCUMENTOS;
             tipo_Contrato.MONTO = t.MONTO;
             tipo_Contrato.ACEPTACION = t.ACEPTACION;
-            tipo_Contrato.FECHA_CREACION = fecha.fecha();
-            tipo_Contrato.USUARIO_CREACION = (string)(Session["User"]);
+            tipo_Contrato.FECHA_MODIFICACION = fecha.fecha();
+            tipo_Contrato.USUARIO_MODIFICACION = (string)(Session["User"]);
 
             int result = dao_tipo_contrato.ModificarTipoContrato(tipo_Contrato);
 
