@@ -23,6 +23,7 @@ namespace WebApplication2
             if (Permisos.VER == false)
             {
                 Response.Write("<script language='javascript'>alert('hello');window.location.href = 'Home.aspx';</ script > ");
+                Response.Redirect("Home.aspx", false);
 
             }
         }

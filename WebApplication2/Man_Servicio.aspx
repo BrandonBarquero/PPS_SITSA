@@ -33,7 +33,7 @@
                     <option selected="" disabled="disabled">Seleccione el estado:</option>
                     <option value="Activo_Servicio">Activo</option>
                     <option value="Inactivo_Servicio">Inactivo</option>
-                    <option value="Todos_Servicio">Todos</option>
+                    <option value="Todos_Servicio">General</option>
                 </select>
             </div>
 
@@ -213,7 +213,7 @@
 
             $.ajax({
                 type: "post",
-                url: "/Default/agregar_servicio",
+                url: "/Servicio/agregar_servicio",
                 data: {
                     descripcion: descripcion,
 
@@ -243,7 +243,7 @@
 
             $.ajax({
                 type: "post",
-                url: "/Default/actualizar_servicio",
+                url: "/Servicio/actualizar_servicio",
                 data: {
                     id_servicio: id_servicio,
                     descripcion: descripcion,
@@ -296,7 +296,7 @@
 
                     $.ajax({
                         type: "post",
-                        url: "/Default/actualizar_estado_Habilitar_servicio",
+                        url: "/Servicio/actualizar_estado_Habilitar_servicio",
                         data: {
                             id_servicio: id_servicio,
                         },
@@ -322,7 +322,7 @@
 
                     $.ajax({
                         type: "post",
-                        url: "/Default/actualizar_estado_deshabilitar_servicio",
+                        url: "/Servicio/actualizar_estado_deshabilitar_servicio",
                         data: {
                             id_servicio: id_servicio,
                         },
@@ -353,7 +353,7 @@
 
             $.ajax({
                 type: "post",
-                url: "/Default/actualizar_estado_deshabilitar_servicio",
+                url: "/Servicio/actualizar_estado_deshabilitar_servicio",
                 data: {
                     id_servicio: id_servicio,
                 },
@@ -383,9 +383,10 @@
             });
         });
 
+        var ShowPopup = function () {
+            alert("No tiene permisos");
 
-
-
+        }
 
     </script>
 

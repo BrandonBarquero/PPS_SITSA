@@ -36,13 +36,10 @@ namespace Biblioteca_Clases.DAO
         public void mail(string correo, string contrasenna)
         {
 
-
-
-
             try
             {
                 MailMessage msg = new MailMessage("allan6kzx1@gmail.com",
-                   "bbarqueroberrocal@gmail.com",
+                   "barquerobrandon@gmail.com",
                    "Nueva Contrasenna",
                    "<html><body><h1>Su nueva contrasenna es </h1><br>" + contrasenna + "</body></html>"
                  );
@@ -73,5 +70,37 @@ namespace Biblioteca_Clases.DAO
 
         }
 
-}
+
+        public void agregar_usuario_mail(string correo, string contrasenna)
+        {
+
+            try
+            {
+                MailMessage msg = new MailMessage("barquerobrandon@gmail.com",
+                   "eduardarauz2799@gmail.com",
+                   "Contraseña de Ingreso",
+                   "<html><body><h1>Su contraseña es </h1><br>" + contrasenna + "</body></html>"
+                 );
+
+
+                msg.IsBodyHtml = true;
+
+                SmtpClient sc = new SmtpClient("smtp.gmail.com");
+                sc.Port = 25;
+                sc.Credentials = new NetworkCredential("barquerobrandon@gmail.com", "Brandonbarquero30");
+                sc.EnableSsl = true;
+                sc.Send(msg);
+
+
+            }
+            catch (Exception e)
+            {
+                string hola = e.Message;
+
+            }
+
+
+        }
+
+    }
 }

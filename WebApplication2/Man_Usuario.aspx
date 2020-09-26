@@ -25,10 +25,11 @@
   <div class="container">
 
               <div class="form-group container">
-    <select class="form-control select_selecionar_proyecto" id="select_proyect">
+    <select class="form-control select_selecionar_proyecto" id="select_usuario">
         <option selected="true" disabled="disabled">Seleccione el estado:</option>
-      <option>Activo</option>
-      <option>Inactivo</option>
+           <option value="Activo_Usuario">Activo</option>
+           <option value="Inactivo_Usuario">Inactivo</option>
+           <option value="Todos_Usuario">General</option>
     </select>
   </div>
 
@@ -40,7 +41,7 @@
       <div style="display: none;" id="divvalida">
                  <%  }%>
    <p>
-  <button class="btn btn-dark txt2" type="button" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios">
+  <button id="boton_multiple" class="btn btn-dark txt2" type="button" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios">
     Agregar usuario
   </button>
 </p>
@@ -61,12 +62,12 @@
   <div class="card card-body txt2">
  
 
-                <p>Ingresar un nuevo usuario</p>
+                <p id="parrafo_servicio">Ingresar un nuevo usuario</p>
 
 
               <div class="form-group">
                 <label> Cédula:</label>
-                <input type="text" class="form-control" id="cedula" name="cedula">
+                <input type="text" class="form-control" id="cedula">
               </div>
                 <div style="display: none;" id="error_contrasenna" class="alert alert-danger">
               
@@ -75,40 +76,52 @@
                
               <div class="form-group">
                 <label> Nombre:</label>
-                <input type="text" class="form-control" id="nombre" name="nombre">
+                <input type="text" class="form-control" id="nombre">
               </div>
 
               <div class="form-group">
                 <label> Correo:</label>
-                <input type="email" class="form-control" id="email" name="email">
+                <input type="email" class="form-control" id="email">
               </div>
                 <div style="display: none;" id="error_email" class="alert alert-danger">
               
                  <strong>¡Error!</strong>Correo ya utilizado.
                       </div>
             
-             <div class="form-group">
-                <label> Perfil:</label>
-                 <select id="perfil" class="browser-default custom-select">
-                   <option selected>Perfil</option>
-                   <option value="1">Adm</option>
-                   <option value="2">User</option>
-                 </select>
-              </div>
+                 <div  class="form-group">
+            <label> Seleccionar Perfil:</label>
 
+                
+                 <input class="form-control" list="perfil_usuario" id="perfil">
 
-       
+                        <datalist id="perfil_usuario">
+              <%
+                   List<Biblioteca_Clases.Models.Perfil> list2 = lista_perfiles();
 
-             <div id="boton_enviar" style="text-align: center">
-              <button   type="submit" class="popup-btn">Enviar correo</button>
-            </div>
-            <br>
+                    int autoincrement2 = 0;
 
-                 <div id="botones" style="text-align: center;display :none">
-        <button onclick="Actualiza_Usuario()" id="boton_modificar" type="submit" class="popup-btn">Modificar</button>
-        <button id="boton_inhabilitar" type="submit" class="popup-btn">Inhabilitar</button>
-        <button id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
-      </div>
+                    foreach (var dato in list2)
+                    {
+                        autoincrement2 = autoincrement2 + 1;
+
+                 %>   
+
+                 <option value="<%=dato.Pk_ID_PERFIL%>"><%=dato.DESCRIPCION%>
+
+              <%} %>
+
+                      </datalist> 
+          </div>
+
+                         <div id="boton_enviar" style="text-align: center">
+
+                        <button onclick="Agregar_Usuario()" type="submit" class="popup-btn">Agregar</button>
+                    </div>
+
+                    <div id="botones" style="display: none; text-align: center;">
+                        <button onclick="Actualizar_Usuario()" type="submit" id="boton_modificar" class="popup-btn">Modificar</button>
+                        <button id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
+                    </div>
 
 
         <br>
@@ -134,6 +147,8 @@
             
              <%List<Biblioteca_Clases.Models.Usuario> list = lista1();
 
+                   string valor = Convert.ToString(Request.QueryString["Estado"]);
+                        list = ListaUsuarios(valor);
 
                  int autoincrement = 0;
 
@@ -146,11 +161,27 @@
             <td><%=dato.NOMBRE%></td>
             <td style="text-align: center;"><a  onclick="Funcion(<%=dato.CEDULA%>,'<%=dato.NOMBRE%>','<%=dato.CORREO%>','<%=dato.FK_PERFIL%>');" data-toggle="modal" data-target="#detalles_usuario" href="#"><i class="fa fa-list color-icono" aria-hidden="true"></td>
              <% if (Permisos.EDTIAR == true) { %>
-              <td style="text-align: center;"><a onclick="Modificar_Usuario(<%=dato.CEDULA%>,'<%=dato.NOMBRE%>','<%=dato.CORREO%>','<%=dato.FK_PERFIL%>');" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios"><i class="fa fa-edit color-icono" aria-hidden="true"> </td
+              <td style="text-align: center;"><a data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios" onclick="Modificar_Usuario(<%=dato.CEDULA%>,'<%=dato.NOMBRE%>','<%=dato.CORREO%>','<%=dato.FK_PERFIL%>');" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios"><i class="fa fa-edit color-icono" aria-hidden="true"> </td
               <td style="text-align: center;">
               <input type="checkbox" class="custom-control-input" id="" >
              
                   </td>
+
+
+                <td style="text-align: center;"><a href="#">
+                            <div class="custom-control custom-switch">
+                                <% if (dato.ESTADO == true)
+                                    {
+                                %>
+                                <input onclick="estado(<%=dato.ID_USUARIO%>, <%=dato.CEDULA%>)" type="checkbox" checked class="custom-control-input" id="<%=dato.CEDULA%>">
+                                <%}
+                                    else if (dato.ESTADO == false)
+                                    {
+                                %>
+                                <input onclick="estado(<%=dato.ID_USUARIO%>, <%=dato.CEDULA%> )" type="checkbox" class="custom-control-input" id="<%=dato.CEDULA%>">
+                                <%}%>
+                                <label class="custom-control-label" for="<%=dato.CEDULA%>" />
+                            </div></td>
 		    </tr>
             <%}%>
 	<%}%>
@@ -231,14 +262,6 @@
           }
       }
 
-
-
-
-
-
-
-
-
       var cedula_N;
       function Funcion(dato, dato2, dato3, dato4) {
 
@@ -254,10 +277,13 @@
           $("#email").val(dato3);
           $("#perfil").val(dato4);
 
-          cedula_N = dato;
 
           $("#boton_enviar").css("display", "none");
           $("#botones").css("display", "block");
+          $("#cedula").attr("readonly", "true");
+
+          $('#boton_multiple').text("Modificar Usuario");
+          $('#parrafo_servicio').text("Modificar usuario actual");
       }
 
       $(document).ready(function () {
@@ -308,38 +334,134 @@
               });
           });
       });
-      var Actualiza_Usuario = function () {
-
-          var cedula = $("#cedula").val();
-          var nombre = $("#nombre").val();
-          var email = $("#email").val();
-          var perfil = $("#perfil").val();
-          $.ajax({
-              type: "post",
-              url: "/Default/actualiza_usuario",
-              data: {
-                  cedula: cedula,
-                  nombre: nombre,
-                  email: email,
-                  perfil: perfil
-              },
-              success: function (result) {
-                  if (result == "fail") {
 
 
+      function Agregar_Usuario() {
 
+          var usuario = new Object();
+          usuario.cedula = $("#cedula").val();
+          usuario.nombre = $("#nombre").val();
+          usuario.correo = $("#email").val();
+          usuario.fk_perfil = $("#perfil").val();
+          
+
+          if (usuario != null) {
+              $.ajax({
+                  type: "POST",
+                  url: "/Usuario/agregar_usuario",
+                  data: JSON.stringify(usuario),
+                  contentType: "application/json; charset=utf-8",
+                  dataType: "json",
+                  success: function (response) {
+                      if (response != null) {
+                          alert("Name : " + response.Name + ", Designation : " + response.Designation + ", Location :" + response.Location);
+                      } else {
+                          alert("Something went wrong");
+                      }
+                  },
+                  failure: function (response) {
+                      alert(response.responseText);
+                  },
+                  error: function (response) {
+                      alert(response.responseText);
                   }
-                  else {
-
-                      window.alert("exito");
-
-                  }
-              }
-          })
+              });
+          }
       }
 
+      function Actualizar_Usuario() {
+
+          var usuario = new Object();
+          usuario.cedula = $("#cedula").val();
+          usuario.nombre = $("#nombre").val();
+          usuario.correo = $("#email").val();
+          usuario.fk_perfil = $("#perfil").val();
+
+
+          if (usuario != null) {
+              $.ajax({
+                  type: "POST",
+                  url: "/Usuario/actualizar_usuario",
+                  data: JSON.stringify(usuario),
+                  contentType: "application/json; charset=utf-8",
+                  dataType: "json",
+                  success: function (response) {
+                      if (response != null) {
+                          alert("Name : " + response.Name + ", Designation : " + response.Designation + ", Location :" + response.Location);
+                      } else {
+                          alert("Something went wrong");
+                      }
+                  },
+                  failure: function (response) {
+                      alert(response.responseText);
+                  },
+                  error: function (response) {
+                      alert(response.responseText);
+                  }
+              });
+          }
+      }
+
+      $(document).ready(function () {
+          $('#select_usuario').change(function () {
+
+              var val_select = $('#select_usuario').val();
+              var url = window.location.href;
+              var nuevaUrl = url.substring(0, url.indexOf('?'));
+              window.location.href = nuevaUrl + "?Estado=" + val_select;
+
+          });
+      });
+
+      function estado(dato_id, cedula) {
+
+        
+
+          var id_usuario = dato_id;
+          var cedula_id = cedula;
+
+          $("#" + cedula_id).on('change', function () {
+              if ($(this).is(':checked')) {
+                  $.ajax({
+                      type: "post",
+                      url: "/Usuario/actualizar_estado_Habilitar_Usuario",
+                      data: {
+                          id_usuario: id_usuario,
+
+                      },
+                      success: function (result) {
+                          if (result == "fail") {
+
+                          }
+                          else {
+                              window.alert("exito");
+                          }
+                      }
+                  })
+
+              } else {
+                  $.ajax({
+                      type: "post",
+                      url: "/Usuario/actualizar_estado_deshabilitar_Usuario",
+                      data: {
+                          id_usuario: id_usuario,
+                      },
+                      success: function (result) {
+                          if (result == "fail") {
+
+                          }
+                          else {
+                              window.alert("exito");
+                          }
+                      }
+                  })
+
+              }
+          });
+      };
+
       var ShowPopup = function () {
-          alert("no tiene permisos");
+          alert("No tiene permisos");
 
       }
 

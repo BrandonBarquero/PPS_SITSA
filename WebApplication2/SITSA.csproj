@@ -131,7 +131,9 @@
     <Compile Include="Controllers\ContactoController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ServicioController.cs" />
     <Compile Include="Controllers\TipoContratoController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -426,6 +428,8 @@
     <Folder Include="Models\" />
     <Folder Include="Views\Cliente\" />
     <Folder Include="Views\Contacto\" />
+    <Folder Include="Views\Servicio\" />
+    <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
