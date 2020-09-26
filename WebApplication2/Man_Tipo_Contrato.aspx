@@ -315,7 +315,7 @@
             tipo_contrato.horas = $("#horas").is(":checked");
             tipo_contrato.rango_documentos = $("#rango_documentos").is(":checked");
             tipo_contrato.monto = $("#monto").is(":checked");
-            tipo_contrato.aceptacion = $("#rango_documentos").is(":checked");
+            tipo_contrato.aceptacion = $("#aceptacion").is(":checked");
 
             if (tipo_contrato != null) {
                 $.ajax({
@@ -374,7 +374,7 @@
                 'horas': $("#horas").is(":checked"),
                 'rango_documentos': $("#rango_documentos").is(":checked"),
                 'monto': $("#monto").is(":checked"),
-                'aceptacion': $("#rango_documentos").is(":checked")
+                'aceptacion': $("#d_aceptacion").is(":checked")
             }
 
             if (tipo_contrato != null) {
