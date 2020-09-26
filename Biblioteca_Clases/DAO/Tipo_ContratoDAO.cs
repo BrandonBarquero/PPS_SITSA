@@ -25,6 +25,33 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
+            comando.CommandText = "exec PA_CON_LISTAR_MAN_TIPO_CONTRATO";
+
+            SqlDataReader list = comando.ExecuteReader();
+            while (list.Read())
+            {
+                Tipo_Contrato tipo_Contrato = new Tipo_Contrato();
+                tipo_Contrato.ID_TIPO_CONTRATO = list.GetInt32(0);
+                tipo_Contrato.NOMBRE = list.GetString(1);
+                tipo_Contrato.ESTADO = list.GetInt32(2);
+                tipo_Contrato.HORAS = list.GetBoolean(3);
+                tipo_Contrato.RANGO_DOCUMENTOS = list.GetBoolean(4);
+                tipo_Contrato.MONTO = list.GetBoolean(5);
+                tipo_Contrato.ACEPTACION = list.GetBoolean(6);
+                listaTipoContrato.Add(tipo_Contrato);
+            }
+            list.Dispose();
+            comando.Dispose();
+            return listaTipoContrato;
+
+        }
+
+        public List<Tipo_Contrato> listaTipoContratosActivos()
+        {
+            List<Tipo_Contrato> listaTipoContrato = new List<Tipo_Contrato>();
+            SqlCommand comando = new SqlCommand();
+
+            comando.Connection = conexion;
             comando.CommandText = "exec PA_CON_LISTAR_MAN_TIPO_CONTRATO_ACTIVO";
 
 
@@ -142,8 +169,8 @@ namespace Biblioteca_Clases.DAO
             comando.Parameters.AddWithValue("@RANGO_DOCUMENTOS", tipo_Contrato.RANGO_DOCUMENTOS);
             comando.Parameters.AddWithValue("@MONTO", tipo_Contrato.MONTO);
             comando.Parameters.AddWithValue("@ACEPTACION", tipo_Contrato.ACEPTACION);
-            comando.Parameters.AddWithValue("@USUARIO", tipo_Contrato.USUARIO_CREACION);
-            comando.Parameters.AddWithValue("@FECHA", tipo_Contrato.FECHA_CREACION);
+            comando.Parameters.AddWithValue("@USUARIO", tipo_Contrato.USUARIO_MODIFICACION);
+            comando.Parameters.AddWithValue("@FECHA", tipo_Contrato.FECHA_MODIFICACION);
 
             result = comando.ExecuteNonQuery();
 

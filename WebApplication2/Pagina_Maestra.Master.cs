@@ -92,7 +92,7 @@ namespace Control_Visitas
             catch (Exception ex)
             {
                 string mesage = ex.Message;
-                throw;
+                    throw;
             }
 
         }
