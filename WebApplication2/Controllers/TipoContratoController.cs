@@ -64,8 +64,8 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public JsonResult agregar_tipo_contrato(Tipo_Contrato tipo)
         {
-            var t = tipo;
-            string validacion = "fail";
+            var
+             t = tipo;string validacion = "fail";
             Fecha fecha = new Fecha();
 
             Tipo_Contrato tipo_Contrato = new Tipo_Contrato();

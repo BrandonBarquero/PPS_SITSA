@@ -103,6 +103,33 @@ namespace Biblioteca_Clases.DAO
 
         }
 
+        public Permiso_e ControlPaginas(string dato1, string dato2)
+        {
+            Permiso_e result = new Permiso_e();
+            SqlCommand comando = new SqlCommand();
+
+            comando.Connection = conexion;
+            comando.CommandText = "EXEC PA_MAN_CONTROL_PAGINAS @dato1,@dato2";
+            comando.Parameters.AddWithValue("@dato1", dato1);
+            comando.Parameters.AddWithValue("@dato2", dato2);
+
+
+
+            SqlDataReader list = comando.ExecuteReader();
+            while (list.Read())
+            {
+                result.CREAR = list.GetBoolean(0);
+                result.EDTIAR = list.GetBoolean(1);
+                result.VER = list.GetBoolean(2);
+            }
+            list.Dispose();
+            comando.Dispose();
+
+
+            return result;
+
+        }
+
 
     }
 }

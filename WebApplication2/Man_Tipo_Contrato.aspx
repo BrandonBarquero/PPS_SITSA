@@ -36,11 +36,27 @@
                 </select>
             </div>
 
-            <p>
-                <button id="boton_multiple" class="btn btn-dark txt2" value="" type="button" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios">
-                    Agregar tipo de contrato
-                </button>
-            </p>
+            <% if (Permisos.CREAR == false)
+                {
+
+            %>
+
+            <div style="display: none;" id="divvalida">
+                <%  }%>
+
+                <p>
+                    <button id="boton_multiple" class="btn btn-dark txt2" value="" type="button" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios">
+                        Agregar tipo de contrato
+                    </button>
+                </p>
+
+                <% if (Permisos.CREAR == false)
+                    {
+
+                %>
+            </div>
+            <%  }%>
+
             <div class="collapse" id="collapseServicios">
                 <div class="card card-body txt2">
 
@@ -107,31 +123,21 @@
                         <th>Consecutivo</th>
                         <th>Nombre del Tipo de Contrato</th>
                         <th>Ver Detalles</th>
+                        <%if (Permisos.EDTIAR == true)
+                            { %>
                         <th>Modificar</th>
                         <th>Inhabilitar</th>
+                        <%}%>
                     </tr>
                 </thead>
 
                 <tbody id="cuerpo">
 
                     <%
+                        List<Biblioteca_Clases.Models.Tipo_Contrato> list = new List<Biblioteca_Clases.Models.Tipo_Contrato>();
+
                         string valor = Convert.ToString(Request.QueryString["Estado"]);
-
-                        Biblioteca_Clases.DAO.Tipo_ContratoDAO dao = new Biblioteca_Clases.DAO.Tipo_ContratoDAO();
-                        List<Biblioteca_Clases.Models.Tipo_Contrato> list = dao.listaTipoContratos();
-
-                        if (valor == null || valor == "General")
-                        {
-                            list = dao.listaTipoContratos();
-                        }
-                        if (valor == "Activo")
-                        {
-                            list = dao.listaTipoContratosActivos();
-                        }
-                        if (valor == "Inactivo")
-                        {
-                            list = dao.listaTipoContratosInactivos();
-                        }
+                        list = ListaTipo_Contrato(valor);
 
                         int autoincrement = 0;
                         foreach (var dato in list)
@@ -143,6 +149,8 @@
                         <td><%=dato.ID_TIPO_CONTRATO%></td>
                         <td><%=dato.NOMBRE%></td>
                         <td style="text-align: center;"><a data-toggle="modal" data-target="#detalles_tipo_contrato" onclick="edita(<%=dato.ID_TIPO_CONTRATO%>,'<%=dato.NOMBRE%>','<%=dato.HORAS%>','<%=dato.RANGO_DOCUMENTOS%>','<%=dato.MONTO%>','<%=dato.ACEPTACION%>');"><i class="fa fa-list color-icono" aria-hidden="true"></td>
+                        <%if (Permisos.EDTIAR == true)
+                            { %>
                         <td style="text-align: center;"><a href="#" onclick="Modificar_Tipo_Contrato(<%=dato.ID_TIPO_CONTRATO%>,'<%=dato.NOMBRE%>','<%=dato.HORAS%>','<%=dato.RANGO_DOCUMENTOS%>','<%=dato.MONTO%>','<%=dato.ACEPTACION%>');" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-con><i class="fa fa-edit color-icono" aria-hidden="true"></td>
                         <td style="text-align: center;"><a href="#">
                             <div class="custom-control custom-switch">
@@ -158,6 +166,7 @@
                                 <%}%>
                                 <label class="custom-control-label" for="<%=dato.ID_TIPO_CONTRATO%>" />
                             </div></td>
+                        <%}%>
                     </tr>
 
                     <%}%>
@@ -168,8 +177,11 @@
                         <th>Consecutivo</th>
                         <th>Nombre del Tipo de Contrato</th>
                         <th>Ver Detalles</th>
+                        <%if (Permisos.EDTIAR == true)
+                            { %>
                         <th>Modificar</th>
                         <th>Inhabilitar</th>
+                        <%}%>
                     </tr>
                 </tfoot>
 
@@ -213,19 +225,19 @@
                         <label>Tipo de contrato:</label>
 
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="d_horas" name="d_horas">
+                            <input aria-readonly="true" type="checkbox" class="custom-control-input" id="d_horas" name="d_horas">
                             <label class="custom-control-label" for="horas">Horas</label>
                         </div>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="d_rango_documentos" name="d_rango_documentos">
+                            <input aria-readonly="true" type="checkbox" class="custom-control-input" id="d_rango_documentos" name="d_rango_documentos">
                             <label class="custom-control-label" for="rango_documentos">Rango de documentos</label>
                         </div>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="d_monto" name="d_monto">
+                            <input aria-readonly="true" type="checkbox" class="custom-control-input" id="d_monto" name="d_monto">
                             <label class="custom-control-label" for="monto">Monto</label>
                         </div>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="d_aceptacion" name="d_aceptacion">
+                            <input aria-readonly="true" type="checkbox" class="custom-control-input" id="d_aceptacion" name="d_aceptacion">
                             <label class="custom-control-label" for="aceptacion">Aceptación</label>
                         </div>
 
@@ -374,7 +386,11 @@
                 'horas': $("#horas").is(":checked"),
                 'rango_documentos': $("#rango_documentos").is(":checked"),
                 'monto': $("#monto").is(":checked"),
+<<<<<<< HEAD
                 'aceptacion': $("#d_aceptacion").is(":checked")
+=======
+                'aceptacion': $("#aceptacion").is(":checked")
+>>>>>>> a8485faaa59b6f1b7d7d133f08dc68f71d26700a
             }
 
             if (tipo_contrato != null) {
@@ -398,7 +414,7 @@
                         alert(response.responseText);
                     }
                 });
-            } 
+            }
         }
 
         $(document).ready(function () {
@@ -411,6 +427,10 @@
 
             });
         });
+
+        var ShowPopup = function () {
+            alert("No tiene permisos");
+        }
 
     </script>
 </asp:Content>
