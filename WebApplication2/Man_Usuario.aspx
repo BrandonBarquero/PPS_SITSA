@@ -247,6 +247,8 @@
       </div>
     </div>
      <!--Fin Popup Detalle-->
+
+
     
   <script>
 
@@ -355,6 +357,7 @@
                   success: function (response) {
                       if (response != null) {
                           alert("Name : " + response.Name + ", Designation : " + response.Designation + ", Location :" + response.Location);
+                         
                       } else {
                           alert("Something went wrong");
                       }

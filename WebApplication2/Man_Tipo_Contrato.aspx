@@ -386,11 +386,7 @@
                 'horas': $("#horas").is(":checked"),
                 'rango_documentos': $("#rango_documentos").is(":checked"),
                 'monto': $("#monto").is(":checked"),
-<<<<<<< HEAD
-                'aceptacion': $("#d_aceptacion").is(":checked")
-=======
                 'aceptacion': $("#aceptacion").is(":checked")
->>>>>>> a8485faaa59b6f1b7d7d133f08dc68f71d26700a
             }
 
             if (tipo_contrato != null) {

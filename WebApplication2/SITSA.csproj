@@ -131,6 +131,7 @@
     <Compile Include="Controllers\ContactoController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProyectoController.cs" />
     <Compile Include="Controllers\ServicioController.cs" />
     <Compile Include="Controllers\TipoContratoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -171,6 +172,13 @@
     </Compile>
     <Compile Include="Man_Contrato.aspx.designer.cs">
       <DependentUpon>Man_Contrato.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Man_Proyecto.aspx.cs">
+      <DependentUpon>Man_Proyecto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Man_Proyecto.aspx.designer.cs">
+      <DependentUpon>Man_Proyecto.aspx</DependentUpon>
     </Compile>
     <Compile Include="Man_Servicio.aspx.cs">
       <DependentUpon>Man_Servicio.aspx</DependentUpon>
@@ -259,6 +267,7 @@
     <Content Include="Man_Cliente.aspx" />
     <Content Include="Man_Contacto.aspx" />
     <Content Include="Man_Contrato.aspx" />
+    <Content Include="Man_Proyecto.aspx" />
     <Content Include="Man_Servicio.aspx" />
     <Content Include="Man_Tipo_Contrato.aspx" />
     <Content Include="Man_Usuario.aspx" />
@@ -428,6 +437,7 @@
     <Folder Include="Models\" />
     <Folder Include="Views\Cliente\" />
     <Folder Include="Views\Contacto\" />
+    <Folder Include="Views\Proyecto\" />
     <Folder Include="Views\Servicio\" />
     <Folder Include="Views\Usuario\" />
   </ItemGroup>

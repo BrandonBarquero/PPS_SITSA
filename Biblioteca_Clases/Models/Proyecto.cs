@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Biblioteca_Clases.Models
+{
+   public class Proyecto
+    {
+        public int ID_PROYECTO { set; get; }
+        public string DESCRIPCION { set; get; }
+        public string NOMBRE { set; get; }
+        public Double PRECIO { set; get; }
+        public int ESTADO { set; get; }
+        public string FECHA_CREACION { set; get; }
+        public string USUARIO_CREACION { set; get; }
+        public string FECHA_MODIFICACION { set; get; }
+        public string USUARIO_MODIFICACION { set; get; }
+        public int FK_ID_CLIENTE { set; get; }
+
+        public Proyecto()
+        {
+
+        }
+
+        public Proyecto(int id_proyecto, string dato, string usuario_Edita)
+        {
+           ID_PROYECTO = id_proyecto;
+           FECHA_MODIFICACION = dato;
+           USUARIO_MODIFICACION = usuario_Edita;
+        }
+    }
+}

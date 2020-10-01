@@ -43,6 +43,11 @@ namespace WebApplication2
          url: "{controller}/{action}/{id}",
          defaults: new { controller = "Usuario", action = "Index", id = UrlParameter.Optional }
      );
+            routes.MapRoute(
+        name: "Proyecto",
+        url: "{controller}/{action}/{id}",
+        defaults: new { controller = "Proyecto", action = "Index", id = UrlParameter.Optional }
+    );
         }
     }
 }
