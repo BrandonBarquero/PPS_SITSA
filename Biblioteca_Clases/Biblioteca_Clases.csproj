@@ -47,6 +47,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="DAO\ClienteDAO.cs" />
     <Compile Include="DAO\ContactoDAO.cs" />
+    <Compile Include="DAO\ProyectoDAO.cs" />
     <Compile Include="DAO\ServicioDAO.cs" />
     <Compile Include="DAO\Tipo_ContratoDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Models\Perfil.cs" />
     <Compile Include="Models\Permiso_e.cs" />
     <Compile Include="Models\PrivilegiosE.cs" />
+    <Compile Include="Models\Proyecto.cs" />
     <Compile Include="Models\Servicio.cs" />
     <Compile Include="Models\Tipo_Contrato.cs" />
     <Compile Include="Models\Usuario.cs" />

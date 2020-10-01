@@ -59,7 +59,16 @@
 
                     <div class="form-group">
                         <label>Encargado:</label>
-                        <input type="text" class="form-control" id="encargado" name="encargado">
+                        <input type="text" class="form-control" id="encargado" name="encargado" required pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{1,100}" oninput="
+        setCustomValidity('');
+        checkValidity();
+         console.log(validity);
+        if (validity.patternMismatch) {
+            setCustomValidity('Caracteres Inválidos');
+        }
+        else if (validity.valueMissing) {
+            setCustomValidity('Campo en blanco');
+        }">
                     </div>
 
                     <div class="form-group">
@@ -80,7 +89,7 @@
 
                     <div id="boton_enviar" style="display: block; text-align: center">
 
-                        <button type="submit" class="popup-btn" onclick="Agregar_Contacto()" id="boton_agregar">Agregar</button>
+                        <button type="submit" class="popup-btn" onsubmit="Agregar_Contacto()" id="boton_agregar">Agregar</button>
                     </div>
 
                     <div id="botones" style="display: none; text-align: center;">
@@ -220,7 +229,7 @@
 
         function Agregar_Contacto() {
 
-
+            aler("Hola");
 
             var contacto = new Object();
             contacto.encargado = $("#encargado").val();
