@@ -21,7 +21,6 @@ namespace WebApplication2
         protected void Page_Load(object sender, EventArgs e)
         {
 
-
             int perfil = (int)(Session["perfil"]);
             Permisos = dao_tipo_contrato.ControlPaginas("Tipo Contrato", perfil.ToString());
 

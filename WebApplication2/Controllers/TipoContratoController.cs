@@ -40,7 +40,7 @@ namespace WebApplication2.Controllers
             return Json(validacion, JsonRequestBehavior.AllowGet);
         }
                 
-        public ActionResult actualizar_estado_deshabilitar_Tipo_Contrato(int id_tipo_contrato)
+        public JsonResult actualizar_estado_deshabilitar_Tipo_Contrato(int id_tipo_contrato)
         {
             string validacion = "fail";
 

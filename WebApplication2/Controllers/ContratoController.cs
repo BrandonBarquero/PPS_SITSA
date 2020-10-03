@@ -1,0 +1,137 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Biblioteca_Clases.DAO;
+using Biblioteca_Clases.Models;
+
+namespace WebApplication2.Controllers
+{
+    public class ContratoController : Controller
+    {
+        ContratoDAO dao_contrato = new ContratoDAO();
+
+        // GET: Contrato
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public JsonResult actualizar_estado_Habilitar_Contrato(int id_contrato)
+        {
+            string validacion = "fail";
+
+            string Usuario_Edita = (string)(Session["User"]);
+            Fecha fecha = new Fecha();
+            string dato = fecha.fecha();
+
+            Contrato contrato = new Contrato(id_contrato, dato, Usuario_Edita);
+
+
+            int result = dao_contrato.ActualizarEstadoHabilitarContrato(contrato);
+
+
+            if (result == 1)
+            {
+                validacion = "sucess";
+            }
+            return Json(validacion, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult actualizar_estado_deshabilitar_Contrato(int id_contrato)
+        {
+            string validacion = "fail";
+
+            string Usuario_Edita = (string)(Session["User"]);
+            Fecha fecha = new Fecha();
+            string dato = fecha.fecha();
+
+            Contrato contrato = new Contrato(id_contrato, dato, Usuario_Edita);
+
+            Servicio_Contrato servicio_Contrato = new Servicio_Contrato();
+
+            int result = dao_contrato.ActualizarEstadoDeshabilitarContrato(contrato);
+
+
+            if (result == 1)
+            {
+                validacion = "sucess";
+            }
+            return Json(validacion, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult agregar_contrato(Contrato contrato, List<string> servicios)
+        {
+            string validacion = "fail";
+            Fecha fecha = new Fecha();
+            string date = fecha.fecha();
+
+            contrato.FECHA_CREACION = date;
+            contrato.USUARIO_CREACION = (string)(Session["User"]);
+
+            int id = dao_contrato.AgregarContrato(contrato);
+            List<Servicio_Contrato> servicios_Contrato = new List<Servicio_Contrato>();
+            Servicio_Contrato servicio_Contrato;
+
+            foreach (var dato in servicios) {
+                servicio_Contrato = new Servicio_Contrato();
+                servicio_Contrato.ID_CONTRATO = id;
+                servicio_Contrato.ID_SERVICIO = Int32.Parse(dato);
+                servicio_Contrato.FECHA_CREACION = date;
+                servicio_Contrato.USUARIO_CREACION = (string)(Session["User"]);
+                servicios_Contrato.Add(servicio_Contrato);
+            }
+
+            int result = dao_contrato.AgregarServiciosContrato(servicios_Contrato);
+
+            if (result == 1)
+            {
+                validacion = "sucess";
+            }
+            return Json(validacion, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult listar_servicios_contrato(string id) {
+
+            List<Servicio> servicios = new List<Servicio>();
+            servicios = dao_contrato.Listar_Servicios_Contrato(Int32.Parse(id));
+
+            return Json(servicios, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult modificar_contrato(Contrato contrato, List<string> servicios) {
+            string validacion = "fail";
+            Fecha fecha = new Fecha();
+            string fecha_asignar = fecha.fecha();
+
+            contrato.FECHA_CREACION = fecha_asignar;
+            contrato.USUARIO_CREACION = (string)(Session["User"]);
+
+            int result = dao_contrato.ModificarContrato(contrato);
+
+            List<Servicio_Contrato> servicios_Contrato = new List<Servicio_Contrato>();
+            Servicio_Contrato servicio_Contrato;
+
+            foreach (var dato in servicios)
+            {
+                servicio_Contrato = new Servicio_Contrato();
+                servicio_Contrato.ID_CONTRATO = contrato.ID_CONTRATO;
+                servicio_Contrato.ID_SERVICIO = Int32.Parse(dato);
+                servicio_Contrato.FECHA_CREACION = fecha_asignar;
+                servicio_Contrato.USUARIO_CREACION = (string)(Session["User"]);
+                servicios_Contrato.Add(servicio_Contrato);
+            }
+
+            result = dao_contrato.ModificarServiciosContrato(servicios_Contrato);
+
+            if (result == 1)
+            {
+                validacion = "sucess";
+            }
+            return Json(validacion, JsonRequestBehavior.AllowGet);
+        }
+
+    }
+}

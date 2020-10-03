@@ -68,6 +68,7 @@
     <Compile Include="Models\PrivilegiosE.cs" />
     <Compile Include="Models\Proyecto.cs" />
     <Compile Include="Models\Servicio.cs" />
+    <Compile Include="Models\Servicio_Contrato.cs" />
     <Compile Include="Models\Tipo_Contrato.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\Utilities\TreeHelpers.cs" />
