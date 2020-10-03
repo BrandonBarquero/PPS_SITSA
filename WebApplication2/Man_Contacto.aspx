@@ -8,6 +8,8 @@
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+    <script src="Assets_CTRL/js/Funciones_Paginas/Contacto.js"></script>
+
     <div class="container-mant">
 
 
@@ -50,6 +52,10 @@
             <div class="collapse" id="collapseServicios">
                 <div class="card card-body txt2">
 
+                    <div style="display: none; text-align: center;" id="error_campos_vacios" class="alert alert-warning">
+                 <strong>¡Cuidado!</strong> Campos sin completar.
+                      </div>
+
                     <p id="parrafo_servicio">Ingresar un nuevo contacto</p>
 
                     <div id="id_contacto_input" style="display: none" class="form-group">
@@ -59,44 +65,34 @@
 
                     <div class="form-group">
                         <label>Encargado:</label>
-                        <input type="text" class="form-control" id="encargado" name="encargado" required pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{1,100}" oninput="
-        setCustomValidity('');
-        checkValidity();
-         console.log(validity);
-        if (validity.patternMismatch) {
-            setCustomValidity('Caracteres Inválidos');
-        }
-        else if (validity.valueMissing) {
-            setCustomValidity('Campo en blanco');
-        }">
+                        <input maxlength="25" onblur="Validar_Campo()" type="text" class="form-control" id="encargado" name="encargado" required>
                     </div>
 
                     <div class="form-group">
                         <label>Teléfono:</label>
-                        <input type="text" class="form-control" id="telefono" name="telefono">
+                        <input maxlength="11" onblur="Validar_Campo()" type="text" class="form-control" id="telefono" name="telefono">
                     </div>
 
                     <div class="form-group">
                         <label>Correo:</label>
-                        <input type="email" class="form-control" id="correo" name="correo">
+                        <input maxlength="25" onblur="Validar_Campo()" type="email" class="form-control" id="correo" name="correo">
                     </div>
 
                     <div class="form-group">
                         <label>Tipo de encargado:</label>
-                        <input type="text" class="form-control" id="tipo_encargado" name="tipo_encargado">
+                        <input maxlength="25" onblur="Validar_Campo()" type="text" class="form-control" id="tipo_encargado" name="tipo_encargado">
                     </div>
 
+                    <div id="boton_agregar" style="display: block; text-align: center">
 
-                    <div id="boton_enviar" style="display: block; text-align: center">
+                       <button id="boton_agregar_contacto" onclick="Agrega_Contacto()" type="button" class="popup-btn">Agregar</button>
 
-                        <button type="submit" class="popup-btn" onsubmit="Agregar_Contacto()" id="boton_agregar">Agregar</button>
                     </div>
 
                     <div id="botones" style="display: none; text-align: center;">
-                        <button type="submit" id="boton_modificar" onclick="Actualizar_Contacto()" class="popup-btn">Modificar</button>
+                        <button type="button" id="boton_modificar" onclick="Actualizar_Contacto()" class="popup-btn">Modificar</button>
                         <button id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
                     </div>
-
 
                     <br>
                 </div>
@@ -168,10 +164,6 @@
     </div>
     <!--Container mant-->
 
-
-
-
-
     <!--Popup Detalle-->
     <div id="detalles_contacto" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -216,134 +208,4 @@
         </div>
     </div>
     <!--Fin Popup Detalle-->
-
-
-
-
-    <!--Script Tabla-->
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#tabla-mant').DataTable();
-        });
-
-
-        function Agregar_Contacto() {
-
-            aler("Hola");
-
-            var contacto = new Object();
-            contacto.encargado = $("#encargado").val();
-            contacto.telefono = $("#telefono").val();
-            contacto.correo = $("#correo").val();
-            contacto.tipo_encargado = $("#tipo_encargado").val();
-
-            if (contacto != null) {
-                $.ajax({
-                    type: "POST",
-                    url: "/Contacto/agregar_contacto",
-                    data: JSON.stringify(contacto),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (response) {
-                        if (response != null) {
-                            alert("Name : " + response.Name + ", Designation : " + response.Designation + ", Location :" + response.Location);
-                        } else {
-                            alert("Something went wrong");
-                        }
-                    },
-                    failure: function (response) {
-                        alert(response.responseText);
-                    },
-                    error: function (response) {
-                        alert(response.responseText);
-                    }
-                });
-            }
-        }
-        contacto.encargado = $("#encargado").val();
-        contacto.telefono = $("#telefono").val();
-        contacto.correo = $("#correo").val();
-        contacto.tipo_encargado = $("#tipo_encargado").val();
-
-
-        function ver_detalles(id, encargado, telefono, correo, tipo_encargado) {
-            $("#id_contacto2").val(id);
-            $("#encargado2").val(encargado);
-            $("#telefono2").val(telefono);
-            $("#email2").val(correo);
-            $("#tipo_encargado2").val(tipo_encargado);
-        }
-
-        function editar(id, encargado, telefono, correo, tipo_encargado) {
-            $("#id_contacto").val(id);
-            $("#encargado").val(encargado);
-            $("#telefono").val(telefono);
-            $("#correo").val(correo);
-            $("#tipo_encargado").val(tipo_encargado);
-
-            $("#boton_agregar").css("display", "none");
-            $("#botones").css("display", "block");
-            $("#id_contacto_input").css("display", "block");
-
-            $('#boton_multiple').text("Modificar Contacto");
-            $('#parrafo_servicio').text("Modificar contacto actual");
-        }
-
-        function Actualizar_Contacto() {
-            var tipo_contrato = {
-                'id_contacto': $("#id_contacto").val(),
-                'encargado': $("#encargado").val(),
-                'telefono': $("#telefono").val(),
-                'correo': $("#correo").val(),
-                'tipo_encargado': $("#tipo_encargado").val(),
-            }
-
-            $.ajax({
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                type: 'POST',
-                url: '/Contacto/modificar_contacto',
-                data: JSON.stringify(tipo_contrato),
-                success: function () {
-                    confirm('"PassThings()" successfully called.');
-                },
-                failure: function (response) {
-                    confirm(response);
-                },
-                error: function (result) {
-                    confirm("ERROR " + result.status + ' ' + result.statusText);
-                }
-            })
-        }
-
-        function Eliminar_Contacto(id) {
-            var tipo_contrato = {
-                'id_contacto': id,
-            }
-
-            $.ajax({
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                type: 'POST',
-                url: '/Contacto/eliminar_contacto',
-                data: JSON.stringify(tipo_contrato),
-                success: function () {
-                    confirm('"PassThings()" successfully called.');
-                },
-                failure: function (response) {
-                    confirm(response);
-                },
-                error: function (result) {
-                    confirm("ERROR " + result.status + ' ' + result.statusText);
-                }
-            })
-        }
-
-        var ShowPopup = function () {
-            alert("No tiene permisos");
-
-        }
-
-
-    </script>
 </asp:Content>

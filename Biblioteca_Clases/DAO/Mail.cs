@@ -38,7 +38,7 @@ namespace Biblioteca_Clases.DAO
 
             try
             {
-                MailMessage msg = new MailMessage("allan6kzx1@gmail.com",
+                MailMessage msg = new MailMessage("allan6kzx@gmail.com",
                    "barquerobrandon@gmail.com",
                    "Nueva Contrasenna",
                    "<html><body><h1>Su nueva contrasenna es </h1><br>" + contrasenna + "</body></html>"
@@ -55,7 +55,7 @@ namespace Biblioteca_Clases.DAO
                 //msg.Bcc.Add(ms1);
                 SmtpClient sc = new SmtpClient("smtp.gmail.com");
                 sc.Port = 25;
-                sc.Credentials = new NetworkCredential("allan6kzx@gmail.com", "camilalinda1");
+                sc.Credentials = new NetworkCredential("allan6kzx@gmail.com", "camilalinda1Q)");
                 sc.EnableSsl = true;
                 sc.Send(msg);
 
