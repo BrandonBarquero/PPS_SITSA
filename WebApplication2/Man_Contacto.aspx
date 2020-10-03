@@ -208,4 +208,34 @@
         </div>
     </div>
     <!--Fin Popup Detalle-->
+
+      <script type="text/javascript">
+
+          /*Validaciones*/
+
+          $('#encargado').on('input', function (e) {
+              if (!/^[ a-záéíóúüñ]*$/i.test(this.value)) {
+                  this.value = this.value.replace(/[^ a-záéíóúüñ]+/ig, "");
+              }
+          });
+
+          $('#telefono').on('input', function (e) {
+              if (!/^[ 0-9]*$/i.test(this.value)) {
+                  this.value = this.value.replace(/[^ 0-9]+/ig, "");
+              }
+          });
+
+          $('#correo').on('input', function (e) {
+              if (!/^[ a-z0-9áéíóúüñ@._]*$/i.test(this.value)) {
+                  this.value = this.value.replace(/[^ a-z0-9áéíóúüñ@._]+/ig, "");
+              }
+          });
+
+          $('#tipo_encargado').on('input', function (e) {
+              if (!/^[ a-záéíóúüñ]*$/i.test(this.value)) {
+                  this.value = this.value.replace(/[^ a-záéíóúüñ]+/ig, "");
+              }
+          });
+      </script>
+
 </asp:Content>
