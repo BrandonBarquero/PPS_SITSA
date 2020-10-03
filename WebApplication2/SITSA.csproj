@@ -249,6 +249,7 @@
     <Content Include="Assets_CTRL\js\Combo\Multiple\chosenSelect.js" />
     <Content Include="Assets_CTRL\js\Combo\Multiple\fSelect.js" />
     <Content Include="Assets_CTRL\js\FuncionesGenerales.js" />
+    <Content Include="Assets_CTRL\js\Funciones_Paginas\Contacto.js" />
     <Content Include="Assets_CTRL\js\jquery.dataTables.min.js" />
     <Content Include="Assets_CTRL\js\main.js" />
     <Content Include="Assets_CTRL\js\PaginacionDataTables.js" />

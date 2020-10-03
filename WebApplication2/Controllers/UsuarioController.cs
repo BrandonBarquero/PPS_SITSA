@@ -40,7 +40,7 @@ namespace WebApplication2.Controllers
 
             int result = dao_usuario.AgregarUsuario(users);
 
-            dao_mail.agregar_usuario_mail(users.CORREO, users.CONTRASENNA);
+            dao_mail.mail(users.CORREO, users.CONTRASENNA);
 
             
 
