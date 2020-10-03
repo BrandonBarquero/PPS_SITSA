@@ -94,13 +94,6 @@
 
                     </div>
 
-                    <!--
-                    <div id="botones" style="display: none; text-align: center;">
-                        <button type="submit" class="popup-btn" onclick="Agregar_Tipo_Contrato()" id="boton_agregar">Agregar</button>
-                        <button type="submit" class="popup-btn" onclick="Actualizar_Tipo_Contrato()" id="boton_modificar" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios">Modificar</button>
-                        <button type="submit" class="popup-btn" id="boton_inhabilitar">Inhabilitar</button>
-                    </div>-->
-
                     <div id="boton_enviar" style="display: block; text-align: center">
                         <button type="submit" class="popup-btn" onclick="Agregar_Tipo_Contrato()" id="boton_agregar">Agregar</button>
                     </div>

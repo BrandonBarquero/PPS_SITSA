@@ -8,9 +8,6 @@ namespace Biblioteca_Clases.Models
 {
     public class Tipo_Contrato
     {
-        private string dato;
-        private string usuario_Edita;
-
         public int ID_TIPO_CONTRATO { set; get; }
         public int ESTADO { set; get; }
         public string NOMBRE { set; get; }
