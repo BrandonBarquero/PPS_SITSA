@@ -85,12 +85,12 @@
 
                     <div id="boton_agregar" style="display: block; text-align: center">
 
-                       <button id="boton_agregar_contacto" onclick="Agrega_Contacto()" type="button" class="popup-btn">Agregar</button>
+                       <button disabled id="boton_agregar_contacto" onclick="Agrega_Contacto()" type="button" class="popup-btn">Agregar</button>
 
                     </div>
 
                     <div id="botones" style="display: none; text-align: center;">
-                        <button type="button" id="boton_modificar" onclick="Actualizar_Contacto()" class="popup-btn">Modificar</button>
+                        <button disabled type="button" id="boton_modificar" onclick="Actualizar_Contacto()" class="popup-btn">Modificar</button>
                         <button id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
                     </div>
 

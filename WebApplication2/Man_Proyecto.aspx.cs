@@ -13,6 +13,7 @@ namespace WebApplication2
     {
 
         List<Proyecto> list = new List<Proyecto>();
+        List<Fase_Tiempo> list2 = new List<Fase_Tiempo>();
 
         public Permiso_e Permisos;
         ProyectoDAO dao_proyecto = new ProyectoDAO();
@@ -56,6 +57,18 @@ namespace WebApplication2
 
                 return list;
             }
+
+        public List<Fase_Tiempo> Lista_Fases(int valor)
+        {
+
+            Fase_TiempoDAO dao = new Fase_TiempoDAO();
+            list2 = dao.Listar_Fase_Tiempo(valor);
+
+            return list2;
+
+        }
+
+  
 
 
     }

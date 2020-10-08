@@ -8,6 +8,8 @@
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+    <script src="Assets_CTRL/js/Funciones_Paginas/Servicio.js"></script>
+
     <div class="container-mant">
 
 
@@ -68,6 +70,10 @@
             <div class="collapse" id="collapseServicios">
                 <div class="card card-body txt2">
 
+                            <div style="display: none; text-align: center;" id="error_campos_vacios" class="alert alert-warning">
+                 <strong>¡Cuidado!</strong> Campos sin completar.
+                      </div>
+
 
                     <p id="parrafo_servicio">Agregar nuevo servicio</p>
 
@@ -75,7 +81,7 @@
 
                     <div class="row">
 
-                        <div id="campo_consecutivo" style="display: none;" class="col-12 col-md-6">
+                        <div id="campo_consecutivo" style="display: none;" class="col-12 col-md-12">
 
                             <div class="form-group">
                                 <label>Consecutivo:</label>
@@ -85,11 +91,11 @@
                         </div>
 
 
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-12">
 
                             <div class="form-group">
                                 <label>Descripción del servicio:</label>
-                                <input type="text" class="form-control" id="desc_servicio" name="desc_servicio">
+                                <input maxlength="100" onblur="Validar_Campo()" type="text" class="form-control" id="desc_servicio" name="desc_servicio">
                             </div>
 
                         </div>
@@ -98,11 +104,11 @@
 
                     <div id="boton_enviar" style="display: block; text-align: center">
 
-                        <button onclick="Agregar_Servicio()" type="submit" class="popup-btn">Agregar</button>
+                        <button disabled onclick="Agregar_Servicio()" type="button" id="boton_agregar" class="popup-btn">Agregar</button>
                     </div>
 
                     <div id="botones" style="display: none; text-align: center;">
-                        <button onclick="Actualizar_Servicio()" type="submit" id="boton_modificar" class="popup-btn">Modificar</button>
+                        <button disabled onclick="Actualizar_Servicio()" type="button" id="boton_modificar" class="popup-btn">Modificar</button>
                         <button id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
                     </div>
 
@@ -202,191 +208,11 @@
 
     <script type="text/javascript">
 
-        $(document).ready(function () {
-            $('#tabla-mant').DataTable();
+        $('#desc_servicio').on('input', function (e) {
+            if (!/^[ a-záéíóúüñ]*$/i.test(this.value)) {
+                this.value = this.value.replace(/[^ a-záéíóúüñ]+/ig, "");
+            }
         });
-
-
-        var Agregar_Servicio = function () {
-
-            var descripcion = $("#desc_servicio").val();
-
-            $.ajax({
-                type: "post",
-                url: "/Servicio/agregar_servicio",
-                data: {
-                    descripcion: descripcion,
-
-                },
-                success: function (result) {
-                    if (result == "fail") {
-
-
-
-                    }
-                    else {
-
-                        window.alert("exito");
-
-                    }
-                }
-            })
-        }
-
-
-        var Actualizar_Servicio = function () {
-
-
-            var id_servicio = $("#consecutivo_servicio").val();
-
-            var descripcion = $("#desc_servicio").val();
-
-            $.ajax({
-                type: "post",
-                url: "/Servicio/actualizar_servicio",
-                data: {
-                    id_servicio: id_servicio,
-                    descripcion: descripcion,
-
-                },
-                success: function (result) {
-                    if (result == "fail") {
-
-                        window.alert("fail");
-
-                    }
-                    else {
-
-                        window.alert("exito");
-
-                    }
-                }
-            })
-        }
-
-        function Modificar_Servicio(dato, dato2, dato3) {
-
-
-
-
-            $("#consecutivo_servicio").val(dato);
-            $("#desc_servicio").val(dato2);
-
-            cedula_N = dato;
-
-            $("#boton_enviar").css("display", "none");
-            $("#campo_consecutivo").css("display", "block");
-            $("#botones").css("display", "block");
-            //   $("#campo_consecutivo").css("text-align", "");
-            $("#consecutivo_servicio").attr("readonly", "true");
-            $('#boton_multiple').text("Modificar Servicio");
-            $('#parrafo_servicio').text("Modificar servicio actual");
-
-        }
-
-        function estado(dato_id) {
-
-
-            var id_servicio = dato_id;
-
-            $("#" + id_servicio).on('change', function () {
-                if ($(this).is(':checked')) {
-
-                    alert("check");
-
-                    $.ajax({
-                        type: "post",
-                        url: "/Servicio/actualizar_estado_Habilitar_servicio",
-                        data: {
-                            id_servicio: id_servicio,
-                        },
-                        success: function (result) {
-                            if (result == "fail") {
-
-
-
-                            }
-                            else {
-
-                                window.alert("exito");
-
-                            }
-                        }
-                    })
-
-
-
-                } else {
-                    alert("no");
-
-
-                    $.ajax({
-                        type: "post",
-                        url: "/Servicio/actualizar_estado_deshabilitar_servicio",
-                        data: {
-                            id_servicio: id_servicio,
-                        },
-                        success: function (result) {
-                            if (result == "fail") {
-
-
-
-                            }
-                            else {
-
-                                window.alert("exito");
-
-                            }
-                        }
-                    })
-
-                }
-            });
-        };
-
-
-        function estado_inhabilitar_boton() {
-
-            var id_servicio = $("#consecutivo_servicio").val();
-
-            alert("check");
-
-            $.ajax({
-                type: "post",
-                url: "/Servicio/actualizar_estado_deshabilitar_servicio",
-                data: {
-                    id_servicio: id_servicio,
-                },
-                success: function (result) {
-                    if (result == "fail") {
-
-
-
-                    }
-                    else {
-
-                        window.alert("exito");
-
-                    }
-                }
-            })
-        };
-
-        $(document).ready(function () {
-            $('#select_proyect').change(function () {
-
-                var val_select = $('#select_proyect').val();
-                var url = window.location.href;
-                var nuevaUrl = url.substring(0, url.indexOf('?'));
-                window.location.href = nuevaUrl + "?Estado=" + val_select;
-
-            });
-        });
-
-        var ShowPopup = function () {
-            alert("No tiene permisos");
-
-        }
 
     </script>
 

@@ -8,6 +8,8 @@
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+     <script src="Assets_CTRL/js/Funciones_Paginas/Tipo_Contrato.js"></script>
+
     <div class="container-mant">
 
 
@@ -60,7 +62,11 @@
             <div class="collapse" id="collapseServicios">
                 <div class="card card-body txt2">
 
-                    <p>Información</p>
+                    <div style="display: none; text-align: center;" id="error_campos_vacios" class="alert alert-warning">
+                 <strong>¡Cuidado!</strong> Campos sin completar.
+                      </div>
+
+                    <p>Agregar tipo de contrato</p>
 
                     <div class="form-group" style="display: none" id="consecutivo">
                         <label>Consecutivo:</label>
@@ -69,7 +75,7 @@
 
                     <div class="form-group">
                         <label>Nombre del tipo de contrato:</label>
-                        <input type="text" class="form-control" id="nombre_tipo_contrato" name="nombre_tipo_contrato">
+                        <input onblur="Validar_Campo()" type="text" class="form-control" id="nombre_tipo_contrato" name="nombre_tipo_contrato">
                     </div>
 
                     <div class="form-group">
@@ -95,10 +101,10 @@
                     </div>
 
                     <div id="boton_enviar" style="display: block; text-align: center">
-                        <button type="submit" class="popup-btn" onclick="Agregar_Tipo_Contrato()" id="boton_agregar">Agregar</button>
+                        <button disabled type="button" class="popup-btn" onclick="Agregar_Tipo_Contrato()" id="boton_agregar">Agregar</button>
                     </div>
                     <div id="botones" style="display: none; text-align: center;">
-                        <button type="submit" class="popup-btn" onclick="Actualizar_Tipo_Contrato()" id="boton_modificar" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios">Modificar</button>
+                        <button disabled type="button" class="popup-btn" onclick="Actualizar_Tipo_Contrato()" id="boton_modificar">Modificar</button>
                         <button id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
                     </div>
 
@@ -247,179 +253,13 @@
 
     <!--Script Tabla-->
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#tabla-mant').DataTable();
+   
+        $('#nombre_tipo_contrato').on('input', function (e) {
+            if (!/^[ a-záéíóúüñ]*$/i.test(this.value)) {
+                this.value = this.value.replace(/[^ a-záéíóúüñ]+/ig, "");
+            }
         });
 
-        function estado(dato_id) {
-
-            var id_tipo_contrato = dato_id;
-
-            $("#" + id_tipo_contrato).on('change', function () {
-                if ($(this).is(':checked')) {
-                    $.ajax({
-                        type: "post",
-                        url: "/TipoContrato/actualizar_estado_Habilitar_Tipo_Contrato",
-                        data: {
-                            id_tipo_contrato: id_tipo_contrato,
-                        },
-                        success: function (result) {
-                            if (result == "fail") {
-
-                            }
-                            else {
-                                window.alert("exito");
-                            }
-                        }
-                    })
-
-                } else {
-                    $.ajax({
-                        type: "post",
-                        url: "/TipoContrato/actualizar_estado_deshabilitar_Tipo_Contrato",
-                        data: {
-                            id_tipo_contrato: id_tipo_contrato,
-                        },
-                        success: function (result) {
-                            if (result == "fail") {
-
-                            }
-                            else {
-                                window.alert("exito");
-                            }
-                        }
-                    })
-
-                }
-            });
-        };
-
-        function edita(id, nombre, horas, rango_documentos, monto, aceptacion) {
-            $("#d_tipo_contrato").val(id);
-            $("#d_nombre_tipo_contrato").val(nombre);
-
-            if (horas == "True") {
-                $("#d_horas").prop('checked', true);
-            }
-            if (rango_documentos == "True") {
-                $("#d_rango_documentos").prop('checked', true);
-            }
-            if (monto == "True") {
-                $("#d_monto").prop('checked', true);
-            }
-            if (aceptacion == "True") {
-                $("#d_aceptacion").prop('checked', true);
-            }
-
-        }
-
-        function Agregar_Tipo_Contrato() {
-
-            var tipo_contrato = new Object();
-            tipo_contrato.nombre = $("#nombre_tipo_contrato").val();
-            tipo_contrato.horas = $("#horas").is(":checked");
-            tipo_contrato.rango_documentos = $("#rango_documentos").is(":checked");
-            tipo_contrato.monto = $("#monto").is(":checked");
-            tipo_contrato.aceptacion = $("#aceptacion").is(":checked");
-
-            if (tipo_contrato != null) {
-                $.ajax({
-                    type: "POST",
-                    url: "/TipoContrato/agregar_tipo_contrato",
-                    data: JSON.stringify(tipo_contrato),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (response) {
-                        if (response != null) {
-                            alert("Name : " + response.Name + ", Designation : " + response.Designation + ", Location :" + response.Location);
-                        } else {
-                            alert("Something went wrong");
-                        }
-                    },
-                    failure: function (response) {
-                        alert(response.responseText);
-                    },
-                    error: function (response) {
-                        alert(response.responseText);
-                    }
-                });
-            }
-        }
-
-        function Modificar_Tipo_Contrato(id, nombre, horas, rango_documentos, monto, aceptacion) {
-
-            $("#consecutivo_tipo_contrato").val(id);
-            $("#nombre_tipo_contrato").val(nombre);
-
-            if (horas == "True") {
-                $("#horas").prop('checked', true);
-            }
-            if (rango_documentos == "True") {
-                $("#rango_documentos").prop('checked', true);
-            }
-            if (monto == "True") {
-                $("#monto").prop('checked', true);
-            }
-            if (aceptacion == "True") {
-                $("#aceptacion").prop('checked', true);
-            }
-
-            $("#boton_agregar").css("display", "none");
-            $("#botones").css("display", "block");
-            $("#consecutivo").css("display", "block");
-
-            $('#boton_multiple').text("Modificar Tipo de Contrato");
-            $('#parrafo_servicio').text("Modificar tipo de contrato actual");
-        }
-
-        function Actualizar_Tipo_Contrato() {
-            var tipo_contrato = {
-                'id_tipo_contrato': $("#consecutivo_tipo_contrato").val(),
-                'nombre': $("#nombre_tipo_contrato").val(),
-                'horas': $("#horas").is(":checked"),
-                'rango_documentos': $("#rango_documentos").is(":checked"),
-                'monto': $("#monto").is(":checked"),
-                'aceptacion': $("#aceptacion").is(":checked")
-            }
-
-            if (tipo_contrato != null) {
-                $.ajax({
-                    type: "POST",
-                    url: "/TipoContrato/modificar_tipo_contrato",
-                    data: JSON.stringify(tipo_contrato),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (response) {
-                        if (response != null) {
-                            alert("Name : " + response.Name + ", Designation : " + response.Designation + ", Location :" + response.Location);
-                        } else {
-                            alert("Something went wrong");
-                        }
-                    },
-                    failure: function (response) {
-                        alert(response.responseText);
-                    },
-                    error: function (response) {
-                        alert(response.responseText);
-                    }
-                });
-            }
-        }
-
-        $(document).ready(function () {
-            $('#select_tipo').change(function () {
-                alert("Cambie");
-                var val_select = $('#select_tipo').val();
-                var url = window.location.href;
-                var nuevaUrl = url.substring(0, url.indexOf('?'));
-                window.location.href = nuevaUrl + "?Estado=" + val_select;
-
-            });
-        });
-
-        var ShowPopup = function () {
-            alert("No tiene permisos");
-        }
 
     </script>
 </asp:Content>
