@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using Biblioteca_Clases.Models;
+using System.Data.SqlTypes;
 
 namespace Biblioteca_Clases.DAO
 {
@@ -49,10 +50,22 @@ namespace Biblioteca_Clases.DAO
                 cont.FECHA_VENCE = list.GetDateTime(4);
                 //cont.PRECIO = list.GetDouble(5);
                 cont.ESTADO = list.GetInt32(6);
-                //cont.MONTO = list.GetInt32(7);
-                //cont.HORAS = list.GetDouble(8);
-                //cont.RANGO = list.GetInt32(9);
-                //cont.HORAS_POR_CONSUMIR = list.GetDouble(10);
+                
+                if (!list.IsDBNull(7)) {
+                    cont.MONTO = list.GetInt32(7);
+                }
+                if (!list.IsDBNull(8)) {
+                    cont.HORAS = list.GetDouble(8);
+                }
+                if (!list.IsDBNull(9)) {
+                    cont.RANGO = list.GetInt32(9);
+                }
+                if (!list.IsDBNull(10)) {
+                    cont.HORAS_POR_CONSUMIR = list.GetDouble(10);
+                }                
+                cont.CLIENTE = list.GetInt32(15);
+                cont.TIPO_CONTRATO = list.GetInt32(16);
+                cont.CONTACTO = list.GetInt32(17);
                 listaContratos.Add(cont);
             }
             list.Dispose();
@@ -142,6 +155,7 @@ namespace Biblioteca_Clases.DAO
             comando.Connection = conexion;
             comando.CommandText = "execute PA_MAN_QUITAR_SERVICIOS_CONTRATO @ID_CONTRATO";
             comando.Parameters.AddWithValue("@ID_CONTRATO", servicios[0].ID_CONTRATO);
+            comando.ExecuteNonQuery();
 
             foreach (Servicio_Contrato dato in servicios)
             {

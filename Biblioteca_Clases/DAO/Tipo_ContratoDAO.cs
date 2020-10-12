@@ -102,6 +102,32 @@ namespace Biblioteca_Clases.DAO
 
         }
 
+        public Tipo_Contrato listar_TipoContrato(int id) {
+            Tipo_Contrato tipo_Contrato = new Tipo_Contrato();
+            SqlCommand comando = new SqlCommand();
+
+            comando.Connection = conexion;
+            comando.CommandText = "exec PA_CON_LISTAR_MAN_TIPO_CONTRATO_FILTRADO @PK_ID_TIPO_CONTRATO";
+            comando.Parameters.AddWithValue("@PK_ID_TIPO_CONTRATO", id);
+
+            SqlDataReader list = comando.ExecuteReader();
+            while (list.Read())
+            {
+                tipo_Contrato.ID_TIPO_CONTRATO = list.GetInt32(0);
+                tipo_Contrato.NOMBRE = list.GetString(1);
+                tipo_Contrato.ESTADO = list.GetInt32(2);
+                tipo_Contrato.HORAS = list.GetBoolean(3);
+                tipo_Contrato.RANGO_DOCUMENTOS = list.GetBoolean(4);
+                tipo_Contrato.MONTO = list.GetBoolean(5);
+                tipo_Contrato.ACEPTACION = list.GetBoolean(6);
+            }
+
+            list.Dispose();
+            comando.Dispose();
+
+            return tipo_Contrato;
+        }
+
         public int ActualizarEstadoHabilitarTipoContrato(Tipo_Contrato tipo_Contrato)
         {
             int result = 0;
@@ -113,8 +139,8 @@ namespace Biblioteca_Clases.DAO
             comando.Parameters.AddWithValue("@USUARIO", tipo_Contrato.USUARIO_MODIFICACION);
             comando.Parameters.AddWithValue("@FECHA", tipo_Contrato.FECHA_MODIFICACION);
 
-
             result = comando.ExecuteNonQuery();
+            comando.Dispose();
 
             return result;
         }
@@ -132,6 +158,7 @@ namespace Biblioteca_Clases.DAO
 
 
             result = comando.ExecuteNonQuery();
+            comando.Dispose();
 
             return result;
         }
@@ -152,6 +179,7 @@ namespace Biblioteca_Clases.DAO
             comando.Parameters.AddWithValue("@FECHA", tipo_Contrato.FECHA_CREACION);
 
             result = comando.ExecuteNonQuery();
+            comando.Dispose();
 
             return result;
         }
@@ -173,6 +201,7 @@ namespace Biblioteca_Clases.DAO
             comando.Parameters.AddWithValue("@FECHA", tipo_Contrato.FECHA_MODIFICACION);
 
             result = comando.ExecuteNonQuery();
+            comando.Dispose();
 
             return result;
         }
@@ -187,8 +216,6 @@ namespace Biblioteca_Clases.DAO
             comando.Parameters.AddWithValue("@dato1", dato1);
             comando.Parameters.AddWithValue("@dato2", dato2);
 
-
-
             SqlDataReader list = comando.ExecuteReader();
             while (list.Read())
             {
@@ -196,9 +223,9 @@ namespace Biblioteca_Clases.DAO
                 result.EDTIAR = list.GetBoolean(1);
                 result.VER = list.GetBoolean(2);
             }
+
             list.Dispose();
             comando.Dispose();
-
 
             return result;
 

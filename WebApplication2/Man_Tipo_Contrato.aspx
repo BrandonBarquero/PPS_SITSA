@@ -29,7 +29,7 @@
 
             <div class="form-group container">
                 <select class="form-control select_selecionar_proyecto" id="select_tipo">
-                    <option selected="true" disabled="disabled">Seleccione el estado:</option>
+                    <option selected disabled="disabled">Seleccione el estado:</option>
                     <option value="General">General</option>
                     <option value="Activo">Activo</option>
                     <option value="Inactivo">Inactivo</option>
@@ -141,11 +141,11 @@
                     <tr class="txt2">
                         <td><%=dato.ID_TIPO_CONTRATO%></td>
                         <td><%=dato.NOMBRE%></td>
-                        <td style="text-align: center;"><a data-toggle="modal" data-target="#detalles_tipo_contrato" onclick="edita(<%=dato.ID_TIPO_CONTRATO%>,'<%=dato.NOMBRE%>','<%=dato.HORAS%>','<%=dato.RANGO_DOCUMENTOS%>','<%=dato.MONTO%>','<%=dato.ACEPTACION%>');"><i class="fa fa-list color-icono" aria-hidden="true"></td>
+                        <td style="text-align: center;"><a data-toggle="modal" data-target="#detalles_tipo_contrato" onclick="edita(<%=dato.ID_TIPO_CONTRATO%>,'<%=dato.NOMBRE%>','<%=dato.HORAS%>','<%=dato.RANGO_DOCUMENTOS%>','<%=dato.MONTO%>','<%=dato.ACEPTACION%>');"/><i class="fa fa-list color-icono" aria-hidden="true"/></td>
                         <%if (Permisos.EDTIAR == true)
                             { %>
-                        <td style="text-align: center;"><a href="#" onclick="Modificar_Tipo_Contrato(<%=dato.ID_TIPO_CONTRATO%>,'<%=dato.NOMBRE%>','<%=dato.HORAS%>','<%=dato.RANGO_DOCUMENTOS%>','<%=dato.MONTO%>','<%=dato.ACEPTACION%>');" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-con><i class="fa fa-edit color-icono" aria-hidden="true"></td>
-                        <td style="text-align: center;"><a href="#">
+                        <td style="text-align: center;"><a href="#" onclick="Modificar_Tipo_Contrato(<%=dato.ID_TIPO_CONTRATO%>,'<%=dato.NOMBRE%>','<%=dato.HORAS%>','<%=dato.RANGO_DOCUMENTOS%>','<%=dato.MONTO%>','<%=dato.ACEPTACION%>');" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios" /><i class="fa fa-edit color-icono" aria-hidden="true"/></td>
+                        <td style="text-align: center;"><a href="#"/>
                             <div class="custom-control custom-switch">
                                 <% if (dato.ESTADO == 1)
                                     {
