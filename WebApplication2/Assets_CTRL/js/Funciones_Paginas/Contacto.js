@@ -165,13 +165,6 @@ function Agrega_Contacto() {
 
             if (isConfirm) {
 
-                if ($("#encargado").val() == "" || $("#telefono").val() == "") {
-
-                    swal("Here's a message!")
-
-
-                }
-
                 if (contacto != null) {
                     $.ajax({
                         type: "POST",
@@ -218,31 +211,7 @@ var ShowPopup = function () {
 
 }
 
-/*Validaciones*/
 
-$('#encargado').on('input', function (e) {
-    if (!/^[ a-zαινσϊόρ]*$/i.test(this.value)) {
-        this.value = this.value.replace(/[^ a-zαινσϊόρ]+/ig, "");
-    }
-});
-
-$('#telefono').on('input', function (e) {
-    if (!/^[ 0-9]*$/i.test(this.value)) {
-        this.value = this.value.replace(/[^ 0-9]+/ig, "");
-    }
-});
-
-$('#correo').on('input', function (e) {
-    if (!/^[ a-z0-9αινσϊόρ@._]*$/i.test(this.value)) {
-        this.value = this.value.replace(/[^ a-z0-9αινσϊόρ@._]+/ig, "");
-    }
-});
-
-$('#tipo_encargado').on('input', function (e) {
-    if (!/^[ a-zαινσϊόρ]*$/i.test(this.value)) {
-        this.value = this.value.replace(/[^ a-zαινσϊόρ]+/ig, "");
-    }
-});
 
 
 function Validar_Campo() {

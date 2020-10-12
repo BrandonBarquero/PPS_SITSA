@@ -53,6 +53,11 @@ namespace WebApplication2
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Contrato", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+              name: "Fase_Tiempo",
+              url: "{controller}/{action}/{id}",
+              defaults: new { controller = "Fase_Tiempo", action = "Index", id = UrlParameter.Optional }
+          );  
         }
     }
 }
