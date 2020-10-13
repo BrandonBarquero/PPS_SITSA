@@ -34,3 +34,11 @@ C:\Users\eduar\source\repos\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Cla
 C:\Users\eduar\source\repos\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.dll
 C:\Users\eduar\source\repos\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.pdb
 C:\Users\eduar\source\repos\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csprojAssemblyReference.cache
+C:\Users\allan\source\repos\Nueva carpeta\PPS_SITSA\PPS_SITSA\Biblioteca_Clases\bin\Debug\Biblioteca_Clases.dll
+C:\Users\allan\source\repos\Nueva carpeta\PPS_SITSA\PPS_SITSA\Biblioteca_Clases\bin\Debug\Biblioteca_Clases.pdb
+C:\Users\allan\source\repos\Nueva carpeta\PPS_SITSA\PPS_SITSA\Biblioteca_Clases\bin\Debug\Newtonsoft.Json.dll
+C:\Users\allan\source\repos\Nueva carpeta\PPS_SITSA\PPS_SITSA\Biblioteca_Clases\bin\Debug\Newtonsoft.Json.xml
+C:\Users\allan\source\repos\Nueva carpeta\PPS_SITSA\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csproj.CoreCompileInputs.cache
+C:\Users\allan\source\repos\Nueva carpeta\PPS_SITSA\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csproj.CopyComplete
+C:\Users\allan\source\repos\Nueva carpeta\PPS_SITSA\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.dll
+C:\Users\allan\source\repos\Nueva carpeta\PPS_SITSA\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.pdb
