@@ -247,10 +247,13 @@
     <Content Include="Assets_CTRL\js\bootstrap.js" />
     <Content Include="Assets_CTRL\js\bootstrap.min.js" />
     <Content Include="Assets_CTRL\js\bootstrap2.min.js" />
+    <Content Include="Assets_CTRL\js\cdn.datatables.js" />
+    <Content Include="Assets_CTRL\js\cdn.datatables.net.js" />
     <Content Include="Assets_CTRL\js\chosenSelect.js" />
     <Content Include="Assets_CTRL\js\Combo\Multiple\chosenSelect.js" />
     <Content Include="Assets_CTRL\js\Combo\Multiple\fSelect.js" />
     <Content Include="Assets_CTRL\js\FuncionesGenerales.js" />
+    <Content Include="Assets_CTRL\js\Funciones_Paginas\Proyecto.js" />
     <Content Include="Assets_CTRL\js\Funciones_Paginas\Tipo_Contrato.js" />
     <Content Include="Assets_CTRL\js\Funciones_Paginas\Usuario.js" />
     <Content Include="Assets_CTRL\js\Funciones_Paginas\Servicio.js" />
