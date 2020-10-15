@@ -165,13 +165,6 @@ function Agrega_Contacto() {
 
             if (isConfirm) {
 
-                if ($("#encargado").val() == "" || $("#telefono").val() == "") {
-
-                    swal("Here's a message!")
-
-
-                }
-
                 if (contacto != null) {
                     $.ajax({
                         type: "POST",

@@ -6,7 +6,6 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
      <div class="container-mant">
 
 
@@ -110,6 +109,8 @@
             <th>Inhabilitar</th>
           </tr>
         </thead>
+
+
 
         <tbody>    
         </tbody>

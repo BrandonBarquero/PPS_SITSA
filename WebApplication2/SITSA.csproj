@@ -131,6 +131,7 @@
     <Compile Include="Controllers\ContactoController.cs" />
     <Compile Include="Controllers\ContratoController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\Fase_TiempoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProyectoController.cs" />
     <Compile Include="Controllers\ServicioController.cs" />
@@ -250,6 +251,9 @@
     <Content Include="Assets_CTRL\js\Combo\Multiple\chosenSelect.js" />
     <Content Include="Assets_CTRL\js\Combo\Multiple\fSelect.js" />
     <Content Include="Assets_CTRL\js\FuncionesGenerales.js" />
+    <Content Include="Assets_CTRL\js\Funciones_Paginas\Tipo_Contrato.js" />
+    <Content Include="Assets_CTRL\js\Funciones_Paginas\Usuario.js" />
+    <Content Include="Assets_CTRL\js\Funciones_Paginas\Servicio.js" />
     <Content Include="Assets_CTRL\js\Funciones_Paginas\Contacto.js" />
     <Content Include="Assets_CTRL\js\jquery.dataTables.min.js" />
     <Content Include="Assets_CTRL\js\main.js" />
@@ -443,6 +447,7 @@
     <Folder Include="Views\Cliente\" />
     <Folder Include="Views\Contacto\" />
     <Folder Include="Views\Contrato\" />
+    <Folder Include="Views\Fase_Tiempo\" />
     <Folder Include="Views\Proyecto\" />
     <Folder Include="Views\Servicio\" />
     <Folder Include="Views\Usuario\" />

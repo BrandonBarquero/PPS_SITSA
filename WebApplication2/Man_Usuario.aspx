@@ -7,6 +7,7 @@
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+    <script src="Assets_CTRL/js/Funciones_Paginas/Usuario.js"></script>
 
      <div class="container-mant">
 
@@ -60,6 +61,10 @@
 
 
   <div class="card card-body txt2">
+
+      <div style="display: none; text-align: center;" id="error_campos_vacios" class="alert alert-warning">
+                 <strong>¡Cuidado!</strong> Campos sin completar.
+                      </div>
  
 
                 <p id="parrafo_servicio">Ingresar un nuevo usuario</p>
@@ -67,7 +72,7 @@
 
               <div class="form-group">
                 <label> Cédula:</label>
-                <input type="text" class="form-control" id="cedula">
+                <input onblur="Validar_Campo()" maxlength="10" type="text" class="form-control" id="cedula">
               </div>
                 <div style="display: none;" id="error_contrasenna" class="alert alert-danger">
               
@@ -76,12 +81,12 @@
                
               <div class="form-group">
                 <label> Nombre:</label>
-                <input type="text" class="form-control" id="nombre">
+                <input onblur="Validar_Campo()" maxlength="100" type="text" class="form-control" id="nombre">
               </div>
 
               <div class="form-group">
                 <label> Correo:</label>
-                <input type="email" class="form-control" id="email">
+                <input onblur="Validar_Campo()" maxlength="100" type="email" class="form-control" id="email">
               </div>
                 <div style="display: none;" id="error_email" class="alert alert-danger">
               
@@ -92,7 +97,7 @@
             <label> Seleccionar Perfil:</label>
 
                 
-                 <input class="form-control" list="perfil_usuario" id="perfil">
+                 <input onblur="Validar_Campo()" maxlength="100" class="form-control" list="perfil_usuario" id="perfil">
 
                         <datalist id="perfil_usuario">
               <%
@@ -115,11 +120,11 @@
 
                          <div id="boton_enviar" style="text-align: center">
 
-                        <button onclick="Agregar_Usuario()" type="submit" class="popup-btn">Agregar</button>
+                        <button disabled onclick="Agregar_Usuario()" id="agregar_usuario" type="button" class="popup-btn">Agregar</button>
                     </div>
 
                     <div id="botones" style="display: none; text-align: center;">
-                        <button onclick="Actualizar_Usuario()" type="submit" id="boton_modificar" class="popup-btn">Modificar</button>
+                        <button disabled onclick="Actualizar_Usuario()" type="button" id="modificar_usuario" class="popup-btn">Modificar</button>
                         <button id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
                     </div>
 
@@ -252,222 +257,31 @@
     
   <script>
 
+      /*Validaciones*/
 
-      function toggle(checked) {
-          var x = document.getElementById("1").checked;
-          if (x == true) {
-              window.alert("true");
+      $('#cedula').on('input', function (e) {
+          if (!/^[ 0-9]*$/i.test(this.value)) {
+              this.value = this.value.replace(/[^ 0-9]+/ig, "");
           }
-
-          else if (x == false) {
-              window.alert("false");
-          }
-      }
-
-      var cedula_N;
-      function Funcion(dato, dato2, dato3, dato4) {
-
-          $("#cedula2").val(dato);
-          $("#nombre2").val(dato2);
-          $("#correo2").val(dato3);
-          $("#perfil2").val(dato4);
-      }
-      function Modificar_Usuario(dato, dato2, dato3, dato4) {
-
-          $("#cedula").val(dato);
-          $("#nombre").val(dato2);
-          $("#email").val(dato3);
-          $("#perfil").val(dato4);
-
-
-          $("#boton_enviar").css("display", "none");
-          $("#botones").css("display", "block");
-          $("#cedula").attr("readonly", "true");
-
-          $('#boton_multiple').text("Modificar Usuario");
-          $('#parrafo_servicio').text("Modificar usuario actual");
-      }
-
-      $(document).ready(function () {
-          $('#cedula').change(function () {
-              var cedula = $('#cedula').val();
-              $.ajax({
-                  type: 'post',
-                  data: { cedula: cedula },
-                  url: '/Default/verificacedula',
-                  success: function (result) {
-                      if (result == "fail") {
-                          $("#error_contrasenna").css("display", "none");
-                      }
-                      else {
-                          if (cedula != cedula_N) {
-                              $("#error_contrasenna").css("display", "block");
-                          }
-                          if (cedula == cedula_N) {
-                              $("#error_contrasenna").css("display", "none");
-                          }
-                      }
-                  }
-              });
-          });
       });
 
-
-      $(document).ready(function () {
-          $('#email').change(function () {
-              var email = $('#email').val();
-              $.ajax({
-                  type: 'post',
-                  data: { email: email },
-                  url: '/Default/verificaemail',
-                  success: function (result) {
-                      if (result == "fail") {
-                          $("#error_email").css("display", "none");
-                      }
-                      else {
-                          if (cedula != cedula_N) {
-                              $("#error_email").css("display", "block");
-                          }
-                          if (cedula == cedula_N) {
-                              $("#error_email").css("display", "none");
-                          }
-                      }
-                  }
-              });
-          });
+      $('#nombre').on('input', function (e) {
+          if (!/^[ a-záéíóúüñ]*$/i.test(this.value)) {
+              this.value = this.value.replace(/[^ a-záéíóúüñ]+/ig, "");
+          }
       });
 
-
-      function Agregar_Usuario() {
-
-          var usuario = new Object();
-          usuario.cedula = $("#cedula").val();
-          usuario.nombre = $("#nombre").val();
-          usuario.correo = $("#email").val();
-          usuario.fk_perfil = $("#perfil").val();
-          
-
-          if (usuario != null) {
-              $.ajax({
-                  type: "POST",
-                  url: "/Usuario/agregar_usuario",
-                  data: JSON.stringify(usuario),
-                  contentType: "application/json; charset=utf-8",
-                  dataType: "json",
-                  success: function (response) {
-                      if (response != null) {
-                          alert("Name : " + response.Name + ", Designation : " + response.Designation + ", Location :" + response.Location);
-                         
-                      } else {
-                          alert("Something went wrong");
-                      }
-                  },
-                  failure: function (response) {
-                      alert(response.responseText);
-                  },
-                  error: function (response) {
-                      alert(response.responseText);
-                  }
-              });
+      $('#email').on('input', function (e) {
+          if (!/^[ a-z0-9áéíóúüñ@._]*$/i.test(this.value)) {
+              this.value = this.value.replace(/[^ a-z0-9áéíóúüñ@._]+/ig, "");
           }
-      }
-
-      function Actualizar_Usuario() {
-
-          var usuario = new Object();
-          usuario.cedula = $("#cedula").val();
-          usuario.nombre = $("#nombre").val();
-          usuario.correo = $("#email").val();
-          usuario.fk_perfil = $("#perfil").val();
-
-
-          if (usuario != null) {
-              $.ajax({
-                  type: "POST",
-                  url: "/Usuario/actualizar_usuario",
-                  data: JSON.stringify(usuario),
-                  contentType: "application/json; charset=utf-8",
-                  dataType: "json",
-                  success: function (response) {
-                      if (response != null) {
-                          alert("Name : " + response.Name + ", Designation : " + response.Designation + ", Location :" + response.Location);
-                      } else {
-                          alert("Something went wrong");
-                      }
-                  },
-                  failure: function (response) {
-                      alert(response.responseText);
-                  },
-                  error: function (response) {
-                      alert(response.responseText);
-                  }
-              });
-          }
-      }
-
-      $(document).ready(function () {
-          $('#select_usuario').change(function () {
-
-              var val_select = $('#select_usuario').val();
-              var url = window.location.href;
-              var nuevaUrl = url.substring(0, url.indexOf('?'));
-              window.location.href = nuevaUrl + "?Estado=" + val_select;
-
-          });
       });
 
-      function estado(dato_id, cedula) {
-
-        
-
-          var id_usuario = dato_id;
-          var cedula_id = cedula;
-
-          $("#" + cedula_id).on('change', function () {
-              if ($(this).is(':checked')) {
-                  $.ajax({
-                      type: "post",
-                      url: "/Usuario/actualizar_estado_Habilitar_Usuario",
-                      data: {
-                          id_usuario: id_usuario,
-
-                      },
-                      success: function (result) {
-                          if (result == "fail") {
-
-                          }
-                          else {
-                              window.alert("exito");
-                          }
-                      }
-                  })
-
-              } else {
-                  $.ajax({
-                      type: "post",
-                      url: "/Usuario/actualizar_estado_deshabilitar_Usuario",
-                      data: {
-                          id_usuario: id_usuario,
-                      },
-                      success: function (result) {
-                          if (result == "fail") {
-
-                          }
-                          else {
-                              window.alert("exito");
-                          }
-                      }
-                  })
-
-              }
-          });
-      };
-
-      var ShowPopup = function () {
-          alert("No tiene permisos");
-
-      }
-
+      $('#perfil').on('input', function (e) {
+          if (!/^[ 0-9]*$/i.test(this.value)) {
+              this.value = this.value.replace(/[^ 0-9]+/ig, "");
+          }
+      });
   </script>
 </asp:Content>
 

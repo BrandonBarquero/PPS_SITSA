@@ -19,6 +19,14 @@ namespace WebApplication2.Controllers
             return View();
         }
 
+        public JsonResult listar_tipo_contrato(int id) {
+
+            Tipo_ContratoDAO dao_tipo_contrato = new Tipo_ContratoDAO();
+            Tipo_Contrato tipo_Contrato = dao_tipo_contrato.listar_TipoContrato(id);
+
+            return Json(tipo_Contrato, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult actualizar_estado_Habilitar_Tipo_Contrato(int id_tipo_contrato)
         {
             string validacion = "fail";
@@ -64,20 +72,13 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public JsonResult agregar_tipo_contrato(Tipo_Contrato tipo)
         {
-            var
-             t = tipo;string validacion = "fail";
+            string validacion = "fail";
             Fecha fecha = new Fecha();
 
-            Tipo_Contrato tipo_Contrato = new Tipo_Contrato();
-            tipo_Contrato.NOMBRE = t.NOMBRE;
-            tipo_Contrato.HORAS = t.HORAS;
-            tipo_Contrato.RANGO_DOCUMENTOS = t.RANGO_DOCUMENTOS;
-            tipo_Contrato.MONTO = t.MONTO;
-            tipo_Contrato.ACEPTACION = t.ACEPTACION;
-            tipo_Contrato.FECHA_CREACION = fecha.fecha();
-            tipo_Contrato.USUARIO_CREACION = (string)(Session["User"]);
+            tipo.FECHA_CREACION = fecha.fecha();
+            tipo.USUARIO_CREACION = (string)(Session["User"]);
 
-            int result = dao_tipo_contrato.AgregarTipoContrato(tipo_Contrato);
+            int result = dao_tipo_contrato.AgregarTipoContrato(tipo);
 
             if (result == 1)
             {
@@ -89,21 +90,13 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public JsonResult modificar_tipo_contrato(Tipo_Contrato tipo)
         {
-            var t = tipo;
             string validacion = "fail";
             Fecha fecha = new Fecha();
 
-            Tipo_Contrato tipo_Contrato = new Tipo_Contrato();
-            tipo_Contrato.ID_TIPO_CONTRATO = t.ID_TIPO_CONTRATO;
-            tipo_Contrato.NOMBRE = t.NOMBRE;
-            tipo_Contrato.HORAS = t.HORAS;
-            tipo_Contrato.RANGO_DOCUMENTOS = t.RANGO_DOCUMENTOS;
-            tipo_Contrato.MONTO = t.MONTO;
-            tipo_Contrato.ACEPTACION = t.ACEPTACION;
-            tipo_Contrato.FECHA_MODIFICACION = fecha.fecha();
-            tipo_Contrato.USUARIO_MODIFICACION = (string)(Session["User"]);
+            tipo.FECHA_MODIFICACION = fecha.fecha();
+            tipo.USUARIO_MODIFICACION = (string)(Session["User"]);
 
-            int result = dao_tipo_contrato.ModificarTipoContrato(tipo_Contrato);
+            int result = dao_tipo_contrato.ModificarTipoContrato(tipo);
 
             if (result == 1)
             {

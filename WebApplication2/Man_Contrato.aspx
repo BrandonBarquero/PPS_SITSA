@@ -68,7 +68,6 @@
                         </div>
 
                         <div class="form-group col-12 col-md-6" style="display: none;" id="aux">
-                            
                         </div>
 
                         <div class="col-12 col-md-6">
@@ -226,29 +225,11 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Descripción</th>
-                                <th>Inhabilitar</th>
+                                <th>Eliminar</th>
                             </tr>
                         </thead>
 
                         <tbody>
-
-                            <%--<%
-                                    List<Biblioteca_Clases.Models.Servicio> list = new List<Biblioteca_Clases.Models.Servicio>();
-                                    Biblioteca_Clases.DAO.ServicioDAO servicioDao = new Biblioteca_Clases.DAO.ServicioDAO();
-                                    list = servicioDao.listaServicios();
-
-                                    int autoincrement = 0;
-                                    foreach (var dato in list)
-                                    {
-                                        autoincrement = autoincrement + 1;
-                                %>
-
-                                <tr class="txt2">
-                                    <td><%=dato.ID_SERVICIO%></td>
-                                    <td><%=dato.DESCRIPCION%></td>
-                                    <td style="text-align: center;"><a href="#"><i class="fas fa-ban color-icono" aria-hidden="true"></td>
-                                </tr>
-                                <%}%>--%>
                         </tbody>
 
                     </table>
@@ -256,6 +237,7 @@
 
                     <div id="boton_enviar" style="display: block; text-align: center">
                         <button onclick="Agregar_Contrato()" id="boton_agregar" type="submit" class="popup-btn">Agregar</button>
+                        <button id="boton_cancelar1" type="submit" class="popup-btn">Cancelar</button>
                     </div>
 
                     <div id="botones" style="display: none; text-align: center;">
@@ -265,7 +247,7 @@
 
                     <br>
                 </div>
-                <
+              
             </div>
 
             <br>
@@ -304,24 +286,25 @@
                     <tr class="txt2">
                         <td><%=dato.ID_CONTRATO%></td>
                         <td><%=dato.NOMBRE_CONTRATO%></td>
-                        <td style="text-align: center;"><a href="#"><i class="fa fa-list color-icono" aria-hidden="true"></td>
+                        <td style="text-align: center;"><a data-toggle="modal" data-target="#detalles_contrato" onclick="detalla(<%=dato.ID_CONTRATO%>,<%=dato.CLIENTE%>,'<%=dato.NOMBRE_CONTRATO%>','<%=dato.DESCRIPCION%>',<%=dato.CONTACTO%>,'<%=dato.FECHA_INICIO%>','<%=dato.FECHA_VENCE%>',<%=dato.TIPO_CONTRATO%>, <%=dato.HORAS%>, <%=dato.MONTO%>, <%=dato.RANGO%>);" /><i class="fa fa-list color-icono" aria-hidden="true" /></td>
                         <%if (Permisos.EDTIAR == true)
                             { %>
-                        <td style="text-align: center;"><a onclick="editar(<%=dato.ID_CONTRATO%>,'<%=dato.CLIENTE%>','<%=dato.NOMBRE_CONTRATO%>','<%=dato.DESCRIPCION%>','<%=dato.CONTACTO%>','<%=dato.FECHA_INICIO%>','<%=dato.FECHA_VENCE%>','<%=dato.TIPO_CONTRATO%>');" href="#" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios"><i class="fa fa-edit color-icono" aria-hidden="true"></td>
-                        <td style="text-align: center;"><a href="#">
+                        <td style="text-align: center;"><a onclick="editar(<%=dato.ID_CONTRATO%>,<%=dato.CLIENTE%>,'<%=dato.NOMBRE_CONTRATO%>','<%=dato.DESCRIPCION%>',<%=dato.CONTACTO%>,'<%=dato.FECHA_INICIO%>','<%=dato.FECHA_VENCE%>',<%=dato.TIPO_CONTRATO%>, <%=dato.HORAS%>, <%=dato.MONTO%>, <%=dato.RANGO%>);" href="#" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios" /><i class="fa fa-edit color-icono" aria-hidden="true" /></td>
+                        <td style="text-align: center;"><a href="#" />
                             <div class="custom-control custom-switch">
                                 <% if (dato.ESTADO == 1)
                                     {
                                 %>
-                                <input onclick="estado(<%=dato.ID_CONTRATO%>)" type="checkbox" checked class="custom-control-input" id="<%=dato.ID_CONTRATO%>">
+                                <input onclick="estado(<%=dato.ID_CONTRATO%>);" type="checkbox" checked class="custom-control-input" id="<%=dato.ID_CONTRATO%>">
                                 <%}
                                     else if (dato.ESTADO == 0)
                                     {
                                 %>
-                                <input onclick="estado(<%=dato.ID_CONTRATO%>)" type="checkbox" class="custom-control-input" id="<%=dato.ID_CONTRATO%>">
+                                <input onclick="estado(<%=dato.ID_CONTRATO%>);" type="checkbox" class="custom-control-input" id="<%=dato.ID_CONTRATO%>">
                                 <%}%>
                                 <label class="custom-control-label" for="<%=dato.ID_CONTRATO%>" />
-                            </div></td>
+                            </div>
+                        </td>
                         <%}%>
                     </tr>
 
@@ -352,6 +335,93 @@
     </div>
     <!--Container mant-->
 
+    <!--Popup Detalle-->
+    <div id="detalles_contrato" class="modal fade bd-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+
+                <div class="modal-header popup-estilo-head">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body popup-estilo">
+
+                    <!-- <form role="form" method="post" id="form_tipo_proyecto_detalle">-->
+
+                    <p>Información tipo de contrato</p>
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label>Consecutivo:</label>
+                            <input type="text" class="form-control" id="d_consecutivo_contrato" name="d_consecutivo_contrato" readonly="">
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label>Cliente:</label>
+                            <input type="text" class="form-control" id="d_cliente_contrato" name="d_cliente_contrato" readonly="">
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label>Nombre del de contrato:</label>
+                            <input type="text" class="form-control" id="d_nombre_contrato" name="d_nombre_contrato" readonly="">
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-8">
+                            <label>Descripción del de contrato:</label>
+                            <textarea class="md-textarea form-control" id="d_descripcion_contrato" name="d_descripcion_contrato" rows="3" readonly=""></textarea>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label>Contacto del de contrato:</label>
+                            <input type="text" class="form-control" id="d_contacto_contrato" name="d_contacto_contrato" readonly="">
+                        </div>
+                    </div>
+
+                    <div class="row">    
+                        <div class="form-group col-md-4">
+                            <label>Fecha inicio del de contrato:</label>
+                            <input type="text" class="form-control" id="d_inicio_contrato" name="d_inicio_contrato" readonly="">
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label>Fecha fin del de contrato:</label>
+                            <input type="text" class="form-control" id="d_fin_contrato" name="d_fin_contrato" readonly="">
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label>Tipo de contrato:</label>
+                            <input type="text" class="form-control" id="d_tipo_contrato" name="d_tipo_contrato" readonly="">
+                        </div>
+                    </div>
+
+                    <div class="row">   
+                        <div class="form-group col-md-4" id="d_div_horas" style="display: none">
+                            <label>Horas de contrato:</label>
+                            <input type="text" class="form-control" id="d_horas_contrato" name="d_horas_contrato" readonly="">
+                        </div>
+
+                        <div class="form-group col-md-4" id="d_div_monto" style="display: none">
+                            <label>Monto de contrato:</label>
+                            <input type="text" class="form-control" id="d_monto_contrato" name="d_monto_contrato" readonly="">
+                        </div>
+
+                        <div class="form-group col-md-4" id="d_div_rango" style="display: none">
+                            <label>Rango de documentos de contrato:</label>
+                            <input type="text" class="form-control" id="d_rango_contrato" name="d_rango_contrato" readonly="">
+                        </div>
+                    </div>
+
+                    <!--</form>-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Fin Popup Detalle-->
 
     <!--Script Tabla-->
     <script type="text/javascript">
@@ -360,6 +430,14 @@
         });
 
         var servicios = [];
+
+        var g_tipo_contrato = new Object();
+        g_tipo_contrato.ID_TIPO_CONTRATO = '';
+        g_tipo_contrato.NOMBRE = '';
+        g_tipo_contrato.ESTADO = '';
+        g_tipo_contrato.HORAS = '';
+        g_tipo_contrato.RANGO_DOCUMENTOS = '';
+        g_tipo_contrato.MONTO = '';
 
         function estado(dato_id) {
 
@@ -384,7 +462,6 @@
                     })
 
                 } else {
-                    alert("Voy a desactivar " + id_contrato);
                     $.ajax({
                         type: "post",
                         url: "/Contrato/actualizar_estado_deshabilitar_Contrato",
@@ -445,8 +522,7 @@
 
         }
 
-        function editar(id_contrato, cliente, nombre_contrato, descripcion, contacto, fecha_inicio, fecha_vence, tipo_contrato) {
-            alert(cliente + "-" + contacto);
+        function editar(id_contrato, cliente, nombre_contrato, descripcion, contacto, fecha_inicio, fecha_vence, tipo_contrato, horas, monto, rango) {
             $("#cliente_contrato").val(cliente);
             $("#nombre_contrato").val(nombre_contrato);
             $("#descripcion_contrato").val(descripcion);
@@ -460,6 +536,8 @@
 
             $('#fecha_inicio').val(fecha_i);
             $('#fecha_vencimiento').val(fecha_v);
+
+            lista_tipo_contrato(tipo_contrato, horas, monto, rango, 1);
 
             $("#boton_agregar").css("display", "none");
             $("#botones").css("display", "block");
@@ -479,13 +557,6 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 beforeSend: function () {
-                    //alert("Procesando, espere por favor...");
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Cargando...',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
                 },
                 success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
                     response.forEach(pinta);
@@ -502,6 +573,67 @@
 
         }
 
+        function lista_tipo_contrato(id_tipo_contrato, horas, monto, rango, opcion) {
+            $.ajax({
+                type: "POST",
+                url: "/TipoContrato/listar_tipo_contrato",
+                data: JSON.stringify({
+                    id: id_tipo_contrato,
+                }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+
+                    g_tipo_contrato = response;
+
+                    alert(g_tipo_contrato.HORAS + " " + g_tipo_contrato.MONTO + " " + g_tipo_contrato.RANGO_DOCUMENTOS);
+
+                    if (opcion == 1) {
+                        if (g_tipo_contrato.HORAS == true) {
+                            $("#div_horas").css("display", "block");
+                            $("#horas_contrato").val(horas);
+                        }
+
+                        if (g_tipo_contrato.MONTO == true) {
+                            $("#div_monto").css("display", "block");
+                            $("#monto_contrato").val(monto);
+                        }
+
+                        if (g_tipo_contrato.RANGO_DOCUMENTOS == true) {
+                            $("#div_rango").css("display", "block");
+                            $("#rango_contrato").val(rango);
+                        }
+                    }
+                    else if (opcion == 2) {
+                        $("#d_div_horas").css("display", "none");
+                        $("#d_div_monto").css("display", "none");
+                        $("#d_div_rango").css("display", "none");
+
+                        if (g_tipo_contrato.HORAS == true) {
+                            $('#d_horas_contrato').val(horas);
+                            $("#d_div_horas").css("display", "block");
+                        }
+                        if (g_tipo_contrato.MONTO == true) {
+                            $('#d_monto_contrato').val(monto);
+                            $("#d_div_monto").css("display", "block");
+                        }
+                        if (g_tipo_contrato.RANGO_DOCUMENTOS == true) {
+                            $('#d_rango_contrato').val(rango)
+                            $("#d_div_rango").css("display", "block");
+                        }      
+                    }
+                },
+                failure: function (response) {
+                    alert("failure");
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert("Error");
+                    alert(response.responseText);
+                }
+            });
+        }
+
         function Actualizar_Contrato() {
             var contrato = new Object();
             contrato.id_contrato = $("#consecutivo_contrato").val();
@@ -515,7 +647,7 @@
             contrato.horas = $("#horas_contrato").val();
             contrato.monto = $("#monto_contrato").val();
             contrato.rango = $("#rango_contrato").val();
-            
+
             if (contrato != null) {
                 $.ajax({
                     type: "POST",
@@ -543,14 +675,26 @@
 
         function pinta(data) {
             servicios.push(data.ID_SERVICIO);
-            alert(data.ID_SERVICIO + ' - ' + data.DESCRIPCION);
             var htmlTags = '<tr id=' + data.ID_SERVICIO + '>' +
                 '<td>' + data.ID_SERVICIO + '</td>' +
                 '<td>' + data.DESCRIPCION + '</td>' +
-                '<td style="text-align: center;"><a href="#"><i class="fas fa-ban color-icono" aria-hidden="true"></td>' +
+                '<td style="text-align: center;"><a onclick="elimina(' + data.ID_SERVICIO + ');"><i class="fas fa-trash color-icono" aria-hidden="true"></td>' +
                 '</tr>';
 
             $('#t_servicios tbody').append(htmlTags);
+        }
+
+        function elimina(data) {
+            $("#" + data).remove();
+            for (let i = 0; i < servicios.length; i++) {
+                if (servicios[i] == data) {
+                    if (i == 0) {
+                        servicios.shift();
+                    } else {
+                        servicios.splice(i, i);
+                    }
+                }
+            }
         }
 
         function formatea_fecha(fecha) {
@@ -596,7 +740,7 @@
             });
         });
 
-        $(document).ready(function () {            
+        $(document).ready(function () {
             $('#tipo_contrato').change(function () {
                 $("#div_rango").css("display", "none");
                 $("#div_monto").css("display", "none");
@@ -609,29 +753,46 @@
 
                 if (arreglo_tipo[1] == "True") {
                     $("#div_horas").css("display", "block");
-                } 
+                }
                 if (arreglo_tipo[2] == "True") {
                     $("#div_rango").css("display", "block");
                 }
                 if (arreglo_tipo[3] == "True") {
                     $("#div_monto").css("display", "block");
-                } 
+                }
 
             });
         });
 
         function Agregar_Servicio() {
+            var ser = parseInt($('#servicio_contrato').val());
+            if (servicios.includes(ser)) {
+                alert("Ya existe el servicio");
+                return;
+            } else {
+                servicios.push($('#servicio_contrato').val());
 
-            servicios.push($('#servicio_contrato').val());
+                var htmlTags = '<tr id=' + $('#servicio_contrato').val() + '>' +
+                    '<td>' + $('#servicio_contrato').val() + '</td>' +
+                    '<td>' + $('#descripcion_servicio').val() + '</td>' +
+                    '<td style="text-align: center;"><a onclick="elimina(' + $('#servicio_contrato').val() + ');"><i class="fas fa-trash color-icono" aria-hidden="true"></td>' +
+                    '</tr>';
 
-            var htmlTags = '<tr id=' + $('#servicio_contrato').val() + '>' +
-                '<td>' + $('#servicio_contrato').val() + '</td>' +
-                '<td>' + $('#descripcion_servicio').val() + '</td>' +
-                '<td style="text-align: center;"><a href="#"><i class="fas fa-ban color-icono" aria-hidden="true"></td>' +
-                '</tr>';
+                $('#t_servicios tbody').append(htmlTags);
+            }
+        }
 
-            $('#t_servicios tbody').append(htmlTags);
+        function detalla(id_contrato, cliente, nombre_contrato, descripcion, contacto, fecha_inicio, fecha_vence, tipo_contrato, horas, monto, rango) {
+            $('#d_consecutivo_contrato').val(id_contrato);
+            $('#d_cliente_contrato').val(cliente);
+            $('#d_nombre_contrato').val(nombre_contrato);
+            $('#d_descripcion_contrato').val(descripcion);
+            $('#d_contacto_contrato').val(contacto);
+            $('#d_inicio_contrato').val(fecha_inicio);
+            $('#d_fin_contrato').val(fecha_vence);
+            $('#d_tipo_contrato').val(tipo_contrato);
 
+            lista_tipo_contrato(tipo_contrato, horas, monto, rango, 2);            
         }
 
         var ShowPopup = function () {

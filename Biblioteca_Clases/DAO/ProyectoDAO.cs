@@ -122,7 +122,6 @@ namespace Biblioteca_Clases.DAO
             list.Dispose();
             comando.Dispose();
 
-
             return result;
 
         }

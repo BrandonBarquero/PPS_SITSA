@@ -48,6 +48,7 @@
     <Compile Include="DAO\ClienteDAO.cs" />
     <Compile Include="DAO\Cliente_ServicioDAO.cs" />
     <Compile Include="DAO\ContactoDAO.cs" />
+    <Compile Include="DAO\Fase_TiempoDAO.cs" />
     <Compile Include="DAO\ProyectoDAO.cs" />
     <Compile Include="DAO\ServicioDAO.cs" />
     <Compile Include="DAO\Tipo_ContratoDAO.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Models\Contacto.cs" />
     <Compile Include="Models\Contrato.cs" />
     <Compile Include="DAO\ContratoDAO.cs" />
+    <Compile Include="Models\Fase_Tiempo.cs" />
     <Compile Include="Models\Fecha.cs" />
     <Compile Include="DAO\LoginDAO.cs" />
     <Compile Include="DAO\Mail.cs" />
