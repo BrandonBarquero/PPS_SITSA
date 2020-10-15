@@ -26,7 +26,7 @@
    <div id="accordion">
         <div class="card">
 
-<div class="collapse show" id="collapseServicios" aria-expanded="false" aria-labelledby="headingOne" data-parent="#accordion">
+<div class="collapse hide" id="collapseServicios" aria-expanded="false" aria-labelledby="headingOne" data-parent="#accordion">
   <div id="prueba11" class="card card-body txt2">
 
 
@@ -171,7 +171,7 @@
     
         <div class="row">
 
-         <div  id="a" style="" class="col-12 col-md-6">
+         <div  id="a" style="" class="col-12 col-md-12">
 
           <div  class="form-group">
             <label> Seleccionar Contacto:</label>
@@ -294,6 +294,10 @@
 
           $(document).ready(function () {
               $('#tabla-mant').DataTable();
+
+              $('#collapseServicios').collapse({
+                  toggle: false
+              })
           });
 
 

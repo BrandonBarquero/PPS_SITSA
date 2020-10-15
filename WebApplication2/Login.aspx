@@ -134,8 +134,23 @@
             <div class="modal-body popup-estilo">
                
               <form role="form" method="post" id="form_usuario_recuperar_contrasenna">
-                   <div id="msg2"><ul style="color:red;">Correo enviado, reviselo</ul></div>
-                   <div id="msg1"><ul style="color:red;">Correo no valido</ul></div>
+                   <div id="msg2">
+                       
+                      <div class="alert alert-success">
+              
+                 <strong>¡Hecho!</strong> Correo enviado.
+                    </div>
+
+
+                   </div>
+                   <div id="msg1">
+                      <div class="alert alert-danger">
+              
+                 <strong>¡Error!</strong> Correo no válido.
+                      </div>
+
+
+                   </div>
                 <p id="text_P">Recuperar Contraseña</p>
 
                 <div id="Div_datos" class="form-group">
@@ -184,20 +199,20 @@
             url: "/Default/login",
             data: data,
             beforeSend: function () {
-               
-           
-                    $("#loader").show();
-           
+
+
+                $("#loader").show();
+
             },
-            success:  function(result) {
-                if (result == "fail") { 
+            success: function (result) {
+                if (result == "fail") {
                     $("#loader").hide();
-                   $("#error_login").show();
+                    $("#error_login").show();
                 }
                 else {
                     $("#loader").hide();
                     window.location.href = "/Default/AfterLogin";
-                    
+
                 }
             }
         })
@@ -217,7 +232,7 @@
     $("#msg1").hide();
     $("#msg2").hide();
     var Login1 = function () {
-      
+
         var data = $("#form_usuario_recuperar_contrasenna").serialize();
         $.ajax({
             type: "post",
@@ -226,8 +241,8 @@
             success: function (result) {
                 if (result == "fail") {
                     $("#msg1").show();
-                   
-                      
+
+
                 }
                 else {
                     $("#msg2").show();
@@ -235,8 +250,8 @@
                     $("#text_P").hide();
                     $("#Div_datos").hide();
                     $("#boton").hide();
-               
-                   
+
+
                 }
             }
         })

@@ -58,196 +58,204 @@
             <div class="collapse" id="collapseServicios">
                 <div class="card card-body txt2">
 
-                    <p>Ingresar un nuevo contrato</p>
+                    <div id="div_agregar_contrato">
 
-                    <div class="row">
-
-                        <div class="form-group col-12 col-md-6" style="display: none" id="consecutivo">
-                            <label>Consecutivo del contrato:</label>
-                            <input type="text" class="form-control" id="consecutivo_contrato" name="consecutivo_contrato" readonly="">
+                        <div style="display: none; text-align: center;" id="error_campos_vacios" class="alert alert-warning">
+                            <strong>¡Cuidado!</strong> Campos sin completar.
                         </div>
 
-                        <div class="form-group col-12 col-md-6" style="display: none;" id="aux">
-                        </div>
+                        <p>Ingresar un nuevo contrato</p>
 
-                        <div class="col-12 col-md-6">
-                            <label>Seleccionar cliente:</label>
-                            <input class="form-control" id="cliente_contrato" list="lista_clientes">
+                        <div class="row">
 
-                            <datalist id="lista_clientes">
-                                <%
-                                    Biblioteca_Clases.DAO.ClienteDAO cliente_dao = new Biblioteca_Clases.DAO.ClienteDAO();
-                                    List<Biblioteca_Clases.Models.Cliente> list_clientes = cliente_dao.listaClientes();
-
-                                    foreach (var dato in list_clientes)
-                                    {
-                                %>
-                                <option value="<%=dato.ID_CLIENTE%>"><%=dato.NOMBRE%></option>
-
-                                <%}%>
-                            </datalist>
-                            <br>
-                        </div>
-
-                        <div class="col-12 col-md-6">
-                            <div class="form-group">
-                                <label>Nombre del contrato:</label>
-                                <input type="text" class="form-control" id="nombre_contrato" name="nombre_contrato">
+                            <div class="form-group col-12 col-md-6" style="display: none" id="consecutivo">
+                                <label>Consecutivo del contrato:</label>
+                                <input type="text" class="form-control" id="consecutivo_contrato" name="consecutivo_contrato" readonly="">
                             </div>
-                        </div>
 
-                        <div class="col-12 col-md-6">
-
-                            <div class="form-group">
-                                <label>Descripción:</label>
-                                <textarea id="descripcion_contrato" class="md-textarea form-control" rows="3"></textarea>
+                            <div class="form-group col-12 col-md-6" style="display: none;" id="aux">
                             </div>
-                        </div>
 
-                        <div class="col-12 col-md-6">
-                            <label>Seleccionar contacto:</label>
-                            <input class="form-control" id="contacto_contrato" list="lista_contactos">
-                            <datalist id="lista_contactos">
-                                <%
-                                    Biblioteca_Clases.DAO.ContactoDAO contacto_dao = new Biblioteca_Clases.DAO.ContactoDAO();
-                                    List<Biblioteca_Clases.Models.Contacto> list_contactos = contacto_dao.listaContactos();
+                            <div class="col-12 col-md-6">
+                                <label>Seleccionar cliente:</label>
+                                <input class="form-control" id="cliente_contrato" list="lista_clientes">
 
-                                    foreach (var contacto in list_contactos)
-                                    {
-                                %>
-                                <option value="<%=contacto.ID_CONTACTO%>"><%=contacto.ENCARGADO%></option>
+                                <datalist id="lista_clientes">
+                                    <%
+                                        Biblioteca_Clases.DAO.ClienteDAO cliente_dao = new Biblioteca_Clases.DAO.ClienteDAO();
+                                        List<Biblioteca_Clases.Models.Cliente> list_clientes = cliente_dao.listaClientes();
 
-                                <%}%>
-                            </datalist>
+                                        foreach (var dato in list_clientes)
+                                        {
+                                    %>
+                                    <option value="<%=dato.ID_CLIENTE%>"><%=dato.NOMBRE%></option>
 
-                            <br>
-                        </div>
-
-                        <div class="col-12 col-md-6">
-                            <div class="form-group">
-                                <label>Fecha de inicio:</label>
-                                <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio">
+                                    <%}%>
+                                </datalist>
+                                <br>
                             </div>
-                        </div>
 
-                        <div class="col-12 col-md-6">
-
-                            <div class="form-group">
-                                <label>Fecha de vencimiento:</label>
-                                <input type="date" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento">
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label>Nombre del contrato:</label>
+                                    <input type="text" class="form-control" id="nombre_contrato" name="nombre_contrato">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-6">
 
-                            <label>Seleccionar tipo de contrato:</label>
-                            <!--Dependiendo lo que se seleccione se agregar los campos de hora, rango, etc-->
-                            <input class="form-control" id="tipo_contrato" list="lista_tipo_contrato">
-                            <datalist id="lista_tipo_contrato">
-                                <%
-                                    Biblioteca_Clases.DAO.Tipo_ContratoDAO tipo_contrato_dao = new Biblioteca_Clases.DAO.Tipo_ContratoDAO();
-                                    List<Biblioteca_Clases.Models.Tipo_Contrato> list_tipo_contrato = tipo_contrato_dao.listaTipoContratos();
-
-                                    foreach (var tipo in list_tipo_contrato)
-                                    {
-                                %>
-                                <option value="<%=tipo.ID_TIPO_CONTRATO%>,<%=tipo.HORAS%>,<%=tipo.RANGO_DOCUMENTOS%>,<%=tipo.MONTO%>"><%=tipo.NOMBRE%></option>
-
-                                <%}%>
-                            </datalist>
-                        </div>
-
-                        <div class="col-12 col-md-6" id="padre_horas">
-                            <div class="form-group" id="div_horas" style="display: none">
-                                <label>Horas: </label>
-                                <input id="horas_contrato" type="text" class="form-control">
+                                <div class="form-group">
+                                    <label>Descripción:</label>
+                                    <textarea id="descripcion_contrato" class="md-textarea form-control" rows="3"></textarea>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-12 col-md-6" id="padre_monto" style="display: block">
-                            <br>
-                            <div class="form-group" id="div_monto" style="display: none">
-                                <label>Monto: </label>
-                                <input id="monto_contrato" type="text" class="form-control">
+                            <div class="col-12 col-md-6">
+                                <label>Seleccionar contacto:</label>
+                                <input class="form-control" id="contacto_contrato" list="lista_contactos">
+                                <datalist id="lista_contactos">
+                                    <%
+                                        Biblioteca_Clases.DAO.ContactoDAO contacto_dao = new Biblioteca_Clases.DAO.ContactoDAO();
+                                        List<Biblioteca_Clases.Models.Contacto> list_contactos = contacto_dao.listaContactos();
+
+                                        foreach (var contacto in list_contactos)
+                                        {
+                                    %>
+                                    <option value="<%=contacto.ID_CONTACTO%>"><%=contacto.ENCARGADO%></option>
+
+                                    <%}%>
+                                </datalist>
+
+                                <br>
                             </div>
-                        </div>
 
-                        <div class="col-12 col-md-6" id="padre_rango" style="display: block">
-                            <br>
-                            <div class="form-group" id="div_rango" style="display: none">
-                                <label>Rango: </label>
-                                <input id="rango_contrato" type="text" class="form-control">
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label>Fecha de inicio:</label>
+                                    <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-6">
 
-                            <br>
-                            <label>Seleccionar servicio:</label>
-                            <input class="form-control" id="servicio_contrato" list="lista_servicios">
-                            <datalist id="lista_servicios">
-                                <%
-                                    Biblioteca_Clases.DAO.ServicioDAO servicio_dao = new Biblioteca_Clases.DAO.ServicioDAO();
-                                    List<Biblioteca_Clases.Models.Servicio> list_servicios = servicio_dao.listaServicios();
-
-                                    foreach (var servicio in list_servicios)
-                                    {
-                                %>
-                                <option value="<%=servicio.ID_SERVICIO%> <%=servicio.DESCRIPCION%>"><%=servicio.DESCRIPCION%></option>
-
-                                <%}%>
-                            </datalist>
-                            <br>
-                        </div>
-
-                        <div class="col-12 col-md-6">
-                            <br>
-                            <div class="form-group">
-                                <label>Descripción del servicio:</label>
-                                <input type="text" class="form-control" id="descripcion_servicio" name="desc_contrato">
+                                <div class="form-group">
+                                    <label>Fecha de vencimiento:</label>
+                                    <input type="date" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-12 col-md-6">
-                            <br>
-                            <div class="form-group">
-                                <button onclick="Agregar_Servicio()" type="button" class="popup-btn">Agregar servicio</button>
+                            <div class="col-12 col-md-6">
+
+                                <label>Seleccionar tipo de contrato:</label>
+                                <!--Dependiendo lo que se seleccione se agregar los campos de hora, rango, etc-->
+                                <input class="form-control" id="tipo_contrato" list="lista_tipo_contrato">
+                                <datalist id="lista_tipo_contrato">
+                                    <%
+                                        Biblioteca_Clases.DAO.Tipo_ContratoDAO tipo_contrato_dao = new Biblioteca_Clases.DAO.Tipo_ContratoDAO();
+                                        List<Biblioteca_Clases.Models.Tipo_Contrato> list_tipo_contrato = tipo_contrato_dao.listaTipoContratos();
+
+                                        foreach (var tipo in list_tipo_contrato)
+                                        {
+                                    %>
+                                    <option value="<%=tipo.ID_TIPO_CONTRATO%>,<%=tipo.HORAS%>,<%=tipo.RANGO_DOCUMENTOS%>,<%=tipo.MONTO%>"><%=tipo.NOMBRE%></option>
+
+                                    <%}%>
+                                </datalist>
                             </div>
+
+                            <div class="col-12 col-md-6" id="padre_horas">
+                                <div class="form-group" id="div_horas" style="display: none">
+                                    <label>Horas: </label>
+                                    <input id="horas_contrato" type="text" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6" id="padre_monto" style="display: block">
+                                <br>
+                                <div class="form-group" id="div_monto" style="display: none">
+                                    <label>Monto: </label>
+                                    <input id="monto_contrato" type="text" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6" id="padre_rango" style="display: block">
+                                <br>
+                                <div class="form-group" id="div_rango" style="display: none">
+                                    <label>Rango: </label>
+                                    <input id="rango_contrato" type="text" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+
+                                <br>
+                                <label>Seleccionar servicio:</label>
+                                <input class="form-control" id="servicio_contrato" list="lista_servicios">
+                                <datalist id="lista_servicios">
+                                    <%
+                                        Biblioteca_Clases.DAO.ServicioDAO servicio_dao = new Biblioteca_Clases.DAO.ServicioDAO();
+                                        List<Biblioteca_Clases.Models.Servicio> list_servicios = servicio_dao.listaServicios();
+
+                                        foreach (var servicio in list_servicios)
+                                        {
+                                    %>
+                                    <option value="<%=servicio.ID_SERVICIO%> <%=servicio.DESCRIPCION%>"><%=servicio.DESCRIPCION%></option>
+
+                                    <%}%>
+                                </datalist>
+                                <br>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <br>
+                                <div class="form-group">
+                                    <label>Descripción del servicio:</label>
+                                    <input type="text" class="form-control" id="descripcion_servicio" name="desc_contrato">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <br>
+                                <div class="form-group">
+                                    <button onclick="Agregar_Servicio()" type="button" class="popup-btn">Agregar servicio</button>
+                                </div>
+                            </div>
+
                         </div>
 
+                        <p>Servicios del contrato</p>
+                        <table id="t_servicios" class="table table-striped table-bordered" style="width: 100%;">
+                            <!--Tabla-->
+
+                            <thead class="estilo-thead">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Descripción</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                            </tbody>
+
+                        </table>
+                        <!--Fin Tabla-->
+
+                        <div id="boton_enviar" style="display: block; text-align: center">
+                            <button onclick="Agregar_Contrato()" id="boton_agregar" type="submit" class="popup-btn">Agregar</button>
+                            <button id="boton_cancelar1" type="submit" class="popup-btn">Cancelar</button>
+                        </div>
+
+                        <div id="botones" style="display: none; text-align: center;">
+                            <button onclick="Actualizar_Contrato();" type="submit" id="boton_modificar" class="popup-btn">Modificar</button>
+                            <button id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
+                        </div>
+
+                        <br>
                     </div>
-
-                    <p>Servicios del contrato</p>
-                    <table id="t_servicios" class="table table-striped table-bordered" style="width: 100%;">
-                        <!--Tabla-->
-
-                        <thead class="estilo-thead">
-                            <tr>
-                                <th>ID</th>
-                                <th>Descripción</th>
-                                <th>Eliminar</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                        </tbody>
-
-                    </table>
-                    <!--Fin Tabla-->
-
-                    <div id="boton_enviar" style="display: block; text-align: center">
-                        <button onclick="Agregar_Contrato()" id="boton_agregar" type="submit" class="popup-btn">Agregar</button>
-                        <button id="boton_cancelar1" type="submit" class="popup-btn">Cancelar</button>
-                    </div>
-
-                    <div id="botones" style="display: none; text-align: center;">
-                        <button onclick="Actualizar_Contrato();" type="submit" id="boton_modificar" class="popup-btn">Modificar</button>
-                        <button id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
-                    </div>
-
-                    <br>
                 </div>
-              
+
+
             </div>
 
             <br>
@@ -381,7 +389,7 @@
                         </div>
                     </div>
 
-                    <div class="row">    
+                    <div class="row">
                         <div class="form-group col-md-4">
                             <label>Fecha inicio del de contrato:</label>
                             <input type="text" class="form-control" id="d_inicio_contrato" name="d_inicio_contrato" readonly="">
@@ -398,7 +406,7 @@
                         </div>
                     </div>
 
-                    <div class="row">   
+                    <div class="row">
                         <div class="form-group col-md-4" id="d_div_horas" style="display: none">
                             <label>Horas de contrato:</label>
                             <input type="text" class="form-control" id="d_horas_contrato" name="d_horas_contrato" readonly="">
@@ -415,6 +423,23 @@
                         </div>
                     </div>
 
+                    <p>Servicios del contrato</p>
+                    <table id="t_servicios_d" class="table table-striped table-bordered" style="width: 100%;">
+                        <!--Tabla-->
+
+                        <thead class="estilo-thead">
+                            <tr>
+                                <th>ID</th>
+                                <th>Descripción</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        </tbody>
+
+                    </table>
+                    <!--Fin Tabla-->
+
                     <!--</form>-->
 
                 </div>
@@ -430,6 +455,7 @@
         });
 
         var servicios = [];
+        var opc = 0;
 
         var g_tipo_contrato = new Object();
         g_tipo_contrato.ID_TIPO_CONTRATO = '';
@@ -540,6 +566,7 @@
             lista_tipo_contrato(tipo_contrato, horas, monto, rango, 1);
 
             $("#boton_agregar").css("display", "none");
+            $("#boton_cancelar1").css("display", "none");
             $("#botones").css("display", "block");
             $("#consecutivo").css("display", "block");
             $("#aux").css("display", "block");
@@ -548,28 +575,12 @@
             $('#boton_multiple').text("Modificar Contrato");
             $('#parrafo_servicio').text("Modificar contrato actual");
 
-            $.ajax({
-                type: "POST",
-                url: "/Contrato/listar_servicios_contrato",
-                data: JSON.stringify({
-                    id: id_contrato,
-                }),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                beforeSend: function () {
-                },
-                success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
-                    response.forEach(pinta);
-                },
-                failure: function (response) {
-                    alert("failure");
-                    alert(response.responseText);
-                },
-                error: function (response) {
-                    alert("Error");
-                    alert(response.responseText);
-                }
-            });
+            opc = 1;
+
+            //Vacea la tabla de servicios de detalles
+            $('#t_servicios tbody').empty();
+
+            Lista_servicios(id_contrato);
 
         }
 
@@ -585,8 +596,6 @@
                 success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
 
                     g_tipo_contrato = response;
-
-                    alert(g_tipo_contrato.HORAS + " " + g_tipo_contrato.MONTO + " " + g_tipo_contrato.RANGO_DOCUMENTOS);
 
                     if (opcion == 1) {
                         if (g_tipo_contrato.HORAS == true) {
@@ -620,7 +629,7 @@
                         if (g_tipo_contrato.RANGO_DOCUMENTOS == true) {
                             $('#d_rango_contrato').val(rango)
                             $("#d_div_rango").css("display", "block");
-                        }      
+                        }
                     }
                 },
                 failure: function (response) {
@@ -677,11 +686,20 @@
             servicios.push(data.ID_SERVICIO);
             var htmlTags = '<tr id=' + data.ID_SERVICIO + '>' +
                 '<td>' + data.ID_SERVICIO + '</td>' +
-                '<td>' + data.DESCRIPCION + '</td>' +
-                '<td style="text-align: center;"><a onclick="elimina(' + data.ID_SERVICIO + ');"><i class="fas fa-trash color-icono" aria-hidden="true"></td>' +
-                '</tr>';
+                '<td>' + data.DESCRIPCION + '</td>';
+            if (opc == 1) {
+                htmlTags = htmlTags + '<td style="text-align: center;"><a onclick="elimina(' + data.ID_SERVICIO + ');"><i class="fas fa-trash color-icono" aria-hidden="true"></td>' +
+                    '</tr>';
+            } else if (opc == 2) {
+                htmlTags = htmlTags + '</tr>';
+            }
 
-            $('#t_servicios tbody').append(htmlTags);
+            if (opc == 1) {
+                $('#t_servicios tbody').append(htmlTags);
+            } else if (opc == 2) {
+                $('#t_servicios_d tbody').append(htmlTags);
+            }
+
         }
 
         function elimina(data) {
@@ -792,7 +810,42 @@
             $('#d_fin_contrato').val(fecha_vence);
             $('#d_tipo_contrato').val(tipo_contrato);
 
-            lista_tipo_contrato(tipo_contrato, horas, monto, rango, 2);            
+            lista_tipo_contrato(tipo_contrato, horas, monto, rango, 2);
+
+            //Vacea la tabla de servicios de detalles
+            $('#t_servicios_d tbody').empty();
+
+            opc = 2;
+
+            Lista_servicios(id_contrato)
+        }
+
+        function Lista_servicios(id_contrato) {
+
+            servicios = [];
+
+            $.ajax({
+                type: "POST",
+                url: "/Contrato/listar_servicios_contrato",
+                data: JSON.stringify({
+                    id: id_contrato,
+                }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                beforeSend: function () {
+                },
+                success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+                    response.forEach(pinta);
+                },
+                failure: function (response) {
+                    alert("failure");
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert("Error");
+                    alert(response.responseText);
+                }
+            });
         }
 
         var ShowPopup = function () {
@@ -801,3 +854,4 @@
 
     </script>
 </asp:Content>
+

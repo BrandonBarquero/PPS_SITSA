@@ -206,12 +206,12 @@ namespace Control_Visitas
 
                 Limpiar();
                 lblMensajeExito.Text = result;
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modalInfoExitosa", "$('#modalInfoExitosa').modal();", true);
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modalInfoExitosa", "AlertaExito()", true);
 
             }
             catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modalErrorInformacion", "$('#modalErroInformacion').modal();", true);
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modalInfoExitosa", "AlertaFallo()", true);
 
             }
         }
