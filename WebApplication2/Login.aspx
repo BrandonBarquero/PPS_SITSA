@@ -88,12 +88,17 @@
                            </a>
                         </div>
                     </div>
+                  
                    </form>
                     <div class="container-login100-form-btn">
                         <button type="submit" onclick="Login()" class="login100-form-btn">
                             Iniciar Sesión
                         </button>
                     </div>
+                 <div  id="loader" class="flex-sb-m w-full p-b-48">
+                       <img src="https://www.griferiaclever.com/images/giphy.gif" alt="" style="width: 380px;height:85px;" >
+
+                   </div>
                     <div id="error">
 
                     </div>
@@ -178,11 +183,19 @@
             type: "post",
             url: "/Default/login",
             data: data,
-            success: function (result) {
-                if (result == "fail") {           
+            beforeSend: function () {
+               
+           
+                    $("#loader").show();
+           
+            },
+            success:  function(result) {
+                if (result == "fail") { 
+                    $("#loader").hide();
                    $("#error_login").show();
                 }
                 else {
+                    $("#loader").hide();
                     window.location.href = "/Default/AfterLogin";
                     
                 }

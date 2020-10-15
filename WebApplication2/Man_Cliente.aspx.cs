@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Biblioteca_Clases.DAO;
+using Biblioteca_Clases.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +11,14 @@ namespace WebApplication2
 {
     public partial class Man_Cliente : System.Web.UI.Page
     {
+    
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
+
+
+
+
     }
 }

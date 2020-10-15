@@ -376,4 +376,4 @@ function Validar_Campo() {
     }
 }
 
-//falta validar de fase 
+//falta validar de fases de proyecto

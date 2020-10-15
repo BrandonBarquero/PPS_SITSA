@@ -20,7 +20,7 @@ namespace WebApplication2
         protected void Page_Load(object sender, EventArgs e)
         {
             int perfil = (int)(Session["perfil"]);
-            Permisos = dao_contrato.ControlPaginas("Tipo Contrato", perfil.ToString());
+            Permisos = dao_contrato.ControlPaginas("Contrato", perfil.ToString());
 
             if (Permisos.VER == false)
             {

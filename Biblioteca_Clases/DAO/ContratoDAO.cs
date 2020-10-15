@@ -72,7 +72,35 @@ namespace Biblioteca_Clases.DAO
             comando.Dispose();
             return listaContratos;
         }
+        public List<Contrato> listaContratosCliente(string cliente)
+        {
+            List<Contrato> listaContratos = new List<Contrato>();
+            SqlCommand comando = new SqlCommand();
 
+            comando.Connection = conexion;
+            comando.CommandText = "exec PA_CTRL_LISTAR_MAN_CONTRATO_CLIENTE @CLIENTE";
+            comando.Parameters.AddWithValue("@CLIENTE", cliente);
+            SqlDataReader list = comando.ExecuteReader();
+            while (list.Read())
+            {
+                Contrato cont = new Contrato();
+                cont.ID_CONTRATO = list.GetInt32(0);
+                cont.NOMBRE_CONTRATO = list.GetString(1);
+                cont.DESCRIPCION = list.GetString(2);
+                cont.FECHA_INICIO = list.GetDateTime(3);
+                cont.FECHA_VENCE = list.GetDateTime(4);
+                //cont.PRECIO = list.GetDouble(5);
+                cont.ESTADO = list.GetInt32(6);
+                //cont.MONTO = list.GetInt32(7);
+                //cont.HORAS = list.GetDouble(8);
+                //cont.RANGO = list.GetInt32(9);
+                //cont.HORAS_POR_CONSUMIR = list.GetDouble(10);
+                listaContratos.Add(cont);
+            }
+            list.Dispose();
+            comando.Dispose();
+            return listaContratos;
+        }
         public int AgregarContrato(Contrato contrato)
         {
             int result = 0;

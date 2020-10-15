@@ -24,6 +24,19 @@ C:\Users\eduar\source\repos\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Cla
 C:\Users\eduar\source\repos\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csproj.CopyComplete
 C:\Users\eduar\source\repos\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.dll
 C:\Users\eduar\source\repos\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.pdb
+<<<<<<< HEAD
+C:\Users\eduar\source\repos\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csprojAssemblyReference.cache
+C:\Users\allan\source\repos\Nueva carpeta\PPS_SITSA\PPS_SITSA\Biblioteca_Clases\bin\Debug\Biblioteca_Clases.dll
+C:\Users\allan\source\repos\Nueva carpeta\PPS_SITSA\PPS_SITSA\Biblioteca_Clases\bin\Debug\Biblioteca_Clases.pdb
+C:\Users\allan\source\repos\Nueva carpeta\PPS_SITSA\PPS_SITSA\Biblioteca_Clases\bin\Debug\Newtonsoft.Json.dll
+C:\Users\allan\source\repos\Nueva carpeta\PPS_SITSA\PPS_SITSA\Biblioteca_Clases\bin\Debug\Newtonsoft.Json.xml
+C:\Users\allan\source\repos\Nueva carpeta\PPS_SITSA\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csproj.CoreCompileInputs.cache
+C:\Users\allan\source\repos\Nueva carpeta\PPS_SITSA\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csproj.CopyComplete
+C:\Users\allan\source\repos\Nueva carpeta\PPS_SITSA\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.dll
+C:\Users\allan\source\repos\Nueva carpeta\PPS_SITSA\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.pdb
+=======
+>>>>>>> 60c9de0e79f5af6b7aefa7deb3ac5fa44a7b62f2
+C:\Users\allan\source\repos\Nueva carpeta\PPS_SITSA\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csprojAssemblyReference.cache
 C:\Users\barqu\Desktop\SITSA\PPS_SITSA\Biblioteca_Clases\bin\Debug\Biblioteca_Clases.dll
 C:\Users\barqu\Desktop\SITSA\PPS_SITSA\Biblioteca_Clases\bin\Debug\Biblioteca_Clases.pdb
 C:\Users\barqu\Desktop\SITSA\PPS_SITSA\Biblioteca_Clases\bin\Debug\Newtonsoft.Json.dll
@@ -32,3 +45,5 @@ C:\Users\barqu\Desktop\SITSA\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Cl
 C:\Users\barqu\Desktop\SITSA\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csproj.CopyComplete
 C:\Users\barqu\Desktop\SITSA\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.dll
 C:\Users\barqu\Desktop\SITSA\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.pdb
+>>>>>>> 6d0bd00cfd2a044f9750f978c632a189fa299823
+C:\Users\barqu\Desktop\SITSA\PPS_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csprojAssemblyReference.cache
