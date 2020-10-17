@@ -125,7 +125,7 @@
 
                     <div id="botones" style="display: none; text-align: center;">
                         <button style="display: none; text-align: center;" disabled onclick="Actualizar_Usuario()" type="button" id="modificar_usuario" class="popup-btn">Modificar</button>
-                        <button style="display: none; text-align: center;" id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
+                        <button style="display: block; text-align: center;" id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
                     </div>
 
 
