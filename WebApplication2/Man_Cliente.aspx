@@ -167,7 +167,7 @@
       <div id="prueba112" class="card card-body txt2">
 
 
-    <p id="parrafo_contacto">Asignar nuevo servicio</p>
+      <p id="parrafo_contacto">Asignar nuevo contacto</p>
     
         <div class="row">
 
@@ -177,8 +177,8 @@
             <label> Seleccionar Contacto:</label>
 
                 
-                 <input class="form-control" list="consecutivo_servicio">
-              <%
+                 <input id="Contacto_cliente" class="form-control" list="consecutivo_servicio">
+                <%
                     Biblioteca_Clases.DAO.ContactoDAO dao2 = new  Biblioteca_Clases.DAO.ContactoDAO();
                     List<Biblioteca_Clases.Models.Contacto> list2 = dao2.listaContactos();
                     int autoincrement2 = 0;
@@ -191,10 +191,15 @@
                         </datalist> 
 
               <%} %>
-              
+              <div id="boton_contacto" style="display: block; text-align: center">
+
+                <button onclick="Agregar_Contacto()"  type="button" class="popup-btn">Agregar</button>
+             </div>
+
+
           </div>
              <p>Servicios del cliente</p>
-           <table id="tabla-mant4" class="table table-striped table-bordered" style="width:100%;"><!--Tabla-->
+           <table id="tabla-mant6" class="table table-striped table-bordered" style="width:100%;"><!--Tabla-->
 
         <thead class="estilo-thead">
           <tr>
@@ -291,13 +296,11 @@
       <script type="text/javascript">
           var servicios = [];
           var servicios2 = [];
-
+          var servicios3 = [];
           $(document).ready(function () {
               $('#tabla-mant').DataTable();
 
-              $('#collapseServicios').collapse({
-                  toggle: false
-              })
+             
           });
 
 
@@ -313,18 +316,10 @@
               $.ajax({
                   type: "post",
                   url: "/Cliente/agrega",
-                  data: JSON.stringify( Cliente_Servicio),
+                  data: JSON.stringify(Cliente_Servicio),
                   contentType: "application/json; charset=utf-8",
                   dataType: "json",
-                  beforeSend: function () {
-                      //alert("Procesando, espere por favor...");
-                      Swal.fire({
-                          icon: 'success',
-                          title: 'Cargando...',
-                          showConfirmButton: false,
-                          timer: 1500
-                      })
-                  },
+                 
                   success: function (data) {
                       if (data == "fail") {
                           window.alert("fail");
@@ -334,8 +329,8 @@
                           var json_obj = $.parseJSON(data);
 
 
-                          
-                       
+
+
                           servicios.push($('#tabla-mant2').val());
 
                           var htmlTags = '<tr id=' + $('#tabla-mant2').val() + '>' +
@@ -352,13 +347,13 @@
               })
           }
 
-        
 
-       
+
+
 
           function Cliente(dato) {
-            
-            
+
+
               var dato1 = dato;
               $.ajax({
                   type: "post",
@@ -370,16 +365,16 @@
                       var json_obj = $.parseJSON(result);
                       var cantidadDeClaves = Object.keys(json_obj).length;
                       var currentValue = parseInt(cantidadDeClaves);
-                   
 
-                     
-                  
+
+
+
 
                       $("#tabla-mant2 > tbody").empty();
-           
 
 
-                      for (var i = 0; i < currentValue ; i++) {
+
+                      for (var i = 0; i < currentValue; i++) {
                           servicios.push($('#tabla-mant111').val());
 
                           var htmlTags = '<tr id=i' + i + '>' +
@@ -390,8 +385,8 @@
 
                           $('#tabla-mant2 tbody').append(htmlTags);
                       }
-                      
-                     
+
+
                   }
               })
               $("#Cliente").val(dato1);
@@ -412,15 +407,15 @@
                       var json_obj1 = $.parseJSON(result);
                       var cantidadDeClaves1 = Object.keys(json_obj1).length;
                       var currentValue1 = parseInt(cantidadDeClaves1);
-                   
 
-                     
+
+
 
                       $("#tabla-mant1 > tbody").empty();
 
-                  
 
-                    
+
+
 
                       for (var i = 0; i < currentValue1; i++) {
                           servicios2.push($('#tabla-mant1234').val());
@@ -434,8 +429,8 @@
 
                           $('#tabla-mant1 tbody').append(htmlTags1);
                       }
-                  
-                  
+
+
                   }
               })
 
@@ -472,7 +467,7 @@
                           var htmlTags1 = '<tr id=u' + i + '>' +
                               '<td>' + json_obj1[i].ID_PROYECTO + '</td>' +
                               '<td>' + json_obj1[i].NOMBRE + '</td>' +
-                            
+
                               '<td style="text-align: center;"><a href="#"><i class="fas fa-ban color-icono" aria-hidden="true"></td>' +
                               '</tr>';
 
@@ -487,6 +482,57 @@
           }
 
 
+
+
+
+
+
+
+
+
+
+
+          function Agregar_Contacto() {
+
+              window.alert("1111111111");
+              var Contacto = $("#Contacto_cliente").val();
+              var Cliente = $("#Contacto_cliente").val();
+
+              $.ajax({
+                  type: "post",
+                  url: "/Cliente/agrega_contactos",
+                  data: {
+                      Cliente: Cliente,
+                      Contacto: Contacto
+                  },
+                  success: function (result) {
+
+                      var json_obj6 = $.parseJSON(result);
+                      var cantidadDeClaves6 = Object.keys(json_obj6).length;
+                      var currentValue6 = parseInt(cantidadDeClaves6);
+
+                      alert("holka");
+
+                      for (var i = 0; i < cantidadDeClaves6; i++) {
+                          servicios3.push($('#tabla-mant6').val());
+
+                          var htmlTags6 = '<tr id=u' + i + '>' +
+                              '<td>' + json_obj6[i].ID_CONTACTO + '</td>' +
+                              '<td>' + json_obj6[i].ENCARGADO + '</td>' +
+                              '<td>' + json_obj6[i].TELEFONO + '</td>' +
+                              '<td>' + json_obj6[i].CORREO + '</td>' +
+                              '<td>' + json_obj6[i].TIPO_ENCARGADO + '</td>' +
+                              '<td style="text-align: center;"><a href="#"><i class="fas fa-ban color-icono" aria-hidden="true"></td>' +
+                              '</tr>';
+
+                          $('#tabla-mant6 tbody').append(htmlTags6);
+                      }
+
+
+
+                  }
+              })
+          }
 
       </script>
 

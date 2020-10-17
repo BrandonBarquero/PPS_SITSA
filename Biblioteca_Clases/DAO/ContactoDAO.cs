@@ -129,7 +129,31 @@ namespace Biblioteca_Clases.DAO
             return result;
 
         }
+        public List<Contacto> listaContactoscliente(int cliente)
+        {
+            List<Contacto> listaContactos = new List<Contacto>();
+            SqlCommand comando = new SqlCommand();
 
+            comando.Connection = conexion;
+            comando.CommandText = "exec [PA_CON_LISTAR_MAN_CONTACTO_CLIENTE] @CLIENTE";
+            comando.Parameters.AddWithValue("@CLIENTE", cliente);
+
+            SqlDataReader list = comando.ExecuteReader();
+            while (list.Read())
+            {
+                Contacto cont = new Contacto();
+                cont.ID_CONTACTO = list.GetInt32(0);
+                cont.ENCARGADO = list.GetString(1);
+                cont.TELEFONO = list.GetInt32(2);
+                cont.CORREO = list.GetString(3);
+                cont.TIPO_ENCARGADO = list.GetString(4);
+                listaContactos.Add(cont);
+            }
+            list.Dispose();
+            comando.Dispose();
+            return listaContactos;
+
+        }
 
     }
 }

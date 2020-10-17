@@ -26,7 +26,7 @@ function Modificar_Usuario(dato, dato2, dato3, dato4) {
 
 
     $("#boton_enviar").css("display", "none");
-    $("#botones").css("display", "block");
+   
     $("#cedula").attr("readonly", "true");
 
     $('#boton_multiple').text("Modificar Usuario");

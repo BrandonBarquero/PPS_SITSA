@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="DAO\ClienteDAO.cs" />
+    <Compile Include="DAO\Cliente_ContactoDAO.cs" />
     <Compile Include="DAO\Cliente_ServicioDAO.cs" />
     <Compile Include="DAO\ContactoDAO.cs" />
     <Compile Include="DAO\Fase_TiempoDAO.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="DAO\Tipo_ContratoDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
     <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\Cliente_Contacto.cs" />
     <Compile Include="Models\Cliente_Servicio.cs" />
     <Compile Include="Models\Contacto.cs" />
     <Compile Include="Models\Contrato.cs" />
