@@ -127,6 +127,13 @@
     <Compile Include="Arbol_Privilegios.aspx.designer.cs">
       <DependentUpon>Arbol_Privilegios.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Cierre_Mes.aspx.cs">
+      <DependentUpon>Cierre_Mes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cierre_Mes.aspx.designer.cs">
+      <DependentUpon>Cierre_Mes.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ContactoController.cs" />
     <Compile Include="Controllers\ContratoController.cs" />
@@ -211,6 +218,13 @@
       <DependentUpon>Pagina_Maestra.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reportes.aspx.cs">
+      <DependentUpon>Reportes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes.aspx.designer.cs">
+      <DependentUpon>Reportes.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="785.gif" />
@@ -264,6 +278,7 @@
     <Content Include="Assets_CTRL\webfonts\fa-brands-400.svg" />
     <Content Include="Assets_CTRL\webfonts\fa-regular-400.svg" />
     <Content Include="Assets_CTRL\webfonts\fa-solid-900.svg" />
+    <Content Include="Cierre_Mes.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -283,6 +298,7 @@
     <Content Include="Man_Servicio.aspx" />
     <Content Include="Man_Tipo_Contrato.aspx" />
     <Content Include="Man_Usuario.aspx" />
+    <Content Include="Reportes.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Pagina_Maestra.Master" />

@@ -227,7 +227,6 @@ function Actualizar_Tipo_Contrato() {
 
 $(document).ready(function () {
     $('#select_tipo').change(function () {
-        alert("Cambie");
         var val_select = $('#select_tipo').val();
         var url = window.location.href;
         var nuevaUrl = url.substring(0, url.indexOf('?'));

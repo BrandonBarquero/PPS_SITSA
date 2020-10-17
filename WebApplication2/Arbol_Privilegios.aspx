@@ -189,6 +189,32 @@
           });
       }
 
+      function AlertaExito() {
+
+          swal({
+              title: "Hecho",
+              text: "Se ha modificado correctamente",
+              type: "success",
+              showConfirmButton: false
+          })
+
+          setTimeout('location.reload()', 2000);
+      }
+
+      function AlertaFallo() {
+
+          swal({
+              title: "Error",
+              text: "Se ha producido un problema",
+              type: "error",
+              showConfirmButton: false
+          })
+
+          setTimeout('location.reload()', 2000);
+      }
+
+
+
       function chosenSelect() {
           $(".chosen-select").chosen();
           $('.chosen-select-deselect').chosen({ allow_single_deselect: true });

@@ -43,6 +43,26 @@ namespace Biblioteca_Clases.DAO
 
         }
 
+        public Cliente filtrar_cliente(int id)
+        {
+            Cliente cliente = new Cliente();
+            SqlCommand comando = new SqlCommand();
 
+            comando.Connection = conexion;
+            comando.CommandText = "exec PA_CTRL_REG_LISTAR_REG_CLIENTE_FILTRADO @ID";
+            comando.Parameters.AddWithValue("@ID", id);
+
+            SqlDataReader list = comando.ExecuteReader();
+            while (list.Read())
+            {
+                cliente = new Cliente();
+                cliente.ID_CLIENTE = list.GetInt32(0);
+                cliente.NOMBRE = list.GetString(1);
+            }
+            list.Dispose();
+            comando.Dispose();
+
+            return cliente;
+        }
     }
 }
