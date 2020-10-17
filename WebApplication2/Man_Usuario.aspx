@@ -72,7 +72,7 @@
 
               <div class="form-group">
                 <label> Cédula:</label>
-                <input onblur="Validar_Campo()" maxlength="10" type="text" class="form-control" id="cedula">
+                <input   onblur="Validar_Campo()" maxlength="10" type="text" class="form-control" id="cedula">
               </div>
                 <div style="display: none;" id="error_contrasenna" class="alert alert-danger">
               
@@ -81,12 +81,12 @@
                
               <div class="form-group">
                 <label> Nombre:</label>
-                <input onblur="Validar_Campo()" maxlength="100" type="text" class="form-control" id="nombre">
+                <input onchange="actualizarRespuesta()" onblur="Validar_Campo()" maxlength="100" type="text" class="form-control" id="nombre">
               </div>
 
               <div class="form-group">
                 <label> Correo:</label>
-                <input onblur="Validar_Campo()" maxlength="100" type="email" class="form-control" id="email">
+                <input onchange="actualizarRespuesta()" onblur="Validar_Campo()" maxlength="100" type="email" class="form-control" id="email">
               </div>
                 <div style="display: none;" id="error_email" class="alert alert-danger">
               
@@ -97,7 +97,7 @@
             <label> Seleccionar Perfil:</label>
 
                 
-                 <input onblur="Validar_Campo()" maxlength="100" class="form-control" list="perfil_usuario" id="perfil">
+                 <input onchange="actualizarRespuesta()" onblur="Validar_Campo()" maxlength="100" class="form-control" list="perfil_usuario" id="perfil">
 
                         <datalist id="perfil_usuario">
               <%
@@ -124,8 +124,8 @@
                     </div>
 
                     <div id="botones" style="display: none; text-align: center;">
-                        <button disabled onclick="Actualizar_Usuario()" type="button" id="modificar_usuario" class="popup-btn">Modificar</button>
-                        <button id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
+                        <button style="display: none; text-align: center;" disabled onclick="Actualizar_Usuario()" type="button" id="modificar_usuario" class="popup-btn">Modificar</button>
+                        <button style="display: block; text-align: center;" id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
                     </div>
 
 
@@ -140,7 +140,6 @@
           <tr>
             <th>Cédula</th>
             <th>Nombre</th>
-            <th>Ver Detalles</th>
               <%if (Permisos.EDTIAR == true) { %>
             <th>Modificar</th>
             <th>Inhabilitar</th>
@@ -164,7 +163,6 @@
 		    <tr class="txt2">
             <td><%=dato.CEDULA%></td>
             <td><%=dato.NOMBRE%></td>
-            <td style="text-align: center;"><a  onclick="Funcion(<%=dato.CEDULA%>,'<%=dato.NOMBRE%>','<%=dato.CORREO%>','<%=dato.FK_PERFIL%>');" data-toggle="modal" data-target="#detalles_usuario" href="#"><i class="fa fa-list color-icono" aria-hidden="true"></td>
              <% if (Permisos.EDTIAR == true) { %>
               <td style="text-align: center;"><a data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios" onclick="Modificar_Usuario(<%=dato.CEDULA%>,'<%=dato.NOMBRE%>','<%=dato.CORREO%>','<%=dato.FK_PERFIL%>');" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios"><i class="fa fa-edit color-icono" aria-hidden="true"> </td
               <td style="text-align: center;">
@@ -197,7 +195,6 @@
                       <tr>
                        <th>Cédula</th>
                        <th>Nombre</th>
-                       <th>Ver Detalles</th>
                          <%      if (Permisos.EDTIAR == true){%>
                        <th>Modificar</th>
                        <th>Inhabilitar</th>
@@ -212,51 +209,19 @@
              </div>  <!--Container mant-->
 
 
-             <!--Popup Detalle-->
-      <div id="detalles_usuario" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-          <!-- Modal content-->
-          <div class="modal-content">
-
-            <div class="modal-header popup-estilo-head">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <div class="modal-body popup-estilo">
-
-              <p>Información detallada</p>
-
-                <div class="form-group">
-                  <label> Cédula:</label>
-                  <input readonly="" type="text" class="form-control" id="cedula2" name="cedula">
-                </div>
-
-                <div class="form-group">
-                  <label> Nombre:</label>
-                  <input readonly="" type="text" class="form-control" id="nombre2" name="nombre">
-                </div>
-
-                <div class="form-group">
-                  <label> Correo:</label>
-                  <input readonly="" type="text" class="form-control" id="correo2" name="correo">
-                </div>
-
-                 <div class="form-group">
-                  <label> Perfil:</label>
-                  <input readonly="" type="text" class="form-control" id="perfil2" name="correo">
-                </div>
-           
-
-          </div>
-        </div>
-      </div>
-    </div>
-     <!--Fin Popup Detalle-->
+        
 
 
     
   <script>
 
+      function actualizarRespuesta() {
+          $("#modificar_usuario").css("display", "block");
+          $("#boton_cancelar").css("display", "block");
+          $("#modificar_usuario").css("text-align", "center");
+          $("#boton_cancelar").css("text-align", "center");
+          alert("hola");
+      }
       /*Validaciones*/
 
       $('#cedula').on('input', function (e) {
