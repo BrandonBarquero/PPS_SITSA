@@ -176,7 +176,7 @@
           <div  class="form-group">
             <label> Seleccionar Contacto:</label>
 
-                
+                 <datalist id="consecutivo_servicio">
                  <input id="Contacto_cliente" class="form-control" list="consecutivo_servicio">
                 <%
                     Biblioteca_Clases.DAO.ContactoDAO dao2 = new  Biblioteca_Clases.DAO.ContactoDAO();
@@ -186,11 +186,12 @@
                     {
                         autoincrement2 = autoincrement2 + 1;
                  %>
-                <datalist id="consecutivo_servicio">
-                 <option value="<%=dato.ID_CONTACTO%>">
-                        </datalist> 
+               
+                 <option ><%=dato.ENCARGADO%></option>
+                      
 
               <%} %>
+                       </datalist> 
               <div id="boton_contacto" style="display: block; text-align: center">
 
                 <button onclick="Agregar_Contacto()"  type="button" class="popup-btn">Agregar</button>
@@ -494,7 +495,6 @@
 
           function Agregar_Contacto() {
 
-              window.alert("1111111111");
               var Contacto = $("#Contacto_cliente").val();
               var Cliente = $("#Contacto_cliente").val();
 
@@ -511,7 +511,8 @@
                       var cantidadDeClaves6 = Object.keys(json_obj6).length;
                       var currentValue6 = parseInt(cantidadDeClaves6);
 
-                      alert("holka");
+                      $("#tabla-mant6 > tbody").empty();
+
 
                       for (var i = 0; i < cantidadDeClaves6; i++) {
                           servicios3.push($('#tabla-mant6').val());
