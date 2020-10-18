@@ -75,26 +75,26 @@
 
                     <div class="form-group">
                         <label>Nombre del tipo de contrato:</label>
-                        <input onblur="Validar_Campo()" type="text" class="form-control" id="nombre_tipo_contrato" name="nombre_tipo_contrato">
+                        <input onchange="actualizarRespuesta()" onblur="Validar_Campo()" type="text" class="form-control" id="nombre_tipo_contrato" name="nombre_tipo_contrato">
                     </div>
 
                     <div class="form-group">
                         <label>Opciones del tipo de contrato:</label>
 
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="horas" name="horas">
+                            <input onchange="actualizarRespuesta()" type="checkbox" class="custom-control-input" id="horas" name="horas">
                             <label class="custom-control-label" for="horas">Horas</label>
                         </div>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="rango_documentos" name="rango_documentos">
+                            <input onchange="actualizarRespuesta()" type="checkbox" class="custom-control-input" id="rango_documentos" name="rango_documentos">
                             <label class="custom-control-label" for="rango_documentos">Rango de documentos</label>
                         </div>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="monto" name="monto">
+                            <input onchange="actualizarRespuesta()" type="checkbox" class="custom-control-input" id="monto" name="monto">
                             <label class="custom-control-label" for="monto">Monto</label>
                         </div>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="aceptacion" name="aceptacion">
+                            <input onchange="actualizarRespuesta()" type="checkbox" class="custom-control-input" id="aceptacion" name="aceptacion">
                             <label class="custom-control-label" for="aceptacion">Aceptación</label>
                         </div>
 
@@ -103,10 +103,17 @@
                     <div id="boton_enviar" style="display: block; text-align: center">
                         <button disabled type="button" class="popup-btn" onclick="Agregar_Tipo_Contrato()" id="boton_agregar">Agregar</button>
                     </div>
+
                     <div id="botones" style="display: none; text-align: center;">
-                        <button disabled type="button" class="popup-btn" onclick="Actualizar_Tipo_Contrato()" id="boton_modificar">Modificar</button>
-                        <button id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
-                    </div>
+                        <div style="display: none"  id="boton_modificar2">
+                          <button disabled type="button" class="popup-btn" onclick="Actualizar_Tipo_Contrato()" id="boton_modificar">Modificar</button>
+                        </div>
+                        <br/>    
+                        <div style="display: block"  id="boton_cancelar2">
+                          <button id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
+                        </div>
+
+                   </div>
 
                     <br>
                 </div>
@@ -121,7 +128,6 @@
                     <tr>
                         <th>Consecutivo</th>
                         <th>Nombre del Tipo de Contrato</th>
-                        <th>Ver Detalles</th>
                         <%if (Permisos.EDTIAR == true)
                             { %>
                         <th>Modificar</th>
@@ -147,7 +153,6 @@
                     <tr class="txt2">
                         <td><%=dato.ID_TIPO_CONTRATO%></td>
                         <td><%=dato.NOMBRE%></td>
-                        <td style="text-align: center;"><a data-toggle="modal" data-target="#detalles_tipo_contrato" onclick="edita(<%=dato.ID_TIPO_CONTRATO%>,'<%=dato.NOMBRE%>','<%=dato.HORAS%>','<%=dato.RANGO_DOCUMENTOS%>','<%=dato.MONTO%>','<%=dato.ACEPTACION%>');"/><i class="fa fa-list color-icono" aria-hidden="true"/></td>
                         <%if (Permisos.EDTIAR == true)
                             { %>
                         <td style="text-align: center;"><a href="#" onclick="Modificar_Tipo_Contrato(<%=dato.ID_TIPO_CONTRATO%>,'<%=dato.NOMBRE%>','<%=dato.HORAS%>','<%=dato.RANGO_DOCUMENTOS%>','<%=dato.MONTO%>','<%=dato.ACEPTACION%>');" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios" /><i class="fa fa-edit color-icono" aria-hidden="true"/></td>
@@ -175,7 +180,6 @@
                     <tr>
                         <th>Consecutivo</th>
                         <th>Nombre del Tipo de Contrato</th>
-                        <th>Ver Detalles</th>
                         <%if (Permisos.EDTIAR == true)
                             { %>
                         <th>Modificar</th>
@@ -193,66 +197,13 @@
     </div>
     <!--Container mant-->
 
-
-    <!--Popup Detalle-->
-    <div id="detalles_tipo_contrato" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-
-                <div class="modal-header popup-estilo-head">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <div class="modal-body popup-estilo">
-
-                    <!-- <form role="form" method="post" id="form_tipo_proyecto_detalle">-->
-
-                    <p>Información tipo de contrato</p>
-
-                    <div class="form-group">
-                        <label>Consecutivo:</label>
-                        <input type="text" class="form-control" id="d_tipo_contrato" name="d_consecutivo_tipo_contrato" readonly="">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Nombre del tipo de contrato:</label>
-                        <input type="text" class="form-control" id="d_nombre_tipo_contrato" name="d_nombre_tipo_contrato" readonly="">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Tipo de contrato:</label>
-
-                        <div class="custom-control custom-checkbox">
-                            <input aria-readonly="true" type="checkbox" class="custom-control-input" id="d_horas" name="d_horas">
-                            <label class="custom-control-label" for="horas">Horas</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input aria-readonly="true" type="checkbox" class="custom-control-input" id="d_rango_documentos" name="d_rango_documentos">
-                            <label class="custom-control-label" for="rango_documentos">Rango de documentos</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input aria-readonly="true" type="checkbox" class="custom-control-input" id="d_monto" name="d_monto">
-                            <label class="custom-control-label" for="monto">Monto</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input aria-readonly="true" type="checkbox" class="custom-control-input" id="d_aceptacion" name="d_aceptacion">
-                            <label class="custom-control-label" for="aceptacion">Aceptación</label>
-                        </div>
-
-                    </div>
-
-                    <!--</form>-->
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--Fin Popup Detalle-->
-
-
     <!--Script Tabla-->
     <script type="text/javascript">
+
+        function actualizarRespuesta() {
+            $("#boton_modificar2").css("display", "block");
+            $("#boton_cancelar2").css("display", "block");
+        }
    
         $('#nombre_tipo_contrato').on('input', function (e) {
             if (!/^[ a-záéíóúüñ]*$/i.test(this.value)) {

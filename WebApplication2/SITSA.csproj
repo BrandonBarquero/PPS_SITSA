@@ -267,6 +267,7 @@
     <Content Include="Assets_CTRL\js\Combo\Multiple\chosenSelect.js" />
     <Content Include="Assets_CTRL\js\Combo\Multiple\fSelect.js" />
     <Content Include="Assets_CTRL\js\FuncionesGenerales.js" />
+    <Content Include="Assets_CTRL\js\Funciones_Paginas\Contrato.js" />
     <Content Include="Assets_CTRL\js\Funciones_Paginas\Proyecto.js" />
     <Content Include="Assets_CTRL\js\Funciones_Paginas\Tipo_Contrato.js" />
     <Content Include="Assets_CTRL\js\Funciones_Paginas\Usuario.js" />

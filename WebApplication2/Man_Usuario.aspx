@@ -123,9 +123,18 @@
                         <button disabled onclick="Agregar_Usuario()" id="agregar_usuario" type="button" class="popup-btn">Agregar</button>
                     </div>
 
-                    <div id="botones" style="display: none; text-align: center;">
-                        <button style="display: none; text-align: center;" disabled onclick="Actualizar_Usuario()" type="button" id="modificar_usuario" class="popup-btn">Modificar</button>
-                        <button style="display: block; text-align: center;" id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
+                    <div id="botones" style="text-align: center">
+                        <div style="display: none"  id="modificar_usuario2">
+                             <button disabled onclick="Actualizar_Usuario()" type="button" id="modificar_usuario" class="popup-btn">Modificar</button>
+                       
+                        </div>
+
+                        <br>
+
+                        <div id="boton_cancelar2" style="display: block">
+                                  <button  id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
+                  
+                        </div>
                     </div>
 
 
@@ -216,11 +225,8 @@
   <script>
 
       function actualizarRespuesta() {
-          $("#modificar_usuario").css("display", "block");
-          $("#boton_cancelar").css("display", "block");
-          $("#modificar_usuario").css("text-align", "center");
-          $("#boton_cancelar").css("text-align", "center");
-          alert("hola");
+          $("#modificar_usuario2").css("display", "block");
+          $("#boton_cancelar2").css("display", "block");
       }
       /*Validaciones*/
 

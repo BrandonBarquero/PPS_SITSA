@@ -49,32 +49,29 @@ namespace WebApplication2.Controllers
         }
 
         [HttpPost]
-        public JsonResult agrega_contactos(int cliente, int contacto)
+        public JsonResult agrega_contactos(Contacto cont, Cliente client)
         {
+
+            var t = cont;
+            var y = client;
+
+
             string validacion = "fail";
             Fecha fecha = new Fecha();
             Cliente_Contacto entidad = new Cliente_Contacto();
             entidad.ESTADO = 1;
             entidad.FECHA_CREACION = fecha.fecha();
             entidad.USUARIO_CREACION = (string)(Session["User"]);
-            entidad.FK_ID_CLIENTE = cliente;
-            entidad.FK_ID_CONTACTO = contacto;
+            entidad.FK_ID_CLIENTE = 2;
+            entidad.FK_ID_CONTACTO = t.ID_CONTACTO;
 
 
             int result = dao_contrato.AgregarCliente_Contacto(entidad);
 
-
-
-
-
-
-
-
-
             if (result == 1)
             {
 
-                List<Contacto> list = dao1.listaContactoscliente(cliente);
+                List<Contacto> list = dao1.listaContactoscliente(2);
 
                 string sJSONResponse = JsonConvert.SerializeObject(list, Formatting.Indented);
                 return Json(sJSONResponse, JsonRequestBehavior.AllowGet);

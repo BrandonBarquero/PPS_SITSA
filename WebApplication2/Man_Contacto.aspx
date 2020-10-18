@@ -65,22 +65,22 @@
 
                     <div class="form-group">
                         <label>Encargado:</label>
-                        <input maxlength="25" onblur="Validar_Campo()" type="text" class="form-control" id="encargado" name="encargado" required>
+                        <input onchange="actualizarRespuesta()"  maxlength="25" onblur="Validar_Campo()" type="text" class="form-control" id="encargado" name="encargado" required>
                     </div>
 
                     <div class="form-group">
                         <label>Teléfono:</label>
-                        <input maxlength="11" onblur="Validar_Campo()" type="text" class="form-control" id="telefono" name="telefono">
+                        <input onchange="actualizarRespuesta()"  maxlength="11" onblur="Validar_Campo()" type="text" class="form-control" id="telefono" name="telefono">
                     </div>
 
                     <div class="form-group">
                         <label>Correo:</label>
-                        <input maxlength="25" onblur="Validar_Campo()" type="email" class="form-control" id="correo" name="correo">
+                        <input onchange="actualizarRespuesta()"  maxlength="25" onblur="Validar_Campo()" type="email" class="form-control" id="correo" name="correo">
                     </div>
 
                     <div class="form-group">
                         <label>Tipo de encargado:</label>
-                        <input maxlength="25" onblur="Validar_Campo()" type="text" class="form-control" id="tipo_encargado" name="tipo_encargado">
+                        <input onchange="actualizarRespuesta()"  maxlength="25" onblur="Validar_Campo()" type="text" class="form-control" id="tipo_encargado" name="tipo_encargado">
                     </div>
 
                     <div id="boton_agregar" style="display: block; text-align: center">
@@ -90,8 +90,16 @@
                     </div>
 
                     <div id="botones" style="display: none; text-align: center;">
-                        <button disabled type="button" id="boton_modificar" onclick="Actualizar_Contacto()" class="popup-btn">Modificar</button>
-                        <button id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
+
+                        <div style="display: none"  id="boton_modificar2">
+                            <button disabled type="button" id="boton_modificar" onclick="Actualizar_Contacto()" class="popup-btn">Modificar</button>
+                        </div>
+                        <br/>
+                         <div style="display: block"  id="boton_cancelar2">
+                            <button id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
+                        </div>
+                        
+                      
                     </div>
 
                     <br>
@@ -107,7 +115,6 @@
                     <tr>
                         <th>ID Contacto</th>
                         <th>Encargado</th>
-                        <th>Ver Detalles</th>
                              <%if (Permisos.EDTIAR == true)
                                  { %>
                         <th>Modificar</th>
@@ -131,8 +138,7 @@
                     <tr class="txt2">
                         <td><%=dato.ID_CONTACTO%></td>
                         <td><%=dato.ENCARGADO%></td>
-                        <td style="text-align: center;"><a data-toggle="modal" data-target="#detalles_contacto" onclick="ver_detalles('<%=dato.ID_CONTACTO%>','<%=dato.ENCARGADO%>','<%=dato.TELEFONO%>','<%=dato.CORREO%>','<%=dato.TIPO_ENCARGADO%>');" href="#"><i class="fa fa-list color-icono" aria-hidden="true"></td>
-                             <%if (Permisos.EDTIAR == true)
+                            <%if (Permisos.EDTIAR == true)
                                  { %>
                         <td style="text-align: center;"><a data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios" onclick="editar('<%=dato.ID_CONTACTO%>','<%=dato.ENCARGADO%>','<%=dato.TELEFONO%>','<%=dato.CORREO%>','<%=dato.TIPO_ENCARGADO%>');" href="#"><i class="fa fa-edit color-icono" aria-hidden="true"></td>
                         <td style="text-align: center;"><a onclick="Eliminar_Contacto(<%=dato.ID_CONTACTO%>)" href="#"><i class="fas fa-trash color-icono" aria-hidden="true"></td>
@@ -146,7 +152,6 @@
                     <tr>
                         <th>ID Contacto</th>
                         <th>Encargado</th>
-                        <th>Ver Detalles</th>
                              <%if (Permisos.EDTIAR == true)
                                  { %>
                         <th>Modificar</th>
@@ -164,52 +169,12 @@
     </div>
     <!--Container mant-->
 
-    <!--Popup Detalle-->
-    <div id="detalles_contacto" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-
-                <div class="modal-header popup-estilo-head">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <div class="modal-body popup-estilo">
-
-                    <p>Detalles del contacto</p>
-
-                    <div class="form-group">
-                        <label>ID Contacto:</label>
-                        <input type="text" class="form-control" id="id_contacto2" name="id_contacto2" readonly="">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Encargado:</label>
-                        <input type="text" class="form-control" id="encargado2" name="encargado2" readonly="">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Teléfono:</label>
-                        <input type="text" class="form-control" id="telefono2" name="telefono2" readonly="">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Correo:</label>
-                        <input type="email" class="form-control" id="email2" name="email2" readonly="">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Tipo de encargado:</label>
-                        <input type="text" class="form-control" id="tipo_encargado2" name="tipo_encargado2" readonly="">
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--Fin Popup Detalle-->
-
       <script type="text/javascript">
+
+          function actualizarRespuesta() {
+              $("#boton_modificar2").css("display", "block");
+              $("#boton_cancelar2").css("display", "block");
+          }
 
           /*Validaciones*/
 

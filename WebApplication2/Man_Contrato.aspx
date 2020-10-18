@@ -7,6 +7,9 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+     <script src="Assets_CTRL/js/Funciones_Paginas/Contrato.js"></script>
+
     <div class="container-mant">
 
 
@@ -78,7 +81,7 @@
 
                             <div class="col-12 col-md-6">
                                 <label>Seleccionar cliente:</label>
-                                <input class="form-control" id="cliente_contrato" list="lista_clientes">
+                                <input onchange="Validar_Campo()" maxlength="25" class="form-control" id="cliente_contrato" list="lista_clientes">
 
                                 <datalist id="lista_clientes">
                                     <%
@@ -97,7 +100,7 @@
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label>Nombre del contrato:</label>
-                                    <input type="text" class="form-control" id="nombre_contrato" name="nombre_contrato">
+                                    <input maxlength="25" onblur="Validar_Campo()" type="text" class="form-control" id="nombre_contrato" name="nombre_contrato">
                                 </div>
                             </div>
 
@@ -105,13 +108,13 @@
 
                                 <div class="form-group">
                                     <label>Descripción:</label>
-                                    <textarea id="descripcion_contrato" class="md-textarea form-control" rows="3"></textarea>
+                                    <textarea maxlength="100" onblur="Validar_Campo()" id="descripcion_contrato" class="md-textarea form-control" rows="3"></textarea>
                                 </div>
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <label>Seleccionar contacto:</label>
-                                <input class="form-control" id="contacto_contrato" list="lista_contactos">
+                                <input onchange="Validar_Campo()" maxlength="25" class="form-control" id="contacto_contrato" list="lista_contactos">
                                 <%--<datalist id="lista_contactos">
                                     <%
                                         Biblioteca_Clases.DAO.ContactoDAO contacto_dao = new Biblioteca_Clases.DAO.ContactoDAO();
@@ -131,7 +134,7 @@
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label>Fecha de inicio:</label>
-                                    <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio">
+                                    <input  onchange="Validar_Campo()" type="date" class="form-control" id="fecha_inicio" name="fecha_inicio">
                                 </div>
                             </div>
 
@@ -139,7 +142,7 @@
 
                                 <div class="form-group">
                                     <label>Fecha de vencimiento:</label>
-                                    <input type="date" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento">
+                                    <input onchange="Validar_Campo()" type="date" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento">
                                 </div>
                             </div>
 
@@ -179,7 +182,7 @@
                             <div class="col-12 col-md-6" id="padre_horas">
                                 <div class="form-group" id="div_horas" style="display: none">
                                     <label>Horas: </label>
-                                    <input id="horas_contrato" type="text" class="form-control">
+                                    <input maxlength="25" id="horas_contrato" type="text" class="form-control">
                                 </div>
                             </div>
 
@@ -187,7 +190,7 @@
                                 <br>
                                 <div class="form-group" id="div_monto" style="display: none">
                                     <label>Monto: </label>
-                                    <input id="monto_contrato" type="text" class="form-control">
+                                    <input maxlength="25" id="monto_contrato" type="text" class="form-control">
                                 </div>
                             </div>
 
@@ -195,15 +198,19 @@
                                 <br>
                                 <div class="form-group" id="div_rango" style="display: none">
                                     <label>Rango: </label>
-                                    <input id="rango_contrato" type="text" class="form-control">
+                                    <input maxlength="25" id="rango_contrato" type="text" class="form-control">
                                 </div>
                             </div>
 
                             <div class="col-12 col-md-6">
 
+                                <div style="display: none; text-align: center;" id="error_campos_vacios2" class="alert alert-warning">
+                            <strong>¡Cuidado!</strong> Campos sin completar.
+                        </div>
+
                                 <br>
                                 <label>Seleccionar servicio:</label>
-                                <input class="form-control" id="servicio_contrato" list="lista_servicios">
+                                <input onblur="Validar_Campo2()" class="form-control" id="servicio_contrato" list="lista_servicios">
                                 <datalist id="lista_servicios">
                                     <%
                                         List<Biblioteca_Clases.Models.Servicio> list_servicios = Lista_Servicios();
@@ -222,14 +229,14 @@
                                 <br>
                                 <div class="form-group">
                                     <label>Descripción del servicio:</label>
-                                    <input type="text" class="form-control" id="descripcion_servicio" name="desc_contrato">
+                                    <input maxlength="100" onblur="Validar_Campo2()" type="text" class="form-control" id="descripcion_servicio" name="desc_contrato">
                                 </div>
                             </div>
 
                             <div class="col-12 col-md-6">
                                 <br>
                                 <div class="form-group">
-                                    <button onclick="Agregar_Servicio()" type="button" class="popup-btn">Agregar servicio</button>
+                                    <button disabled onclick="Agregar_Servicio()" id="boton_agrega_servicio" type="button" class="popup-btn">Agregar servicio</button>
                                 </div>
                             </div>
 
@@ -254,12 +261,12 @@
                         <!--Fin Tabla-->
 
                         <div id="boton_enviar" style="display: block; text-align: center">
-                            <button onclick="Agregar_Contrato()" id="boton_agregar" type="submit" class="popup-btn">Agregar</button>
+                            <button disabled onclick="Agregar_Contrato()" id="boton_agregar" type="button" class="popup-btn">Agregar</button>
                             <button id="boton_cancelar1" type="submit" class="popup-btn">Cancelar</button>
                         </div>
 
                         <div id="botones" style="display: none; text-align: center;">
-                            <button onclick="Actualizar_Contrato();" type="submit" id="boton_modificar" class="popup-btn">Modificar</button>
+                            <button disabled onclick="Actualizar_Contrato();" type="button" id="boton_modificar" class="popup-btn">Modificar</button>
                             <button id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
                         </div>
 
@@ -462,498 +469,63 @@
 
     <!--Script Tabla-->
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#tabla-mant').DataTable();
+
+        /*Validaciones*/
+
+        $('#rango_contrato').on('input', function (e) {
+            if (!/^[ a-záéíóúüñ]*$/i.test(this.value)) {
+                this.value = this.value.replace(/[^ a-záéíóúüñ]+/ig, "");
+            }
         });
 
-        var servicios = [];
-        var opc = 0;
-        var g_tipo_cambio = false;
-
-        var g_cliente = new Object();
-        g_cliente.ID_CLIENTE = '';
-        g_cliente.NOMBRE = "";
-
-        var g_tipo_contrato = new Object();
-
-        var g_tipo_contrato = new Object();
-        g_tipo_contrato.ID_TIPO_CONTRATO = '';
-        g_tipo_contrato.NOMBRE = '';
-        g_tipo_contrato.ESTADO = '';
-        g_tipo_contrato.HORAS = '';
-        g_tipo_contrato.RANGO_DOCUMENTOS = '';
-        g_tipo_contrato.MONTO = '';
-
-        function estado(dato_id) {
-
-            var id_contrato = dato_id;
-
-            $("#" + id_contrato).on('change', function () {
-                if ($(this).is(':checked')) {
-                    $.ajax({
-                        type: "post",
-                        url: "/Contrato/actualizar_estado_Habilitar_Contrato",
-                        data: {
-                            id_contrato: id_contrato,
-                        },
-                        success: function (result) {
-                            if (result == "fail") {
-
-                            }
-                            else {
-                                window.alert("exito");
-                            }
-                        }
-                    })
-
-                } else {
-                    $.ajax({
-                        type: "post",
-                        url: "/Contrato/actualizar_estado_deshabilitar_Contrato",
-                        data: {
-                            id_contrato: id_contrato,
-                        },
-                        success: function (result) {
-                            if (result == "fail") {
-
-                            }
-                            else {
-                                window.alert("exito");
-                            }
-                        }
-                    })
-
-                }
-            });
-        };
-
-        function Agregar_Contrato() {
-
-            var contrato = new Object();
-            //contrato.cliente = $("#cliente_contrato").val();
-            var arreglo_cliente = $("#cliente_contrato").val();
-            var client = arreglo_cliente.split("-");
-            alert(client[0]);
-            contrato.cliente = client[0];
-            contrato.nombre_contrato = $("#nombre_contrato").val();
-            contrato.descripcion = $("#descripcion_contrato").val();
-            contrato.contacto = $("#contacto_contrato").val();
-            contrato.fecha_inicio = $("#fecha_inicio").val();
-            contrato.fecha_vence = $("#fecha_vencimiento").val();
-            //contrato.tipo_contrato = $("#tipo_contrato").val();
-            var arreglo_tipo = $("#tipo_contrato").val();
-            alert(arreglo_tipo);
-            var tipo = arreglo_tipo.split("-");
-            contrato.tipo_contrato = tipo[0];
-            alert("Tipo: " + contrato.tipo);
-            contrato.horas = $("#horas_contrato").val();
-            contrato.monto = $("#monto_contrato").val();
-            contrato.rango = $("#rango_contrato").val();
-
-            if (contrato != null) {
-                $.ajax({
-                    type: "POST",
-                    url: "/Contrato/agregar_contrato",
-                    data: JSON.stringify({ contrato: contrato, servicios: servicios }),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (response) {
-                        Swal.fire(
-                            'Actualizado!',
-                            'El contrato ha sido agregado.',
-                            'success'
-                        )
-                        servicios = [];
-                    },
-                    failure: function (response) {
-                        alert(response.responseText);
-                    },
-                    error: function (response) {
-                        alert(response.responseText);
-                    }
-                });
+        $('#horas_contrato').on('input', function (e) {
+            if (!/^[ 0-9]*$/i.test(this.value)) {
+                this.value = this.value.replace(/[^ 0-9]+/ig, "");
             }
-
-        }
-
-        function editar(id_contrato, cliente, nombre_contrato, descripcion, contacto, fecha_inicio, fecha_vence, tipo_contrato, horas, monto, rango) {
-            devuelve_cliente(cliente);
-
-            devuelve_tipo_contrato(tipo_contrato);
-
-            //$("#cliente_contrato").val(g_cliente.ID_CLIENTE+"-"+g_cliente.NOMBRE);
-            $("#nombre_contrato").val(nombre_contrato);
-            $("#descripcion_contrato").val(descripcion);
-            $("#contacto_contrato").val(contacto);
-            $("#fecha_inicio").val(fecha_inicio);
-            $("#fecha_vencimiento").val(fecha_vence);
-            $("#tipo_contrato").val(tipo_contrato);
-
-            var fecha_i = formatea_fecha(fecha_inicio);
-            var fecha_v = formatea_fecha(fecha_vence);
-
-            $('#fecha_inicio').val(fecha_i);
-            $('#fecha_vencimiento').val(fecha_v);
-
-            lista_tipo_contrato(tipo_contrato, horas, monto, rango, 1);
-
-            $("#boton_agregar").css("display", "none");
-            $("#boton_cancelar1").css("display", "none");
-            $("#botones").css("display", "block");
-            $("#consecutivo").css("display", "block");
-            $("#aux").css("display", "block");
-            $("#consecutivo_contrato").val(id_contrato);
-
-            $('#boton_multiple').text("Modificar Contrato");
-            $('#parrafo_servicio').text("Modificar contrato actual");
-
-            opc = 1;
-
-            //Vacea la tabla de servicios de detalles
-            $('#t_servicios tbody').empty();
-
-            Lista_servicios(id_contrato);
-
-        }
-
-        function lista_tipo_contrato(id_tipo_contrato, horas, monto, rango, opcion) {
-            $.ajax({
-                type: "POST",
-                url: "/TipoContrato/listar_tipo_contrato",
-                data: JSON.stringify({
-                    id: id_tipo_contrato,
-                }),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
-
-                    g_tipo_contrato = response;
-
-                    if (opcion == 1) {
-                        if (g_tipo_contrato.HORAS == true) {
-                            $("#div_horas").css("display", "block");
-                            $("#horas_contrato").val(horas);
-                        }
-
-                        if (g_tipo_contrato.MONTO == true) {
-                            $("#div_monto").css("display", "block");
-                            $("#monto_contrato").val(monto);
-                        }
-
-                        if (g_tipo_contrato.RANGO_DOCUMENTOS == true) {
-                            $("#div_rango").css("display", "block");
-                            $("#rango_contrato").val(rango);
-                        }
-                    }
-                    else if (opcion == 2) {
-                        $("#d_div_horas").css("display", "none");
-                        $("#d_div_monto").css("display", "none");
-                        $("#d_div_rango").css("display", "none");
-
-                        if (g_tipo_contrato.HORAS == true) {
-                            $('#d_horas_contrato').val(horas);
-                            $("#d_div_horas").css("display", "block");
-                        }
-                        if (g_tipo_contrato.MONTO == true) {
-                            $('#d_monto_contrato').val(monto);
-                            $("#d_div_monto").css("display", "block");
-                        }
-                        if (g_tipo_contrato.RANGO_DOCUMENTOS == true) {
-                            $('#d_rango_contrato').val(rango)
-                            $("#d_div_rango").css("display", "block");
-                        }
-                    }
-                },
-                failure: function (response) {
-                    alert("failure");
-                    alert(response.responseText);
-                },
-                error: function (response) {
-                    alert("Error");
-                    alert(response.responseText);
-                }
-            });
-        }
-
-        function devuelve_cliente(id) {
-            $.ajax({
-                type: "POST",
-                url: "/Contrato/devuelve_cliente",
-                data: JSON.stringify({
-                    id: id,
-                }),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
-
-                    g_cliente = response;
-                    alert("Nombre= " + g_cliente.NOMBRE);
-
-                    $("#cliente_contrato").val(g_cliente.ID_CLIENTE + "-" + g_cliente.NOMBRE);
-                },
-                failure: function (response) {
-                    alert("failure");
-                    alert(response.responseText);
-                },
-                error: function (response) {
-                    alert("Error");
-                    alert(response.responseText);
-                }
-            });
-        }
-
-        function devuelve_tipo_contrato(id) {
-            $.ajax({
-                type: "POST",
-                url: "/Contrato/devuelve_tipo_contrato",
-                data: JSON.stringify({
-                    id: id,
-                }),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
-
-                    g_tipo_contrato = response;
-                    alert("Nombre= " + g_tipo_contrato.NOMBRE);
-
-                    $("#tipo_contrato").val(g_tipo_contrato.ID_TIPO_CONTRATO + " - " + g_tipo_contrato.NOMBRE);
-                },
-                failure: function (response) {
-                    alert("failure");
-                    alert(response.responseText);
-                },
-                error: function (response) {
-                    alert("Error");
-                    alert(response.responseText);
-                }
-            });
-        }
-
-        function Actualizar_Contrato() {
-            var contrato = new Object();
-            contrato.id_contrato = $("#consecutivo_contrato").val();
-            var arreglo_cliente = $("#cliente_contrato").val();
-            var client = arreglo_cliente.split("-");
-            alert(client[0]);
-            contrato.cliente = client[0];
-            //contrato.cliente = $("#cliente_contrato").val();
-            contrato.nombre_contrato = $("#nombre_contrato").val();
-            contrato.descripcion = $("#descripcion_contrato").val();
-            contrato.contacto = $("#contacto_contrato").val();
-            contrato.fecha_inicio = $("#fecha_inicio").val();
-            contrato.fecha_vence = $("#fecha_vencimiento").val();
-            //contrato.tipo_contrato = $("#tipo_contrato").val();
-            var arreglo_tipo = $("#tipo_contrato").val();
-            alert(arreglo_tipo);
-            var tipo = arreglo_tipo.split("-");
-            contrato.tipo_contrato = tipo[0];
-            alert("Tipo: " + contrato.tipo);
-            contrato.horas = $("#horas_contrato").val();
-            contrato.monto = $("#monto_contrato").val();
-            contrato.rango = $("#rango_contrato").val();
-
-            if (contrato != null) {
-                $.ajax({
-                    type: "POST",
-                    url: "/Contrato/modificar_contrato",
-                    data: JSON.stringify({ contrato: contrato, servicios: servicios }),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (response) {
-                        Swal.fire(
-                            'Actualizado!',
-                            'El contrato ha sido agregado.',
-                            'success'
-                        )
-                        servicios = [];
-                    },
-                    failure: function (response) {
-                        alert(response.responseText);
-                    },
-                    error: function (response) {
-                        alert(response.responseText);
-                    }
-                });
-            }
-        }
-
-        function pinta(data) {
-            servicios.push(data.ID_SERVICIO);
-            var htmlTags = '<tr id=' + data.ID_SERVICIO + '>' +
-                '<td>' + data.ID_SERVICIO + '</td>' +
-                '<td>' + data.DESCRIPCION + '</td>';
-            if (opc == 1) {
-                htmlTags = htmlTags + '<td style="text-align: center;"><a onclick="elimina(' + data.ID_SERVICIO + ');"><i class="fas fa-trash color-icono" aria-hidden="true"></td>' +
-                    '</tr>';
-            } else if (opc == 2) {
-                htmlTags = htmlTags + '</tr>';
-            }
-
-            if (opc == 1) {
-                $('#t_servicios tbody').append(htmlTags);
-            } else if (opc == 2) {
-                $('#t_servicios_d tbody').append(htmlTags);
-            }
-
-        }
-
-        function elimina(data) {
-            $("#" + data).remove();
-            for (let i = 0; i < servicios.length; i++) {
-                if (servicios[i] == data) {
-                    if (i == 0) {
-                        servicios.shift();
-                    } else {
-                        servicios.splice(i, i);
-                    }
-                }
-            }
-        }
-
-        function formatea_fecha(fecha) {
-            var arregloFecha = fecha.split("/");
-            var anio = arregloFecha[2];
-            var mes = arregloFecha[1];
-            var dia = arregloFecha[0];
-
-            if (dia < 10) {
-                dia = "0" + dia;
-            }
-            if (mes < 10) {
-                mes = "0" + mes
-            }
-            anio = anio.substr(0, 4);
-
-            var today = anio + "-" + (mes) + "-" + (dia);
-
-            return today;
-        }
-
-        $(document).ready(function () {
-            $('#select_tipo').change(function () {
-                var val_select = $('#select_tipo').val();
-                var url = window.location.href;
-                var nuevaUrl = url.substring(0, url.indexOf('?'));
-                window.location.href = nuevaUrl + "?Estado=" + val_select;
-            });
         });
 
-        $(document).ready(function () {
-            $('#servicio_contrato').change(function () {
-                var service = $('#servicio_contrato').val();
-                var arrelgo_servicio = service.split("-"); 
-
-                alert(arrelgo_servicio[0] + " , " + arrelgo_servicio[1]);
-                
-                $('#servicio_contrato').val(arrelgo_servicio[0]);
-                $('#descripcion_servicio').val(arrelgo_servicio[1]);
-            });
-        });
-
-        $(document).ready(function () {
-            $('#tipo_contrato').change(function () {
-                $("#div_rango").css("display", "none");
-                $("#div_monto").css("display", "none");
-                $("#div_horas").css("display", "none");
-
-                var tipo = $('#tipo_contrato').val();
-                var arreglo_tipo = tipo.split(",");
-
-                alert(arreglo_tipo);
-
-                if ($('#tipo_contrato').val() != "") {
-                    $('#tipo_contrato').val(arreglo_tipo[0] + " - " + arreglo_tipo[4]);
-                }
-                
-                if (arreglo_tipo[1] == "Por horas") {
-                    $("#div_horas").css("display", "block");
-                    $("#horas_contrato").val("");
-
-                }
-                if (arreglo_tipo[2] == "Por rango de documentos") {
-                    $("#div_rango").css("display", "block");
-                    $("#rango_contrato").val("");
-                }
-                if (arreglo_tipo[3] == "Por monto") {
-                    $("#div_monto").css("display", "block");
-                    $("#monto_contrato").val("");
-                }
-
-
-            });
-        });
-
-        function Agregar_Servicio() {
-            var ser = parseInt($('#servicio_contrato').val());
-            if (servicios.includes(ser)) {
-                alert("Ya existe el servicio");
-                return;
-            } else if ($('#servicio_contrato').val() != ""){
-                servicios.push($('#servicio_contrato').val());
-
-                var htmlTags = '<tr id=' + $('#servicio_contrato').val() + '>' +
-                    '<td>' + $('#servicio_contrato').val() + '</td>' +
-                    '<td>' + $('#descripcion_servicio').val() + '</td>' +
-                    '<td style="text-align: center;"><a onclick="elimina(' + $('#servicio_contrato').val() + ');"><i class="fas fa-trash color-icono" aria-hidden="true"></td>' +
-                    '</tr>';
-
-                $('#t_servicios tbody').append(htmlTags);
+        $('#monto_contrato').on('input', function (e) {
+            if (!/^[ 0-9]*$/i.test(this.value)) {
+                this.value = this.value.replace(/[^ 0-9]+/ig, "");
             }
-            $('#servicio_contrato').val("");
-            $('#descripcion_servicio').val("");
-        }
+        });
 
-        function detalla(id_contrato, cliente, nombre_contrato, descripcion, contacto, fecha_inicio, fecha_vence, tipo_contrato, horas, monto, rango) {
-            $('#d_consecutivo_contrato').val(id_contrato);
-            $('#d_cliente_contrato').val(cliente);
-            $('#d_nombre_contrato').val(nombre_contrato);
-            $('#d_descripcion_contrato').val(descripcion);
-            $('#d_contacto_contrato').val(contacto);
-            $('#d_inicio_contrato').val(fecha_inicio);
-            $('#d_fin_contrato').val(fecha_vence);
-            $('#d_tipo_contrato').val(tipo_contrato);
 
-            lista_tipo_contrato(tipo_contrato, horas, monto, rango, 2);
+        $('#cliente_contrato').on('input', function (e) {
+            if (!/^[ a-z0-9áéíóúüñ-]*$/i.test(this.value)) {
+                this.value = this.value.replace(/[^ a-z0-9áéíóúüñ-]+/ig, "");
+            }
+        });
 
-            //Vacea la tabla de servicios de detalles
-            $('#t_servicios_d tbody').empty();
+        $('#nombre_contrato').on('input', function (e) {
+            if (!/^[ a-z0-9áéíóúüñ]*$/i.test(this.value)) {
+                this.value = this.value.replace(/[^ a-z0-9áéíóúüñ]+/ig, "");
+            }
+        });
 
-            opc = 2;
+        $('#descripcion_contrato').on('input', function (e) {
+            if (!/^[ a-z0-9áéíóúüñ]*$/i.test(this.value)) {
+                this.value = this.value.replace(/[^ a-z0-9áéíóúüñ]+/ig, "");
+            }
+        });
 
-            Lista_servicios(id_contrato)
-        }
+        $('#contacto_contrato').on('input', function (e) {
+            if (!/^[ a-z0-9áéíóúüñ]*$/i.test(this.value)) {
+                this.value = this.value.replace(/[^ a-z0-9áéíóúüñ]+/ig, "");
+            }
+        });
 
-        function Lista_servicios(id_contrato) {
+        $('#descripcion_servicio').on('input', function (e) {
+            if (!/^[ a-z0-9áéíóúüñ]*$/i.test(this.value)) {
+                this.value = this.value.replace(/[^ a-z0-9áéíóúüñ]+/ig, "");
+            }
+        });
 
-            servicios = [];
+        
+        
 
-            $.ajax({
-                type: "POST",
-                url: "/Contrato/listar_servicios_contrato",
-                data: JSON.stringify({
-                    id: id_contrato,
-                }),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                beforeSend: function () {
-                },
-                success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
-                    response.forEach(pinta);
-                },
-                failure: function (response) {
-                    alert("failure");
-                    alert(response.responseText);
-                },
-                error: function (response) {
-                    alert("Error");
-                    alert(response.responseText);
-                }
-            });
-        }
-
-        var ShowPopup = function () {
-            alert("No tiene permisos");
-        }
+        
+        
 
     </script>
 </asp:Content>

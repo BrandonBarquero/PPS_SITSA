@@ -176,8 +176,11 @@
           <div  class="form-group">
             <label> Seleccionar Contacto:</label>
 
-                 <datalist id="consecutivo_servicio">
+                
                  <input id="Contacto_cliente" class="form-control" list="consecutivo_servicio">
+
+               <datalist id="consecutivo_servicio">
+
                 <%
                     Biblioteca_Clases.DAO.ContactoDAO dao2 = new  Biblioteca_Clases.DAO.ContactoDAO();
                     List<Biblioteca_Clases.Models.Contacto> list2 = dao2.listaContactos();
@@ -192,8 +195,9 @@
 
               <%} %>
                        </datalist> 
-              <div id="boton_contacto" style="display: block; text-align: center">
 
+                        <br/>
+              <div id="boton_contacto" style="display: block; text-align: center">
                 <button onclick="Agregar_Contacto()"  type="button" class="popup-btn">Agregar</button>
              </div>
 
@@ -270,7 +274,7 @@
             <td><%=dato.ID_CLIENTE%></td>
             <td><%=dato.NOMBRE%></td>
              <td onclick="Cliente(<%=dato.ID_CLIENTE%>)" style="text-align: center;"> <a  class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseServicios" aria-expanded="false" aria-controls="collapseServicios"" href="#" /><i class="fa fa-plus-circle color-icono" aria-hidden="true"> </td>
-            <td style="text-align: center;"><a data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" href="#"><i class="fa fa-id-badge color-icono" aria-hidden="true"></td>
+            <td style="text-align: center;"><a onclick="AsignarCLiente(<%=dato.ID_CLIENTE%>)" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" href="#"><i class="fa fa-id-badge color-icono" aria-hidden="true"></td>
              <td style="text-align: center;"><a href="#"><i class="fa fa-list color-icono" aria-hidden="true"></td>
               </tr>  
 
@@ -295,6 +299,10 @@
              </div>  <!--Container mant-->
 
       <script type="text/javascript">
+
+          var cliente_a;
+
+
           var servicios = [];
           var servicios2 = [];
           var servicios3 = [];
@@ -304,6 +312,12 @@
              
           });
 
+
+          function AsignarCLiente(dato) {
+
+              cliente_a = dato;
+
+          }
 
           function Agregar() {
 
@@ -482,29 +496,21 @@
 
           }
 
-
-
-
-
-
-
-
-
-
-
-
           function Agregar_Contacto() {
 
-              var Contacto = $("#Contacto_cliente").val();
-              var Cliente = $("#Contacto_cliente").val();
+              var contacto = new Object();
+              contacto.ID_CONTACTO = $("#Contacto_cliente").val();
+             
+              var cliente = new Object();
+              cliente.ID_CLIENTE = cliente_a
+
 
               $.ajax({
                   type: "post",
                   url: "/Cliente/agrega_contactos",
-                  data: {
-                      Cliente: Cliente,
-                      Contacto: Contacto
-                  },
+                  data: JSON.stringify(contacto, cliente),
+                  contentType: "application/json; charset=utf-8",
+                  dataType: "json",
                   success: function (result) {
 
                       var json_obj6 = $.parseJSON(result);
