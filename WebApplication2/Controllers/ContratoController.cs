@@ -11,6 +11,8 @@ namespace WebApplication2.Controllers
     public class ContratoController : Controller
     {
         ContratoDAO dao_contrato = new ContratoDAO();
+        ClienteDAO dao_cliente = new ClienteDAO();
+        Tipo_ContratoDAO dao_tipo_contrato = new Tipo_ContratoDAO();
 
         // GET: Contrato
         public ActionResult Index()
@@ -131,6 +133,24 @@ namespace WebApplication2.Controllers
                 validacion = "sucess";
             }
             return Json(validacion, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult devuelve_cliente(int id) {
+
+            Cliente cliente = new Cliente();
+
+            cliente = dao_cliente.filtrar_cliente(id);
+
+            return Json(cliente, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult devuelve_tipo_contrato(int id) {
+
+            Tipo_Contrato tipo_Contrato = new Tipo_Contrato();
+
+            tipo_Contrato = dao_tipo_contrato.listar_TipoContrato(id);
+
+            return Json(tipo_Contrato, JsonRequestBehavior.AllowGet);
         }
 
     }

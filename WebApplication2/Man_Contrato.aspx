@@ -29,7 +29,7 @@
             <div class="form-group container">
                 <select class="form-control select_selecionar_proyecto" id="select_tipo">
                     <option selected="true" disabled="disabled">Seleccione el estado:</option>
-                    <option value="General">General</option>
+                    <option value="General">Todos</option>
                     <option value="Activo">Activo</option>
                     <option value="Inactivo">Inactivo</option>
                 </select>
@@ -82,13 +82,12 @@
 
                                 <datalist id="lista_clientes">
                                     <%
-                                        Biblioteca_Clases.DAO.ClienteDAO cliente_dao = new Biblioteca_Clases.DAO.ClienteDAO();
-                                        List<Biblioteca_Clases.Models.Cliente> list_clientes = cliente_dao.listaClientes();
+                                        List<Biblioteca_Clases.Models.Cliente> list_clientes = Lista_Clientes();
 
                                         foreach (var dato in list_clientes)
                                         {
                                     %>
-                                    <option value="<%=dato.ID_CLIENTE%>"><%=dato.NOMBRE%></option>
+                                    <option value="<%=dato.ID_CLIENTE%> - <%=dato.NOMBRE%>"><%=dato.NOMBRE%></option>
 
                                     <%}%>
                                 </datalist>
@@ -113,7 +112,7 @@
                             <div class="col-12 col-md-6">
                                 <label>Seleccionar contacto:</label>
                                 <input class="form-control" id="contacto_contrato" list="lista_contactos">
-                                <datalist id="lista_contactos">
+                                <%--<datalist id="lista_contactos">
                                     <%
                                         Biblioteca_Clases.DAO.ContactoDAO contacto_dao = new Biblioteca_Clases.DAO.ContactoDAO();
                                         List<Biblioteca_Clases.Models.Contacto> list_contactos = contacto_dao.listaContactos();
@@ -124,7 +123,7 @@
                                     <option value="<%=contacto.ID_CONTACTO%>"><%=contacto.ENCARGADO%></option>
 
                                     <%}%>
-                                </datalist>
+                                </datalist>--%>
 
                                 <br>
                             </div>
@@ -151,13 +150,27 @@
                                 <input class="form-control" id="tipo_contrato" list="lista_tipo_contrato">
                                 <datalist id="lista_tipo_contrato">
                                     <%
-                                        Biblioteca_Clases.DAO.Tipo_ContratoDAO tipo_contrato_dao = new Biblioteca_Clases.DAO.Tipo_ContratoDAO();
-                                        List<Biblioteca_Clases.Models.Tipo_Contrato> list_tipo_contrato = tipo_contrato_dao.listaTipoContratos();
+                                        List<Biblioteca_Clases.Models.Tipo_Contrato> list_tipo_contrato = Lista_Tipo_Contratos();
 
                                         foreach (var tipo in list_tipo_contrato)
                                         {
+                                            string horas = "Contrato sin horas";
+                                            string monto = "Contrato sin monto";
+                                            string rango = "Contrato sin rango de documentos";
+
+                                            if (tipo.HORAS == true)
+                                            {
+                                                horas = "Por horas";
+                                            }
+                                            if (tipo.MONTO == true)
+                                            {
+                                                monto = "Por monto";
+                                            }
+                                            if (tipo.RANGO_DOCUMENTOS == true) {
+                                                rango = "Por rango de documentos";
+                                            }
                                     %>
-                                    <option value="<%=tipo.ID_TIPO_CONTRATO%>,<%=tipo.HORAS%>,<%=tipo.RANGO_DOCUMENTOS%>,<%=tipo.MONTO%>"><%=tipo.NOMBRE%></option>
+                                    <option value="<%=tipo.ID_TIPO_CONTRATO%>,<%=horas%>,<%=rango%>,<%=monto%>,<%=tipo.NOMBRE %>"><%=tipo.ID_TIPO_CONTRATO %>-<%=tipo.NOMBRE%></option>
 
                                     <%}%>
                                 </datalist>
@@ -193,13 +206,12 @@
                                 <input class="form-control" id="servicio_contrato" list="lista_servicios">
                                 <datalist id="lista_servicios">
                                     <%
-                                        Biblioteca_Clases.DAO.ServicioDAO servicio_dao = new Biblioteca_Clases.DAO.ServicioDAO();
-                                        List<Biblioteca_Clases.Models.Servicio> list_servicios = servicio_dao.listaServicios();
+                                        List<Biblioteca_Clases.Models.Servicio> list_servicios = Lista_Servicios();
 
                                         foreach (var servicio in list_servicios)
                                         {
                                     %>
-                                    <option value="<%=servicio.ID_SERVICIO%> <%=servicio.DESCRIPCION%>"><%=servicio.DESCRIPCION%></option>
+                                    <option value="<%=servicio.ID_SERVICIO%>-<%=servicio.DESCRIPCION%>"><%=servicio.DESCRIPCION%></option>
 
                                     <%}%>
                                 </datalist>
@@ -456,6 +468,13 @@
 
         var servicios = [];
         var opc = 0;
+        var g_tipo_cambio = false;
+
+        var g_cliente = new Object();
+        g_cliente.ID_CLIENTE = '';
+        g_cliente.NOMBRE = "";
+
+        var g_tipo_contrato = new Object();
 
         var g_tipo_contrato = new Object();
         g_tipo_contrato.ID_TIPO_CONTRATO = '';
@@ -511,13 +530,22 @@
         function Agregar_Contrato() {
 
             var contrato = new Object();
-            contrato.cliente = $("#cliente_contrato").val();
+            //contrato.cliente = $("#cliente_contrato").val();
+            var arreglo_cliente = $("#cliente_contrato").val();
+            var client = arreglo_cliente.split("-");
+            alert(client[0]);
+            contrato.cliente = client[0];
             contrato.nombre_contrato = $("#nombre_contrato").val();
             contrato.descripcion = $("#descripcion_contrato").val();
             contrato.contacto = $("#contacto_contrato").val();
             contrato.fecha_inicio = $("#fecha_inicio").val();
             contrato.fecha_vence = $("#fecha_vencimiento").val();
-            contrato.tipo_contrato = $("#tipo_contrato").val();
+            //contrato.tipo_contrato = $("#tipo_contrato").val();
+            var arreglo_tipo = $("#tipo_contrato").val();
+            alert(arreglo_tipo);
+            var tipo = arreglo_tipo.split("-");
+            contrato.tipo_contrato = tipo[0];
+            alert("Tipo: " + contrato.tipo);
             contrato.horas = $("#horas_contrato").val();
             contrato.monto = $("#monto_contrato").val();
             contrato.rango = $("#rango_contrato").val();
@@ -549,7 +577,11 @@
         }
 
         function editar(id_contrato, cliente, nombre_contrato, descripcion, contacto, fecha_inicio, fecha_vence, tipo_contrato, horas, monto, rango) {
-            $("#cliente_contrato").val(cliente);
+            devuelve_cliente(cliente);
+
+            devuelve_tipo_contrato(tipo_contrato);
+
+            //$("#cliente_contrato").val(g_cliente.ID_CLIENTE+"-"+g_cliente.NOMBRE);
             $("#nombre_contrato").val(nombre_contrato);
             $("#descripcion_contrato").val(descripcion);
             $("#contacto_contrato").val(contacto);
@@ -643,16 +675,79 @@
             });
         }
 
+        function devuelve_cliente(id) {
+            $.ajax({
+                type: "POST",
+                url: "/Contrato/devuelve_cliente",
+                data: JSON.stringify({
+                    id: id,
+                }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+
+                    g_cliente = response;
+                    alert("Nombre= " + g_cliente.NOMBRE);
+
+                    $("#cliente_contrato").val(g_cliente.ID_CLIENTE + "-" + g_cliente.NOMBRE);
+                },
+                failure: function (response) {
+                    alert("failure");
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert("Error");
+                    alert(response.responseText);
+                }
+            });
+        }
+
+        function devuelve_tipo_contrato(id) {
+            $.ajax({
+                type: "POST",
+                url: "/Contrato/devuelve_tipo_contrato",
+                data: JSON.stringify({
+                    id: id,
+                }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+
+                    g_tipo_contrato = response;
+                    alert("Nombre= " + g_tipo_contrato.NOMBRE);
+
+                    $("#tipo_contrato").val(g_tipo_contrato.ID_TIPO_CONTRATO + " - " + g_tipo_contrato.NOMBRE);
+                },
+                failure: function (response) {
+                    alert("failure");
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert("Error");
+                    alert(response.responseText);
+                }
+            });
+        }
+
         function Actualizar_Contrato() {
             var contrato = new Object();
             contrato.id_contrato = $("#consecutivo_contrato").val();
-            contrato.cliente = $("#cliente_contrato").val();
+            var arreglo_cliente = $("#cliente_contrato").val();
+            var client = arreglo_cliente.split("-");
+            alert(client[0]);
+            contrato.cliente = client[0];
+            //contrato.cliente = $("#cliente_contrato").val();
             contrato.nombre_contrato = $("#nombre_contrato").val();
             contrato.descripcion = $("#descripcion_contrato").val();
             contrato.contacto = $("#contacto_contrato").val();
             contrato.fecha_inicio = $("#fecha_inicio").val();
             contrato.fecha_vence = $("#fecha_vencimiento").val();
-            contrato.tipo_contrato = $("#tipo_contrato").val();
+            //contrato.tipo_contrato = $("#tipo_contrato").val();
+            var arreglo_tipo = $("#tipo_contrato").val();
+            alert(arreglo_tipo);
+            var tipo = arreglo_tipo.split("-");
+            contrato.tipo_contrato = tipo[0];
+            alert("Tipo: " + contrato.tipo);
             contrato.horas = $("#horas_contrato").val();
             contrato.monto = $("#monto_contrato").val();
             contrato.rango = $("#rango_contrato").val();
@@ -745,16 +840,13 @@
 
         $(document).ready(function () {
             $('#servicio_contrato').change(function () {
-                var descripcion = $('#servicio_contrato').val();
-                var id = descripcion;
-                let t = 0;
-                for (let i = 0; i < id.length; i++) {
-                    if (id.charAt(i) == ' ') {
-                        t = i;
-                    }
-                }
-                $('#servicio_contrato').val(id.substr(-length, t));
-                $('#descripcion_servicio').val(descripcion.substr(2));
+                var service = $('#servicio_contrato').val();
+                var arrelgo_servicio = service.split("-"); 
+
+                alert(arrelgo_servicio[0] + " , " + arrelgo_servicio[1]);
+                
+                $('#servicio_contrato').val(arrelgo_servicio[0]);
+                $('#descripcion_servicio').val(arrelgo_servicio[1]);
             });
         });
 
@@ -767,17 +859,26 @@
                 var tipo = $('#tipo_contrato').val();
                 var arreglo_tipo = tipo.split(",");
 
-                $('#tipo_contrato').val(arreglo_tipo[0]);
+                alert(arreglo_tipo);
 
-                if (arreglo_tipo[1] == "True") {
+                if ($('#tipo_contrato').val() != "") {
+                    $('#tipo_contrato').val(arreglo_tipo[0] + " - " + arreglo_tipo[4]);
+                }
+                
+                if (arreglo_tipo[1] == "Por horas") {
                     $("#div_horas").css("display", "block");
+                    $("#horas_contrato").val("");
+
                 }
-                if (arreglo_tipo[2] == "True") {
+                if (arreglo_tipo[2] == "Por rango de documentos") {
                     $("#div_rango").css("display", "block");
+                    $("#rango_contrato").val("");
                 }
-                if (arreglo_tipo[3] == "True") {
+                if (arreglo_tipo[3] == "Por monto") {
                     $("#div_monto").css("display", "block");
+                    $("#monto_contrato").val("");
                 }
+
 
             });
         });
@@ -787,7 +888,7 @@
             if (servicios.includes(ser)) {
                 alert("Ya existe el servicio");
                 return;
-            } else {
+            } else if ($('#servicio_contrato').val() != ""){
                 servicios.push($('#servicio_contrato').val());
 
                 var htmlTags = '<tr id=' + $('#servicio_contrato').val() + '>' +
@@ -798,6 +899,8 @@
 
                 $('#t_servicios tbody').append(htmlTags);
             }
+            $('#servicio_contrato').val("");
+            $('#descripcion_servicio').val("");
         }
 
         function detalla(id_contrato, cliente, nombre_contrato, descripcion, contacto, fecha_inicio, fecha_vence, tipo_contrato, horas, monto, rango) {

@@ -32,7 +32,7 @@
             <div class="form-group container">
                 <select class="form-control select_selecionar_proyecto" id="select_tipo">
                     <option selected disabled="disabled">Seleccione el estado:</option>
-                    <option value="General">General</option>
+                    <option value="General">Todos</option>
                     <option value="Activo">Activo</option>
                     <option value="Inactivo">Inactivo</option>
                 </select>
