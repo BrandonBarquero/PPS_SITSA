@@ -20,9 +20,10 @@ namespace Biblioteca_Clases.DAO
             this.conexion = Conexion.getConexion();
         }
 
-        public int AgregarFase_Tiempo(Fase_Tiempo fase)
+        public int AgregarFase_Tiempo(Fase_Tiempo fase, int id_proyecto, string usuario)
         {
             int result = 0;
+            Fecha fecha = new Fecha();
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
@@ -30,9 +31,9 @@ namespace Biblioteca_Clases.DAO
 
             comando.Parameters.AddWithValue("@DESCRIPCION", fase.DESCRIPCION);
             comando.Parameters.AddWithValue("@TIEMPO", fase.TIEMPO);
-            comando.Parameters.AddWithValue("@USUARIO", fase.USUARIO_CREACION);
-            comando.Parameters.AddWithValue("@FECHA", fase.FECHA_CREACION);
-            comando.Parameters.AddWithValue("@FK_ID_PROYECTO", fase.FK_ID_PROYECTO);
+            comando.Parameters.AddWithValue("@USUARIO", usuario);
+            comando.Parameters.AddWithValue("@FECHA", fecha.fecha());
+            comando.Parameters.AddWithValue("@FK_ID_PROYECTO", id_proyecto);
             comando.Parameters.AddWithValue("@ESTADO", 1);
 
 

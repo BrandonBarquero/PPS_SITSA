@@ -30,5 +30,13 @@ namespace Biblioteca_Clases.Models
            FECHA_MODIFICACION = dato;
            USUARIO_MODIFICACION = usuario_Edita;
         }
+
+        public Proyecto(string nOMBRE, string dESCRIPCION, double pRECIO, int fK_ID_CLIENTE)
+        {
+            NOMBRE = nOMBRE;
+            DESCRIPCION = dESCRIPCION;
+            PRECIO = pRECIO;
+            FK_ID_CLIENTE = fK_ID_CLIENTE;
+        }
     }
 }

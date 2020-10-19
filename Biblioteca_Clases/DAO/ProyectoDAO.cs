@@ -142,8 +142,7 @@ namespace Biblioteca_Clases.DAO
             comando.Parameters.AddWithValue("@FK_ID_CLIENTE", proy.FK_ID_CLIENTE);
 
 
-            result = comando.ExecuteNonQuery();
-
+            result = Convert.ToInt32(comando.ExecuteScalar());
             return result;
 
         }

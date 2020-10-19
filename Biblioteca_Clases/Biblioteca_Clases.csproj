@@ -60,6 +60,7 @@
     <Compile Include="Models\Contacto.cs" />
     <Compile Include="Models\Contrato.cs" />
     <Compile Include="DAO\ContratoDAO.cs" />
+    <Compile Include="Models\Fases.cs" />
     <Compile Include="Models\Fase_Tiempo.cs" />
     <Compile Include="Models\Fecha.cs" />
     <Compile Include="DAO\LoginDAO.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Models\Permiso_e.cs" />
     <Compile Include="Models\PrivilegiosE.cs" />
     <Compile Include="Models\Proyecto.cs" />
+    <Compile Include="Models\Proyectos.cs" />
     <Compile Include="Models\Servicio.cs" />
     <Compile Include="Models\Servicio_Contrato.cs" />
     <Compile Include="Models\Tipo_Contrato.cs" />
