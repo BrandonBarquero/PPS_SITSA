@@ -529,3 +529,7 @@ C:\Users\allan\OneDrive\Escritorio\Sitsa\PPS_SITSA\WebApplication2\obj\Debug\SIT
 C:\Users\allan\OneDrive\Escritorio\Sitsa\PPS_SITSA\WebApplication2\obj\Debug\SITSA.csproj.CopyComplete
 C:\Users\allan\OneDrive\Escritorio\Sitsa\PPS_SITSA\WebApplication2\obj\Debug\WebApplication2.dll
 C:\Users\allan\OneDrive\Escritorio\Sitsa\PPS_SITSA\WebApplication2\obj\Debug\WebApplication2.pdb
+C:\Users\allan\OneDrive\Escritorio\Sitsa nuevo\PPS_SITSA\WebApplication2\obj\Debug\SITSA.csprojAssemblyReference.cache
+C:\Users\allan\OneDrive\Escritorio\Sitsa nuevo\PPS_SITSA\WebApplication2\obj\Debug\SITSA.csproj.CoreCompileInputs.cache
+C:\Users\allan\OneDrive\Escritorio\Sitsa nuevo\PPS_SITSA\WebApplication2\obj\Debug\WebApplication2.dll
+C:\Users\allan\OneDrive\Escritorio\Sitsa nuevo\PPS_SITSA\WebApplication2\obj\Debug\WebApplication2.pdb

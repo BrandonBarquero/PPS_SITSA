@@ -137,6 +137,7 @@
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ContactoController.cs" />
     <Compile Include="Controllers\ContratoController.cs" />
+    <Compile Include="Controllers\Default1Controller.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\Fase_TiempoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -467,6 +468,7 @@
     <Folder Include="Views\Cliente\" />
     <Folder Include="Views\Contacto\" />
     <Folder Include="Views\Contrato\" />
+    <Folder Include="Views\Default1\" />
     <Folder Include="Views\Fase_Tiempo\" />
     <Folder Include="Views\Proyecto\" />
     <Folder Include="Views\Servicio\" />

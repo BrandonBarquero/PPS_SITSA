@@ -78,6 +78,25 @@ namespace WebApplication2.Controllers
             }
             return Json(validacion, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public JsonResult agregar_fases(int id_proyecto/*List<Fase_Tiempo> fases*/)
+        {
+
+            string validacion = "fail";
+            int d = id_proyecto;
+            //int result = 0; 
+
+            //foreach (Fase_Tiempo dato in fases)
+            //{
+            //     result = dao_fase.AgregarFase_Tiempo(dato, id_proyecto_result, (string)(Session["User"]));
+            //}
+
+            //if (result == 1)
+            //{
+            //    validacion = "sucess";
+            //}
+            return Json(validacion, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public JsonResult SesionCLeinte(string dato1)
